@@ -9,7 +9,7 @@ namespace Rhino.Etl.Core.Enumerables
 	/// An iterator to be consumed by concurrent threads only which supplies an element of the decorated enumerable one by one
 	/// </summary>
 	/// <typeparam name="T">The type of the decorated enumerable</typeparam>
-	internal class GatedThreadSafeEnumerator<T> : WithLoggingMixin, IEnumerable<T>, IEnumerator<T>
+	public class GatedThreadSafeEnumerator<T> : WithLoggingMixin, IEnumerable<T>, IEnumerator<T>
 	{
 		private readonly int numberOfConsumers;
 		private readonly IEnumerator<T> innerEnumerator;

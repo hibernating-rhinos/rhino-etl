@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Rhino.Etl.Core.Operations
@@ -43,5 +44,43 @@ namespace Rhino.Etl.Core.Operations
 				operation.PrepareForExecution(pipelineExecuter);
 			}
 		}
+
+        /// <summary>
+        /// Occurs when a row is processed.
+        /// </summary>
+        public override event Action<IOperation, Row> OnRowProcessed
+        {
+            add
+            {
+                foreach (IOperation operation in Operations)
+                    operation.OnRowProcessed += value;
+                base.OnRowProcessed += value;
+            }
+            remove
+            {
+                foreach (IOperation operation in Operations)
+                    operation.OnRowProcessed -= value;
+                base.OnRowProcessed -= value;
+            }
+        }
+
+        /// <summary>
+        /// Occurs when all the rows has finished processing.
+        /// </summary>
+        public override event Action<IOperation> OnFinishedProcessing
+        {
+            add
+            {
+                foreach (IOperation operation in Operations)
+                    operation.OnFinishedProcessing += value;
+                base.OnFinishedProcessing += value;
+            }
+            remove
+            {
+                foreach (IOperation operation in Operations)
+                    operation.OnFinishedProcessing += value;
+                base.OnFinishedProcessing -= value;
+            }
+        }
 	}
 }

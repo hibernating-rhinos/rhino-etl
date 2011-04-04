@@ -10,7 +10,7 @@ namespace Rhino.Etl.Core.Operations
     /// </summary>
     public class PartialProcessOperation : EtlProcessBase<PartialProcessOperation>, IOperation
     {
-        private IPipelineExecuter pipelineExeuter;
+        private IPipelineExecuter pipelineExecuter;
         private readonly OperationStatistics statistics = new OperationStatistics();
 
         /// <summary>
@@ -40,8 +40,12 @@ namespace Rhino.Etl.Core.Operations
         /// <param name="pipelineExecuter">The current pipeline executer.</param>
         public void PrepareForExecution(IPipelineExecuter pipelineExecuter)
         {
+            this.pipelineExecuter = pipelineExecuter;
+            foreach (IOperation operation in operations)
+            {
+                operation.PrepareForExecution(pipelineExecuter);
+            }
             Statistics.MarkStarted();
-            this.pipelineExeuter = pipelineExecuter;
         }
 
         /// <summary>
@@ -82,7 +86,7 @@ namespace Rhino.Etl.Core.Operations
         public IEnumerable<Row> Execute(IEnumerable<Row> rows)
         {
             MergeLastOperationsToOperations();
-            return pipelineExeuter.PipelineToEnumerable(operations, rows, enumerable => enumerable);
+            return pipelineExecuter.PipelineToEnumerable(operations, rows, enumerable => enumerable);
         }
 
         ///<summary>
