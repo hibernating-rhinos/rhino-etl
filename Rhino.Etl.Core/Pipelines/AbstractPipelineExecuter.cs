@@ -133,7 +133,7 @@ namespace Rhino.Etl.Core.Pipelines
         /// <summary>
         /// Occurs when the pipeline has been successfully created, but before it is executed
         /// </summary>
-        public event Action<IPipelineExecuter> NotifyExecutionStarting;
+        public event Action<IPipelineExecuter> NotifyExecutionStarting = delegate { };
 
         /// <summary>
         /// Raises the ExecutionStarting event
@@ -146,7 +146,7 @@ namespace Rhino.Etl.Core.Pipelines
         /// <summary>
         /// Occurs when the pipeline has been successfully created, but before it is disposed
         /// </summary>
-        public event Action<IPipelineExecuter> NotifyExecutionCompleting;
+        public event Action<IPipelineExecuter> NotifyExecutionCompleting = delegate { };
 
         /// <summary>
         /// Raises the ExecutionCompleting event

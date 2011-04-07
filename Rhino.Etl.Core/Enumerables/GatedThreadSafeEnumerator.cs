@@ -31,6 +31,10 @@ namespace Rhino.Etl.Core.Enumerables
 			innerEnumerator = source.GetEnumerator();
 		}
 
+        /// <summary>
+        /// Get the enumerator
+        /// </summary>
+        /// <returns></returns>
 		public IEnumerator<T> GetEnumerator()
 		{
 			return this;
@@ -41,6 +45,9 @@ namespace Rhino.Etl.Core.Enumerables
 			return GetEnumerator();
 		}
 
+        /// <summary>
+        /// Dispose the enumerator
+        /// </summary>
 		public void Dispose()
 		{
 			if(Interlocked.Decrement(ref consumersLeft) == 0)
@@ -50,6 +57,10 @@ namespace Rhino.Etl.Core.Enumerables
 			}
 		}
 
+        /// <summary>
+        /// MoveNext the enumerator
+        /// </summary>
+        /// <returns></returns>
 		public bool MoveNext()
 		{
 			lock (sync)
@@ -71,11 +82,17 @@ namespace Rhino.Etl.Core.Enumerables
 			return moveNext;
 		}
 
+        /// <summary>
+        /// Reset the enumerator
+        /// </summary>
 		public void Reset()
 		{
 			throw new NotSupportedException();
 		}
 
+        /// <summary>
+        /// The current value of the enumerator
+        /// </summary>
 		public T Current
 		{
 			get { return current; }
@@ -86,6 +103,9 @@ namespace Rhino.Etl.Core.Enumerables
 			get { return ((IEnumerator<T>)this).Current; }
 		}
 
+        /// <summary>
+        /// Number of consumers left that have not yet completed
+        /// </summary>
 		public int ConsumersLeft { get { return consumersLeft; } }
 	}
 }

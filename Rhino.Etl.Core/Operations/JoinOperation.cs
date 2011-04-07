@@ -305,7 +305,7 @@ namespace Rhino.Etl.Core.Operations
             remove
             {
                 foreach (IOperation operation in new[] { left, right })
-                    operation.OnFinishedProcessing += value;
+                    operation.OnFinishedProcessing -= value;
                 base.OnFinishedProcessing -= value;
             }
         }

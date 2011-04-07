@@ -101,7 +101,7 @@ namespace Rhino.Etl.Core.Operations
         /// <summary>The batch size value of the bulk insert operation</summary>
         public virtual int NotifyBatchSize
         {
-            get { return notifyBatchSize ?? batchSize; }
+            get { return notifyBatchSize>0 ? notifyBatchSize : batchSize; }
             set { notifyBatchSize = value; }
         }
 
