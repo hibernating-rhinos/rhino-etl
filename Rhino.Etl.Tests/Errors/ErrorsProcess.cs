@@ -1,14 +1,14 @@
 namespace Rhino.Etl.Tests.Errors
 {
-    using Core;
+	using Core;
 
-    public class ErrorsProcess : EtlProcess
-    {
-        public readonly ThrowingOperation ThrowOperation = new ThrowingOperation();
+	public class ErrorsProcess : EtlProcess
+	{
+		public readonly	ThrowingOperation ThrowOperation = new ThrowingOperation();
 
-        protected override void Initialize()
-        {
-            Register(ThrowOperation);
-        }
-    }
+		protected override void	Initialize()
+		{
+			Register(ThrowOperation);
+		}
+	}
 }

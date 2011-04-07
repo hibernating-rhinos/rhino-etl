@@ -2,52 +2,52 @@ using System;
 
 namespace Rhino.Etl.Tests.UsingDAL
 {
-    using System.Collections.Generic;
-    using System.IO;
-    using Core;
-    using Xunit;
+	using System.Collections.Generic;
+	using System.IO;
+	using Core;
+	using Xunit;
 
-    
-    public class UsingDALFixture
-    {
-        private const string expected =
-            @"Id    Name    Email
-1   ayende  ayende@example.org
-2   foo foo@example.org
-3   bar bar@example.org
-4   brak    brak@example.org
-5   snar    snar@example.org
+	
+	public class UsingDALFixture
+	{
+		private	const string expected =
+			@"Id	Name	Email
+1	ayende	ayende@example.org
+2	foo	foo@example.org
+3	bar	bar@example.org
+4	brak	brak@example.org
+5	snar	snar@example.org
 ";
-        [Fact]
-        public void CanWriteToFileFromDAL()
-        {
-            ExportUsersToFile export = new ExportUsersToFile();
-            export.Execute();
-            string actual = File.ReadAllText("users.txt");
-            Assert.Equal(expected.Replace("\r\n","\n").Replace("\n",Environment.NewLine), actual);
-        }
+		[Fact]
+		public void	CanWriteToFileFromDAL()
+		{
+			ExportUsersToFile export = new ExportUsersToFile();
+			export.Execute();
+			string actual =	File.ReadAllText("users.txt");
+			Assert.Equal(expected.Replace("\r\n","\n").Replace("\n",Environment.NewLine), actual);
+		}
 
-        [Fact]
-        public void CanReadFromFileToDAL()
-        {
-            MySimpleDal.Users = new List<User>();
-            File.WriteAllText("users.txt", expected);
+		[Fact]
+		public void	CanReadFromFileToDAL()
+		{
+			MySimpleDal.Users =	new	List<User>();
+			File.WriteAllText("users.txt", expected);
 
-            ImportUsersFromFile import = new ImportUsersFromFile();
-            import.Execute();
+			ImportUsersFromFile	import = new ImportUsersFromFile();
+			import.Execute();
 
-            Assert.Equal(5, MySimpleDal.Users.Count);
-        }
+			Assert.Equal(5,	MySimpleDal.Users.Count);
+		}
 
-        [Fact]
-        public void CanReadFromFileToDALDynamic() {
-            MySimpleDal.Users = new List<User>();
-            File.WriteAllText("users.txt", expected);
+		[Fact]
+		public void	CanReadFromFileToDALDynamic() {
+			MySimpleDal.Users =	new	List<User>();
+			File.WriteAllText("users.txt", expected);
 
-            var import = new ImportUsersFromFileDynamic();  
-            import.Execute();
+			var	import = new ImportUsersFromFileDynamic();	
+			import.Execute();
 
-            Assert.Equal(5, MySimpleDal.Users.Count);
-        }
-    }
+			Assert.Equal(5,	MySimpleDal.Users.Count);
+		}
+	}
 }

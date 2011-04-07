@@ -1,13 +1,13 @@
 namespace Rhino.Etl.Tests.UsingDAL
 {
-    using Core;
+	using Core;
 
-    public class ImportUsersFromFile : EtlProcess
-    {
-        protected override void Initialize()
-        {
-            Register(new ReadUsersFromFile());
-            Register(new SaveToDal());
-        }
-    }
+	public class ImportUsersFromFile : EtlProcess
+	{
+		protected override void	Initialize()
+		{
+			Register(new ReadUsersFromFile());
+			Register(new SaveToDal());
+		}
+	}
 }
