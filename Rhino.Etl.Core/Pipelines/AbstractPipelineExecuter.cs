@@ -47,29 +47,29 @@ namespace Rhino.Etl.Core.Pipelines
             DisposeAllOperations(pipeline);
         }
 
-    	/// <summary>
-		/// Transform the pipeline to an enumerable
-		/// </summary>
-		/// <param name="pipeline">The pipeline.</param>
-		/// <param name="rows">The rows</param>
-		/// <param name="translateEnumerable">Translate the rows from one representation to another</param>
-		/// <returns></returns>
+        /// <summary>
+        /// Transform the pipeline to an enumerable
+        /// </summary>
+        /// <param name="pipeline">The pipeline.</param>
+        /// <param name="rows">The rows</param>
+        /// <param name="translateEnumerable">Translate the rows from one representation to another</param>
+        /// <returns></returns>
         public virtual IEnumerable<Row> PipelineToEnumerable(
-			ICollection<IOperation> pipeline, 
-			IEnumerable<Row> rows,
-			Func<IEnumerable<Row>, IEnumerable<Row>> translateEnumerable)
+            ICollection<IOperation> pipeline, 
+            IEnumerable<Row> rows,
+            Func<IEnumerable<Row>, IEnumerable<Row>> translateEnumerable)
         {
-        	foreach (var operation in pipeline)
+            foreach (var operation in pipeline)
             {
                 operation.PrepareForExecution(this);
                 var enumerator = operation.Execute(rows);
-            	enumerator = translateEnumerable(enumerator);
+                enumerator = translateEnumerable(enumerator);
                 rows = DecorateEnumerableForExecution(operation, enumerator);
             }
             return rows;
         }
 
-    	/// <summary>
+        /// <summary>
         /// Gets all errors that occured under this executer
         /// </summary>
         /// <returns></returns>
@@ -82,7 +82,7 @@ namespace Rhino.Etl.Core.Pipelines
         /// Gets a value indicating whether this instance has errors.
         /// </summary>
         /// <value>
-        /// 	<c>true</c> if this instance has errors; otherwise, <c>false</c>.
+        ///     <c>true</c> if this instance has errors; otherwise, <c>false</c>.
         /// </value>
         public bool HasErrors
         {

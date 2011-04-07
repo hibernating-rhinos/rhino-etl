@@ -5,7 +5,7 @@ namespace Rhino.Etl.Core.Operations
     using System.Collections.Generic;
     using System.Threading;
 
-	/// <summary>
+    /// <summary>
     /// A partial process that can take part in another process
     /// </summary>
     public class PartialProcessOperation : EtlProcessBase<PartialProcessOperation>, IOperation

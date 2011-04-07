@@ -11,12 +11,12 @@ namespace Rhino.Etl.Tests.UsingDAL
     public class UsingDALFixture
     {
         private const string expected =
-            @"Id	Name	Email
-1	ayende	ayende@example.org
-2	foo	foo@example.org
-3	bar	bar@example.org
-4	brak	brak@example.org
-5	snar	snar@example.org
+            @"Id    Name    Email
+1   ayende  ayende@example.org
+2   foo foo@example.org
+3   bar bar@example.org
+4   brak    brak@example.org
+5   snar    snar@example.org
 ";
         [Fact]
         public void CanWriteToFileFromDAL()
