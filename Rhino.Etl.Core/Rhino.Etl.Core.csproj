@@ -83,6 +83,7 @@
     <Compile Include="Operations\AbstractBranchingOperation.cs" />
     <Compile Include="Operations\BranchingOperation.cs" />
     <Compile Include="Operations\JoinType.cs" />
+    <Compile Include="Operations\RightJoinWithOperation.cs" />
     <Compile Include="Operations\MultiThreadedBranchingOperation.cs" />
     <Compile Include="Operations\NestedLoopsJoinOperation.cs" />
     <Compile Include="Pipelines\AbstractPipelineExecuter.cs" />
@@ -116,7 +117,6 @@
     <Compile Include="Pipelines\PipelineExecutionException.cs" />
     <Compile Include="Pipelines\SingleThreadedNonCachedPipelineExecuter.cs" />
     <Compile Include="Pipelines\ThreadPoolPipelineExecuter.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Operations\SqlBulkInsertOperation.cs" />
     <Compile Include="Pipelines\SingleThreadedPipelineExecuter.cs" />
     <Compile Include="Exceptions\RhinoEtlException.cs" />
@@ -143,6 +143,9 @@
       <ProductName>.NET Framework 3.5</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
