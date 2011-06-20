@@ -109,6 +109,7 @@
     <Compile Include="Branches\MultiThreadedWithSingleThreadPipelineFibonacciBranchingProcess.cs" />
     <Compile Include="Branches\SingleThreadedBranchesFixture.cs" />
     <Compile Include="Branches\SingleThreadedFibonacciBranchingProcess.cs" />
+    <Compile Include="MultiJoinOperationTest.cs" />
     <Compile Include="Dsl\AggregationFixture.cs" />
     <Compile Include="Dsl\DatabaseToDatabaseWithTransformFixture.cs">
       <SubType>Code</SubType>
