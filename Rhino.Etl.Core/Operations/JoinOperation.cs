@@ -9,13 +9,34 @@ namespace Rhino.Etl.Core.Operations
 	/// </summary>
 	public abstract class JoinOperation : AbstractOperation
 	{
-		private readonly PartialProcessOperation left = new PartialProcessOperation();
-		private readonly PartialProcessOperation right = new PartialProcessOperation();
-		private JoinType jointype;
-		private string[] leftColumns;
-		private string[] rightColumns;
-		private Dictionary<Row, object> rightRowsWereMatched = new Dictionary<Row, object>();
-		private Dictionary<ObjectArrayKeys, List<Row>> rightRowsByJoinKey = new Dictionary<ObjectArrayKeys, List<Row>>();
+        /// <summary>
+        /// 
+        /// </summary>
+        protected readonly PartialProcessOperation left = new PartialProcessOperation();
+        /// <summary>
+        /// 
+        /// </summary>
+        protected readonly PartialProcessOperation right = new PartialProcessOperation();
+        /// <summary>
+        /// 
+        /// </summary>
+        protected JoinType jointype;
+        /// <summary>
+        /// 
+        /// </summary>
+        protected string[] leftColumns;
+        /// <summary>
+        /// 
+        /// </summary>
+        protected string[] rightColumns;
+        /// <summary>
+        /// 
+        /// </summary>
+        protected Dictionary<Row, object> rightRowsWereMatched = new Dictionary<Row, object>();
+        /// <summary>
+        /// 
+        /// </summary>
+        protected Dictionary<ObjectArrayKeys, List<Row>> rightRowsByJoinKey = new Dictionary<ObjectArrayKeys, List<Row>>();
 
 		/// <summary>
 		/// Sets the right part of the join
@@ -84,7 +105,10 @@ namespace Rhino.Etl.Core.Operations
 			}
 		}
 
-		private void PrepareForJoin()
+        /// <summary>
+        /// 
+        /// </summary>
+		protected void PrepareForJoin()
 		{
 			Initialize();
 
@@ -97,7 +121,10 @@ namespace Rhino.Etl.Core.Operations
 			Guard.Against(rightColumns == null, "You must setup the right columns");
 		}
 
-		private IEnumerable<Row> GetRightEnumerable()
+        /// <summary>
+        /// 
+        /// </summary>
+        protected IEnumerable<Row> GetRightEnumerable()
 		{
 			IEnumerable<Row> rightEnumerable = new CachingEnumerable<Row>(
 				new EventRaisingEnumerator(right, right.Execute(null))

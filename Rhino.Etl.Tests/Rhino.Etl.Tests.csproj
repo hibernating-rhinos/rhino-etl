@@ -109,6 +109,7 @@
     <Compile Include="Branches\MultiThreadedWithSingleThreadPipelineFibonacciBranchingProcess.cs" />
     <Compile Include="Branches\SingleThreadedBranchesFixture.cs" />
     <Compile Include="Branches\SingleThreadedFibonacciBranchingProcess.cs" />
+    <Compile Include="MultiJoinOperationTest.cs" />
     <Compile Include="Dsl\AggregationFixture.cs" />
     <Compile Include="Dsl\DatabaseToDatabaseWithTransformFixture.cs">
       <SubType>Code</SubType>
@@ -145,6 +146,7 @@
     <Compile Include="Integration\SplitName.cs" />
     <Compile Include="Integration\UsersToPeople.cs" />
     <Compile Include="Integration\WritePeople.cs" />
+    <Compile Include="JoinAfterBranchTest.cs" />
     <Compile Include="Joins\AddToResults.cs" />
     <Compile Include="Joins\AllStringsToUpperCase.cs" />
     <Compile Include="Joins\BaseJoinFixture.cs" />
@@ -174,11 +176,11 @@
     <Compile Include="LoadTest\UpperCaseUserNames.cs" />
     <Compile Include="OutputCommandFixture.cs" />
     <Compile Include="Branches\BranchesFixture.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RowTest.cs" />
     <Compile Include="SingleThreadedPipelineExecuterTest.cs" />
     <Compile Include="SqlBatchOperationFixture.cs" />
     <Compile Include="SqlBulkInsertOperationFixture.cs" />
+    <Compile Include="TestBase.cs" />
     <Compile Include="UsingDAL\ImportUsersFromFileDynamic.cs" />
     <Compile Include="UsingDAL\ReadUsersFromFileDynamic.cs" />
     <Compile Include="UsingDAL\ExportUsersToFile.cs" />
@@ -245,6 +247,9 @@
     <Content Include="Dsl\WireRowProcessedEvent.boo">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

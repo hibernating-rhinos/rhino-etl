@@ -14,7 +14,7 @@ namespace Rhino.Etl.Core.ConventionOperations
 	public class ConventionOutputCommandOperation : OutputCommandOperation
 	{
 		private string command;
-
+        private int timeout;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="ConventionOutputCommandOperation"/> class.
@@ -32,6 +32,7 @@ namespace Rhino.Etl.Core.ConventionOperations
         public ConventionOutputCommandOperation(ConnectionStringSettings connectionStringSettings)
             : base(connectionStringSettings)
         {
+            Timeout = 30;
         }
 
 		/// <summary>
@@ -42,6 +43,15 @@ namespace Rhino.Etl.Core.ConventionOperations
 			get { return command; }
 			set { command = value; }
 		}
+
+        ///<summary>
+        /// Gets or sets the timeout value for the database command
+        ///</summary>
+        public int Timeout
+        {
+            get { return timeout; }
+            set { timeout = value; }
+        }
 
 		/// <summary>
 		/// Prepares the row by executing custom logic before passing on to the <see cref="PrepareCommand"/>
@@ -61,6 +71,7 @@ namespace Rhino.Etl.Core.ConventionOperations
 		{
 			PrepareRow(row);
 			cmd.CommandText = Command;
+            cmd.CommandTimeout = Timeout;
 			CopyRowValuesToCommandParameters(currentCommand, row);
 		}
 
