@@ -248,6 +248,19 @@ namespace Rhino.Etl.Dsl.Macros
         }
 
         /// <summary>
+        /// Add a method definition to the resultant class definition
+        /// </summary>
+        /// <param name="macro"></param>
+        /// <param name="method"></param>
+        protected void AddMethodDefinitionToClassDefinition(MacroStatement macro, Method method)
+        {
+            var members = (IList<Method>)macro["members"];
+            if (members == null)
+                macro["members"] = members = new List<Method>();
+            members.Add(method);
+        }
+
+        /// <summary>
         /// Get the members collection from this macro
         /// </summary>
         /// <param name="macro">The macro.</param>
