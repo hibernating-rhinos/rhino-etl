@@ -70,8 +70,7 @@ namespace Rhino.Etl.Dsl.Macros
                     return null;
                 }
                 Expression expr = exprStmt.Expression;
-                MethodInvocationExpression expression = new MethodInvocationExpression(new ReferenceExpression(name), expr);
-                body.Add(new ExpressionStatement(expression));
+                parent.Arguments.Add(new MethodInvocationExpression(new ReferenceExpression(name), expr));
             }
 
             return null;
