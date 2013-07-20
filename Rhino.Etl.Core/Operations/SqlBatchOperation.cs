@@ -53,6 +53,11 @@ namespace Rhino.Etl.Core.Operations
             base.paramPrefix = "@";
         }
 
+
+        SqlTransaction BeginTransaction(SqlConnection connection) {
+            return UseTransaction ? connection.BeginTransaction() : null;
+        }
+        
         /// <summary>
         /// Executes this operation
         /// </summary>
@@ -62,7 +67,7 @@ namespace Rhino.Etl.Core.Operations
         {
             Guard.Against<ArgumentException>(rows == null, "SqlBatchOperation cannot accept a null enumerator");
             using (SqlConnection connection = (SqlConnection)Use.Connection(ConnectionStringSettings))
-            using (SqlTransaction transaction = connection.BeginTransaction())
+            using (SqlTransaction transaction = BeginTransaction(connection))
             {
                 SqlCommandSet commandSet = null;
                 CreateCommandSet(connection, transaction, ref commandSet, timeout);
