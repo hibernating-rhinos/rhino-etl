@@ -78,7 +78,7 @@ task Nuget {
       @("Boo", "0.9.4"), `
       @("RhinoDSL", "1.0.0"), `
       @("Common.Logging", "3.2.0"), `
-      @("FileHelpers", "2.0.0.0") `
+      @("FileHelpers", "3.1.2") `
      ) `
     -files @( `
       @("$base_dir\Rhino.Etl.Dsl\bin\Release\Rhino.Etl.Core.dll","lib\net45"), `
@@ -122,7 +122,7 @@ task Nuget {
       @("Common.Logging", "3.2.0"), `
       @("Common.Logging.Log4Net1213", "3.2.0"), `
       @("log4net", "2.0.3"), `
-      @("FileHelpers", "2.0.0.0") `
+      @("FileHelpers", "3.1.2") `
      ) `
     -files @( `
       @("$base_dir\Rhino.Etl.Cmd\bin\Release\Rhino.Etl.Core.dll","lib\net45"), `
