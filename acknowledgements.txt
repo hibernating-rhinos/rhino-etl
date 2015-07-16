@@ -1,4 +1,4 @@
-Rhino ETL makes use of the FileHelpers library from (www.filehelpers.com), written by Marcos Meli
+Rhino ETL makes use of the FileHelpers library from (www.filehelpers.net), written by Marcos Meli
 
 We'd also like to thank the following contributors for their help with fixing bugs and/or creating features
 
