@@ -123,7 +123,7 @@ task Nuget {
       @("Common.Logging.Core", "3.0.0"), `
       @("Common.Logging.Log4Net1210", "3.0.0"), `
       @("log4net", "1.2.10"), `
-      @("FileHelpers", "3.0.46-beta") `
+      @("FileHelpers", "3.1.2") `
      ) `
     -files @( `
       @("$base_dir\Rhino.Etl.Cmd\bin\Release\Rhino.Etl.Core.dll","lib\net35"), `
