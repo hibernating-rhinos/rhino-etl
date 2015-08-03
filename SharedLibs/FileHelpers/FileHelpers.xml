@@ -32,7 +32,7 @@
         </member>
         <member name="T:FileHelpers.FieldAttribute">
             <summary>Base class of <see cref="T:FileHelpers.FieldFixedLengthAttribute"/> and <see cref="T:FileHelpers.FieldDelimiterAttribute"/></summary>
-            <remarks>See the <a href="attributes.html">Complete Attributes List</a> for more information and examples of each one.</remarks>
+            <remarks>See the <a href="http://www.filehelpers.net/mustread">Complete Attributes List</a> for more information and examples of each one.</remarks>
         </member>
         <member name="M:FileHelpers.FieldAttribute.#ctor">
             <summary>Abstract class, see the derived classes.</summary>
@@ -42,27 +42,27 @@
             target field at all. Nor for read and write
             <para/>
             Note: If the field is in the record structure but you want to discard the values in that position use <see cref="T:FileHelpers.FieldValueDiscardedAttribute"/></summary>
-            <remarks>See the <a href="attributes.html">complete attributes list</a> for more information and examples of each one.</remarks>
+            <remarks>See the <a href="http://www.filehelpers.net/mustread">complete attributes list</a> for more information and examples of each one.</remarks>
         </member>
         <member name="T:FileHelpers.FieldNotEmptyAttribute">
             <summary>
             Indicates that the target field cannot contain an empty string value.
             This attribute is used for read.
             </summary>
-            <remarks>See the <a href="attributes.html">complete attributes list</a> for more information and examples of each one.</remarks>
+            <remarks>See the <a href="http://www.filehelpers.net/mustread">complete attributes list</a> for more information and examples of each one.</remarks>
         </member>
         <member name="T:FileHelpers.FieldValueDiscardedAttribute">
             <summary>Discards the values for the target field.
             Note: If the field <b>is not</b> on the source file you must use <see cref="T:FileHelpers.FieldHiddenAttribute"/></summary>
             <remarks>
             <para/>
-            See the <a href="attributes.html">complete attributes list</a> for more
+            See the <a href="http://www.filehelpers.net/mustread">complete attributes list</a> for more
             information and examples of each one.
             </remarks>
         </member>
         <member name="T:FileHelpers.FieldIgnoredAttribute">
             <summary>Hides the field to the library. Obsolete: You must use [FieldHidden]</summary>
-            <remarks>See the <a href="attributes.html">complete attributes list</a> for more information and examples of each one.</remarks>
+            <remarks>See the <a href="http://www.filehelpers.net/mustread">complete attributes list</a> for more information and examples of each one.</remarks>
         </member>
         <member name="T:FileHelpers.FieldOrderAttribute">
             <summary>
@@ -70,7 +70,7 @@
             Note: If you use this property for one field you
             must to use it for all fields.
             </summary>
-            <remarks>See the <a href="attributes.html">complete attributes list</a> for more information and examples of each one.</remarks>
+            <remarks>See the <a href="http://www.filehelpers.net/mustread">complete attributes list</a> for more information and examples of each one.</remarks>
         </member>
         <member name="M:FileHelpers.FieldOrderAttribute.#ctor(System.Int32)">
             <summary>
@@ -85,11 +85,11 @@
         </member>
         <member name="T:FileHelpers.DelimitedRecordAttribute">
             <summary>Indicates that this class represents a delimited record. </summary>
-            <remarks>See the <a href="attributes.html">complete attributes list</a> for more information and examples of each one.</remarks>
+            <remarks>See the <a href="http://www.filehelpers.net/mustread">complete attributes list</a> for more information and examples of each one.</remarks>
         </member>
         <member name="T:FileHelpers.TypedRecordAttribute">
             <summary>Base class for the record types..</summary>
-            <remarks>See the <a href="attributes.html">complete attributes list</a> for more information and examples of each one.</remarks>
+            <remarks>See the <a href="http://www.filehelpers.net/mustread">complete attributes list</a> for more information and examples of each one.</remarks>
         </member>
         <member name="M:FileHelpers.TypedRecordAttribute.#ctor">
             <summary>Abstract class, see inheritors.</summary>
@@ -103,7 +103,7 @@
         </member>
         <member name="T:FileHelpers.FieldAlignAttribute">
             <summary>Indicates the <see cref="T:FileHelpers.AlignMode"/> used for <b>write</b> operations.</summary>
-            <remarks>See the <a href="attributes.html">complete attributes list</a> for more information and examples of each one.</remarks>
+            <remarks>See the <a href="http://www.filehelpers.net/mustread">complete attributes list</a> for more information and examples of each one.</remarks>
         </member>
         <member name="M:FileHelpers.FieldAlignAttribute.#ctor(FileHelpers.AlignMode)">
             <summary>Uses the ' ' char to align.</summary>
@@ -146,7 +146,7 @@
         </member>
         <member name="T:FileHelpers.FieldConverterAttribute">
             <summary>Indicates the <see cref="T:FileHelpers.ConverterKind"/> used for read/write operations.</summary>
-            <remarks>See the <a href="attributes.html">Complete attributes list</a> for more information and examples of each one.</remarks>
+            <remarks>See the <a href="http://www.filehelpers.net/mustread">Complete attributes list</a> for more information and examples of each one.</remarks>
         </member>
         <member name="M:FileHelpers.FieldConverterAttribute.#ctor(FileHelpers.ConverterKind)">
             <summary>Indicates the <see cref="T:FileHelpers.ConverterKind"/> used for read/write operations. </summary>
@@ -212,7 +212,7 @@
         </member>
         <member name="T:FileHelpers.FieldDelimiterAttribute">
             <summary>Indicates a different delimiter for this field. </summary>
-            <remarks>See the <a href="attributes.html">complete attributes list</a> for more information and examples of each one.</remarks>
+            <remarks>See the <a href="http://www.filehelpers.net/mustread">complete attributes list</a> for more information and examples of each one.</remarks>
         </member>
         <member name="M:FileHelpers.FieldDelimiterAttribute.#ctor(System.String)">
             <summary>Indicates a different delimiter for this field. </summary>
@@ -225,7 +225,7 @@
         </member>
         <member name="T:FileHelpers.FieldFixedLengthAttribute">
             <summary>Indicates the length of a FixedLength field.</summary>
-            <remarks>See the <a href="attributes.html">complete attributes list</a> for more information and examples of each one.</remarks>
+            <remarks>See the <a href="http://www.filehelpers.net/mustread">complete attributes list</a> for more information and examples of each one.</remarks>
         </member>
         <member name="M:FileHelpers.FieldFixedLengthAttribute.#ctor(System.Int32)">
             <summary>Indicates the length of a Fixed Length field.</summary>
@@ -236,7 +236,7 @@
         </member>
         <member name="T:FileHelpers.FieldNotInFileAttribute">
             <summary>Hides the field to the library. Obsolete: You must use [FieldHidden]</summary>
-            <remarks>See the <a href="attributes.html">complete attributes list</a> for more information and examples of each one.</remarks>
+            <remarks>See the <a href="http://www.filehelpers.net/mustread">complete attributes list</a> for more information and examples of each one.</remarks>
         </member>
         <member name="T:FileHelpers.FieldInNewLineAttribute">
             <summary>
@@ -244,7 +244,7 @@
             i.e. indicates that the records have multiple lines, 
             and this field is in the beginning of a line.
             </summary>
-            <remarks>See the <a href="attributes.html">complete attributes list</a> for more information and examples of each one.</remarks>
+            <remarks>See the <a href="http://www.filehelpers.net/mustread">complete attributes list</a> for more information and examples of each one.</remarks>
         </member>
         <member name="M:FileHelpers.FieldInNewLineAttribute.#ctor">
             <summary>
@@ -262,7 +262,7 @@
             You must specify a string and a converter that can be converted to the
             type or an object of the correct type to be directly assigned.
             <para/>
-            See the <a href="attributes.html">complete attributes list</a> for more
+            See the <a href="http://www.filehelpers.net/mustread">complete attributes list</a> for more
             information and examples of each one.
             </remarks>
         </member>
@@ -287,14 +287,14 @@
             If it is not present then the value will be null (TODO: Check null)
             This attribute is used for read.
             </summary>
-            <remarks>See the <a href="attributes.html">complete attributes list</a> for more information and examples of each one.</remarks>
+            <remarks>See the <a href="http://www.filehelpers.net/mustread">complete attributes list</a> for more information and examples of each one.</remarks>
         </member>
         <member name="T:FileHelpers.FieldQuotedAttribute">
             <summary>
             Indicates that the field must be read and written as a Quoted String. 
             By default uses "" (double quotes)
             </summary>
-            <remarks>See the <a href="attributes.html">complete attributes list</a> for more information and examples of each one.</remarks>
+            <remarks>See the <a href="http://www.filehelpers.net/mustread">complete attributes list</a> for more information and examples of each one.</remarks>
         </member>
         <member name="M:FileHelpers.FieldQuotedAttribute.#ctor">
             <summary>
@@ -346,7 +346,7 @@
         </member>
         <member name="T:FileHelpers.FieldTrimAttribute">
             <summary>Indicates the <see cref="P:FileHelpers.FieldTrimAttribute.TrimMode"/> used after reading to truncate the field. </summary>
-            <remarks>See the <a href="attributes.html">complete attributes list</a> for more information and examples of each one.</remarks>
+            <remarks>See the <a href="http://www.filehelpers.net/mustread">complete attributes list</a> for more information and examples of each one.</remarks>
         </member>
         <member name="M:FileHelpers.FieldTrimAttribute.#ctor(FileHelpers.TrimMode)">
             <summary>Indicates the <see cref="P:FileHelpers.FieldTrimAttribute.TrimMode"/> used after read to truncate the field. By default trims the blank spaces and tabs.</summary>
@@ -370,7 +370,7 @@
         </member>
         <member name="T:FileHelpers.FixedLengthRecordAttribute">
             <summary>Indicates that this class represents a fixed length record.</summary>
-            <remarks>See the <a href="attributes.html">complete attributes list</a> for more information and examples of each one.</remarks>
+            <remarks>See the <a href="http://www.filehelpers.net/mustread">complete attributes list</a> for more information and examples of each one.</remarks>
         </member>
         <member name="M:FileHelpers.FixedLengthRecordAttribute.#ctor">
             <summary>Indicates that this class represents a fixed length
@@ -391,7 +391,7 @@
         </member>
         <member name="T:FileHelpers.IgnoreCommentedLinesAttribute">
             <summary>Indicates that the engine must ignore commented lines while reading.</summary>
-            <remarks>See the <a href="attributes.html">complete attributes list</a> for more information and examples of each one.</remarks>
+            <remarks>See the <a href="http://www.filehelpers.net/mustread">complete attributes list</a> for more information and examples of each one.</remarks>
         </member>
         <member name="M:FileHelpers.IgnoreCommentedLinesAttribute.#ctor(System.String)">
             <summary>Indicates that the engine will ignore commented lines while reading.
@@ -415,7 +415,7 @@
         </member>
         <member name="T:FileHelpers.IgnoreEmptyLinesAttribute">
             <summary>Indicates that the engine will ignore the empty lines while reading.</summary>
-            <remarks>See the <a href="attributes.html">complete attributes list</a> for more information and examples of each one.</remarks>
+            <remarks>See the <a href="http://www.filehelpers.net/mustread">complete attributes list</a> for more information and examples of each one.</remarks>
         </member>
         <member name="M:FileHelpers.IgnoreEmptyLinesAttribute.#ctor">
             <summary>Indicates that the engine will ignore the empty lines while reading.</summary>
@@ -432,7 +432,7 @@
             <remarks>
             Useful to ignore header records that you are not interested in.
             <para/>
-            See the <a href="attributes.html">complete attributes list</a> for more
+            See the <a href="http://www.filehelpers.net/mustread">complete attributes list</a> for more
             information and examples of each one.
             </remarks>
         </member>
@@ -453,7 +453,7 @@
             <remarks>
             This is useful to discard trailer records from an incoming file.
             <para/>
-            See the <a href="attributes.html">complete attributes list</a> for more information and examples of each one.</remarks>
+            See the <a href="http://www.filehelpers.net/mustread">complete attributes list</a> for more information and examples of each one.</remarks>
         </member>
         <member name="M:FileHelpers.IgnoreLastAttribute.#ctor">
             <summary>Indicates that the last line of the file will be ignored.</summary>
@@ -868,6 +868,13 @@
             Convert a value to a date time value
             </summary>
             <param name="format">date format see .Net documentation</param>
+        </member>
+        <member name="M:FileHelpers.ConvertHelpers.DateTimeConverter.#ctor(System.String,System.String)">
+            <summary>
+            Convert a value to a date time value
+            </summary>
+            <param name="format">date format see .Net documentation</param>
+            <param name="culture">The culture used to parse the Dates</param>
         </member>
         <member name="M:FileHelpers.ConvertHelpers.DateTimeConverter.StringToField(System.String)">
             <summary>
@@ -1888,6 +1895,11 @@
             Default behavior is stop after entountering at least 1 empty row.
             </summary>
         </member>
+        <member name="P:FileHelpers.DataLink.ExcelStorageBase.ColumnsHeaders">
+            <summary>
+            List Of column headers
+            </summary>
+        </member>
         <member name="T:FileHelpers.DataLink.ExcelUpdateLinksMode">
             <summary>
             Specifies the way links in the file are updated.
@@ -2409,12 +2421,13 @@
             <param name="className">The Name of the Type that must be returned</param>
             <returns>The Type generated by runtime compilation of the class source.</returns>
         </member>
-        <member name="M:FileHelpers.Dynamic.ClassBuilder.ClassFromString(System.String,System.String,FileHelpers.NetLanguage)">
+        <member name="M:FileHelpers.Dynamic.ClassBuilder.ClassFromString(System.String,System.String,FileHelpers.NetLanguage,System.Collections.Generic.List{System.Reflection.Assembly})">
             <summary>Compiles the source code passed and returns the Type with the name className.</summary>
             <param name="classStr">The Source Code of the class in the specified language</param>
             <param name="className">The Name of the Type that must be returned</param>
-            <returns>The Type generated by runtime compilation of the class source.</returns>
             <param name="lang">One of the .NET Languages</param>
+            <param name="additionalReferences">List of assemblies to be added in the dynamic compilation </param>
+            <returns>The Type generated by runtime compilation of the class source.</returns>
         </member>
         <member name="M:FileHelpers.Dynamic.ClassBuilder.ClassFromSourceFile(System.String)">
             <summary>
@@ -4632,7 +4645,7 @@
             Where we are processing records from
             </summary>
         </member>
-        <member name="F:FileHelpers.LineInfo.mWhitespaceChars">
+        <member name="F:FileHelpers.LineInfo.WhitespaceChars">
             <summary>
             List of whitespace characters that we want to skip
             </summary>
@@ -5267,7 +5280,7 @@
 		 <para>Or you can browse the <a href="examples.html">Examples section</a> for more code.</para>
 		 <para>Engines Diagram:</para>
 		 <para><center><img src="diag_engines.gif"/></center></para>
-		</remarks><seealso href="quick_start.html">Quick Start Guide</seealso><seealso href="class_diagram.html">Class Diagram</seealso><seealso href="examples.html">Examples of Use</seealso><seealso href="attributes.html">Attributes List</seealso>
+		</remarks><seealso href="quick_start.html">Quick Start Guide</seealso><seealso href="class_diagram.html">Class Diagram</seealso><seealso href="examples.html">Examples of Use</seealso><seealso href="http://www.filehelpers.net/mustread">Attributes List</seealso>
             <example>
 			This example shows a simple example of use of the library with a minimum of code:
 <code>
@@ -8092,12 +8105,12 @@
             <param name="message">The exception Message</param>
             <param name="line">Line to display in message</param>
         </member>
-        <member name="T:FileHelpers.Dynamic.RunTimeCompilationException">
+        <member name="T:FileHelpers.Dynamic.DynamicCompilationException">
             <summary>
             Exception with error information of the run time compilation.
             </summary>
         </member>
-        <member name="M:FileHelpers.Dynamic.RunTimeCompilationException.#ctor(System.String,System.String,System.CodeDom.Compiler.CompilerErrorCollection)">
+        <member name="M:FileHelpers.Dynamic.DynamicCompilationException.#ctor(System.String,System.String,System.CodeDom.Compiler.CompilerErrorCollection)">
             <summary>
             Compilation exception happen loading a dynamic class
             </summary>
@@ -8105,12 +8118,12 @@
             <param name="sourceCode">Source code reference???</param>
             <param name="errors">Errors from compiler</param>
         </member>
-        <member name="P:FileHelpers.Dynamic.RunTimeCompilationException.SourceCode">
+        <member name="P:FileHelpers.Dynamic.DynamicCompilationException.SourceCode">
             <summary>
             The source code that generates the Exception
             </summary>
         </member>
-        <member name="P:FileHelpers.Dynamic.RunTimeCompilationException.CompilerErrors">
+        <member name="P:FileHelpers.Dynamic.DynamicCompilationException.CompilerErrors">
             <summary>
             The errors returned from the compiler.
             </summary>
@@ -8319,11 +8332,6 @@
             <summary>
             Base class for all Field Types.
             Implements all the basic functionality of a field in a typed file.
-            </summary>
-        </member>
-        <member name="F:FileHelpers.FieldBase.mWhitespaceChars">
-            <summary>
-            List the various whitespace characters in Unicode
             </summary>
         </member>
         <member name="M:FileHelpers.FieldBase.CreateField(System.Reflection.FieldInfo,FileHelpers.TypedRecordAttribute)">
@@ -9253,16 +9261,16 @@
             </code>
             </example>
         </member>
-        <member name="M:FileHelpers.Events.INotifyRead.AfterRead(FileHelpers.Events.AfterReadEventArgs)">
-            <summary>
-            Method called by the engines after read a record from the source data.
-            </summary>
-            <param name="e">The Event Info</param>
-        </member>
         <member name="M:FileHelpers.Events.INotifyRead.BeforeRead(FileHelpers.Events.BeforeReadEventArgs)">
             <summary>
             Method called by the engines before fill the info of the record and
             after read the source line.
+            </summary>
+            <param name="e">The Event Info</param>
+        </member>
+        <member name="M:FileHelpers.Events.INotifyRead.AfterRead(FileHelpers.Events.AfterReadEventArgs)">
+            <summary>
+            Method called by the engines after read a record from the source data.
             </summary>
             <param name="e">The Event Info</param>
         </member>
@@ -10016,7 +10024,7 @@ engine.WriteFile("TestOut.txt", res);
         </member>
         <member name="T:FileHelpers.IgnoreInheritedClassAttribute">
             <summary>Fields inherited from base classes will be ignored.</summary>
-            <remarks>See the <a href="attributes.html">complete attributes list</a> for more information and examples of each one.</remarks>
+            <remarks>See the <a href="http://www.filehelpers.net/mustread">complete attributes list</a> for more information and examples of each one.</remarks>
         </member>
         <member name="M:FileHelpers.IgnoreInheritedClassAttribute.#ctor">
             <summary>Fields inherited from base classes will be ignored.</summary>

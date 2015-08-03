@@ -78,7 +78,7 @@ task Nuget {
       @("RhinoDSL", "1.0.0"), `
       @("Common.Logging", "3.0.0"), `
       @("Common.Logging.Core", "3.0.0"), `
-      @("FileHelpers", "3.0.46-beta") `
+      @("FileHelpers", "3.1.2") `
      ) `
     -files @( `
       @("$base_dir\Rhino.Etl.Dsl\bin\Release\Rhino.Etl.Core.dll","lib\net35"), `
