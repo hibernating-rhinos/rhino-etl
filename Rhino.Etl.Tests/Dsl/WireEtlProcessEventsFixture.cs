@@ -30,7 +30,7 @@ namespace Rhino.Etl.Tests.Dsl
                 process.RegisterLast(operation);
                 process.Execute();
                 Assert.Equal(1, operation.Results.Count);
-                Assert.Equal("chocolate, sugar, coffee", operation.Results[0]["result"]);
+                Assert.Equal("[chocolate, sugar, coffee]", operation.Results[0]["result"]);
             }
         }
 

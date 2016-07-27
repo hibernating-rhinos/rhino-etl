@@ -1,9 +1,8 @@
 properties { 
   $base_dir  = resolve-path .
-  $lib_dir = "$base_dir\SharedLibs"
   $sln_file = "$base_dir\Rhino.Etl.sln" 
-  $version = "1.3.1.0"
-  $humanReadableversion = "1.3"
+  $version = "2.0.0.0"
+  $humanReadableversion = "2.0"
   $tools_dir = "$base_dir\Tools"
   $release_dir = "$base_dir\Release"
   $uploadCategory = "Rhino-ETL"
@@ -38,6 +37,8 @@ task Init -depends Clean {
 	}		
 		
 	new-item $release_dir -itemType directory 
+	
+	.\Tools\NuGet.exe restore "$sln_file"
 } 
 
 task Compile -depends Init { 
@@ -49,7 +50,7 @@ task Compile -depends Init {
 
 task Test -depends Compile {
   $old = pwd
-  cd $tools_dir\XUnit\
+  cd $base_dir\packages\xunit.runner.console.2.0.0\tools\
   &.\xunit.console.exe "$base_dir\Rhino.Etl.Tests\bin\Release\Rhino.Etl.Tests.dll"
   if ($lastExitCode -ne 0) {
         throw "Error: Failed to execute tests"
@@ -76,17 +77,16 @@ task Nuget {
     -dependencies @( `
       @("Boo", "0.9.4"), `
       @("RhinoDSL", "1.0.0"), `
-      @("Common.Logging", "3.0.0"), `
-      @("Common.Logging.Core", "3.0.0"), `
+      @("Common.Logging", "3.2.0"), `
       @("FileHelpers", "2.0.0.0") `
      ) `
     -files @( `
-      @("$base_dir\Rhino.Etl.Dsl\bin\Release\Rhino.Etl.Core.dll","lib\net35"), `
-      @("$base_dir\Rhino.Etl.Dsl\bin\Release\Rhino.Etl.Core.xml","lib\net35"), `
-      @("$base_dir\Rhino.Etl.Dsl\bin\Release\Rhino.Etl.Core.pdb","lib\net35"), `
-      @("$base_dir\Rhino.Etl.Dsl\bin\Release\Rhino.Etl.Dsl.dll","lib\net35"), `
-      @("$base_dir\Rhino.Etl.Dsl\bin\Release\Rhino.Etl.Dsl.xml","lib\net35"), `
-      @("$base_dir\Rhino.Etl.Dsl\bin\Release\Rhino.Etl.Dsl.pdb","lib\net35"), `
+      @("$base_dir\Rhino.Etl.Dsl\bin\Release\Rhino.Etl.Core.dll","lib\net45"), `
+      @("$base_dir\Rhino.Etl.Dsl\bin\Release\Rhino.Etl.Core.xml","lib\net45"), `
+      @("$base_dir\Rhino.Etl.Dsl\bin\Release\Rhino.Etl.Core.pdb","lib\net45"), `
+      @("$base_dir\Rhino.Etl.Dsl\bin\Release\Rhino.Etl.Dsl.dll","lib\net45"), `
+      @("$base_dir\Rhino.Etl.Dsl\bin\Release\Rhino.Etl.Dsl.xml","lib\net45"), `
+      @("$base_dir\Rhino.Etl.Dsl\bin\Release\Rhino.Etl.Dsl.pdb","lib\net45"), `
       @("$base_dir\Rhino.Etl.Dsl\**\*.cs","src\Rhino.Etl.Dsl"), `
       @("$base_dir\Rhino.Etl.Core\**\*.cs","src\Rhino.Etl.Core"), `
       @("license.txt",""), `
@@ -119,21 +119,20 @@ task Nuget {
     -dependencies @( `
       @("Boo", "0.9.4"), `
       @("RhinoDSL", "1.0.0"), `
-      @("Common.Logging", "3.0.0"), `
-      @("Common.Logging.Core", "3.0.0"), `
-      @("Common.Logging.Log4Net1210", "3.0.0"), `
-      @("log4net", "1.2.10"), `
+      @("Common.Logging", "3.2.0"), `
+      @("Common.Logging.Log4Net1213", "3.2.0"), `
+      @("log4net", "2.0.3"), `
       @("FileHelpers", "2.0.0.0") `
      ) `
     -files @( `
-      @("$base_dir\Rhino.Etl.Cmd\bin\Release\Rhino.Etl.Core.dll","lib\net35"), `
-      @("$base_dir\Rhino.Etl.Cmd\bin\Release\Rhino.Etl.Core.xml","lib\net35"), `
-      @("$base_dir\Rhino.Etl.Cmd\bin\Release\Rhino.Etl.Core.pdb","lib\net35"), `
-      @("$base_dir\Rhino.Etl.Cmd\bin\Release\Rhino.Etl.Dsl.dll","lib\net35"), `
-      @("$base_dir\Rhino.Etl.Cmd\bin\Release\Rhino.Etl.Dsl.xml","lib\net35"), `
-      @("$base_dir\Rhino.Etl.Cmd\bin\Release\Rhino.Etl.Dsl.pdb","lib\net35"), `
-      @("$base_dir\Rhino.Etl.Cmd\bin\Release\Rhino.Etl.Cmd.exe","lib\net35"), `
-      @("$base_dir\Rhino.Etl.Cmd\bin\Release\Rhino.Etl.Cmd.pdb","lib\net35"), `
+      @("$base_dir\Rhino.Etl.Cmd\bin\Release\Rhino.Etl.Core.dll","lib\net45"), `
+      @("$base_dir\Rhino.Etl.Cmd\bin\Release\Rhino.Etl.Core.xml","lib\net45"), `
+      @("$base_dir\Rhino.Etl.Cmd\bin\Release\Rhino.Etl.Core.pdb","lib\net45"), `
+      @("$base_dir\Rhino.Etl.Cmd\bin\Release\Rhino.Etl.Dsl.dll","lib\net45"), `
+      @("$base_dir\Rhino.Etl.Cmd\bin\Release\Rhino.Etl.Dsl.xml","lib\net45"), `
+      @("$base_dir\Rhino.Etl.Cmd\bin\Release\Rhino.Etl.Dsl.pdb","lib\net45"), `
+      @("$base_dir\Rhino.Etl.Cmd\bin\Release\Rhino.Etl.Cmd.exe","lib\net45"), `
+      @("$base_dir\Rhino.Etl.Cmd\bin\Release\Rhino.Etl.Cmd.pdb","lib\net45"), `
       @("$base_dir\Rhino.Etl.Dsl\**\*.cs","src\Rhino.Etl.Dsl"), `
       @("$base_dir\Rhino.Etl.Core\**\*.cs","src\Rhino.Etl.Core"), `
       @("$base_dir\Rhino.Etl.Cmd\**\*.cs","src\Rhino.Etl.Cmd"), `
@@ -165,9 +164,9 @@ task DoRelease -depends Compile,NuGet {
 		$base_dir\Rhino.Etl.Cmd\bin\Release\Rhino.Etl.Cmd.exe `
 		$base_dir\Rhino.Etl.Cmd\bin\Release\Rhino.DSL.dll `
 		$base_dir\Rhino.Etl.Cmd\bin\Release\log4net.dll `
-		$base_dir\Rhino.Etl.Cmd\bin\Release\Common.Logging.dll `
 		$base_dir\Rhino.Etl.Cmd\bin\Release\Common.Logging.Core.dll `
-		$base_dir\Rhino.Etl.Cmd\bin\Release\Common.Logging.Log4Net1210.dll `
+		$base_dir\Rhino.Etl.Cmd\bin\Release\Common.Logging.dll `
+		$base_dir\Rhino.Etl.Cmd\bin\Release\Common.Logging.Log4Net1213.dll `
 		$base_dir\Rhino.Etl.Cmd\bin\Release\Boo.* `
 		$base_dir\Rhino.Etl.Cmd\bin\Release\FileHelpers.dll `
 		license.txt `

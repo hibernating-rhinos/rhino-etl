@@ -119,7 +119,9 @@ namespace Rhino.Etl.Tests
 
             row["a"] = 1;
             
-            Assert.DoesNotThrow(() => row.CreateKey());
+            Exception ex = Record.Exception(() => row.CreateKey());
+
+            Assert.Null(ex);
         }
 
         [Fact]

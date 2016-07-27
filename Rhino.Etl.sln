@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rhino.Etl.Core", "Rhino.Etl.Core\Rhino.Etl.Core.csproj", "{DC42946E-5972-411C-A061-F2932E49C31F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rhino.Etl.Tests", "Rhino.Etl.Tests\Rhino.Etl.Tests.csproj", "{A1519C4F-3C25-4484-B3D2-2266C133754E}"
@@ -8,6 +10,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rhino.Etl.Dsl", "Rhino.Etl.Dsl\Rhino.Etl.Dsl.csproj", "{D087E051-C099-468D-A3E7-4567DBBDFE69}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rhino.Etl.Cmd", "Rhino.Etl.Cmd\Rhino.Etl.Cmd.csproj", "{AAD5286D-943E-472A-A861-8C6F155C8712}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{CD3D6D5E-8384-40C1-8452-31F8655DD111}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

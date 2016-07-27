@@ -32,7 +32,7 @@ process merge_user_roles:
             aggregate.rolesList.Add(row.role)
         
         terminate:
-            aggregate.roles = aggregate.name + " is: " +string.Join(", ", aggregate.rolesList.ToArray(string))
+            aggregate.roles = aggregate.name + " is: " +string.Join(", ", aggregate.rolesList)
         
             
     output "test", Command = """
