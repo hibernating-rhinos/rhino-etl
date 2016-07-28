@@ -16,7 +16,7 @@ namespace Rhino.Etl.Tests.Branches
             AssertFibonacci(30, 2);
         }
 
-        [Fact] 
+        [Fact(Skip = "It depends too much of what the machine is doing and how powerful it is")] 
         public void CanBranchThePipelineEfficiently()
         {
             const int iterations = 30000;

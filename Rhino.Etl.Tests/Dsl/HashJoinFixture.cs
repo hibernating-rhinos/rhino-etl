@@ -37,9 +37,9 @@ namespace Rhino.Etl.Tests.Dsl
                     roles.Add(reader.GetString(0));
                 }
             });
-            Assert.Equal("ayende rahien is: admin, janitor, employee, customer", roles[0]);
-            Assert.Equal("foo bar is: janitor", roles[1]);
-            Assert.Equal("gold silver is: janitor, employee", roles[2]);
+            Assert.Equal("ayende rahien is: [admin, janitor, employee, customer]", roles[0]);
+            Assert.Equal("foo bar is: [janitor]", roles[1]);
+            Assert.Equal("gold silver is: [janitor, employee]", roles[2]);
         }
     }
 }
