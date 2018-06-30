@@ -29,14 +29,6 @@ namespace Rhino.Etl.Core.ConventionOperations
         {
         }
 
-        /// <summary>
-        /// Prepares the mapping for use, by default, it uses the schema mapping.
-        /// This is the preferred appraoch
-        /// </summary>
-        public override void PrepareMapping()
-        {
-        }
-
         /// <summary>Adds a column to the destination mapping.</summary>
         /// <param name="destinationColumn">The name of column, this is case sensitive.</param>
         public virtual void MapColumn(string destinationColumn)
