@@ -39,6 +39,7 @@ namespace Rhino.Etl.Core.Operations
             using (IDbConnection connection = Use.Connection(ConnectionStringSettings))
             using (IDbTransaction transaction = BeginTransaction(connection))
             {
+                PrepareDatabase(connection, transaction);
                 foreach (Row row in new SingleRowEventRaisingEnumerator(this, rows))
                 {
                     using (IDbCommand cmd = connection.CreateCommand())
@@ -71,5 +72,14 @@ namespace Rhino.Etl.Core.Operations
         /// <param name="cmd">The command.</param>
         /// <param name="row">The row.</param>
         protected abstract void PrepareCommand(IDbCommand cmd, Row row);
+
+        /// <summary>
+        /// Prepares the database before loading rows.
+        /// </summary>
+        /// <param name="connection">The connection.</param>
+        /// <param name="transaction">The transaction.</param>
+        protected virtual void PrepareDatabase(IDbConnection connection, IDbTransaction transaction)
+        {
+        }
     }
 }
