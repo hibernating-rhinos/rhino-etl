@@ -118,8 +118,7 @@ namespace Rhino.Etl.Tests
             Row row = new Row();
 
             row["a"] = 1;
-            
-            Assert.DoesNotThrow(() => row.CreateKey());
+            row.CreateKey();
         }
 
         [Fact]
