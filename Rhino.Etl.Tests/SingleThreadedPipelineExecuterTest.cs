@@ -11,7 +11,7 @@ using Rhino.Mocks;
 
 namespace Rhino.Etl.Tests
 {
-    
+    [Collection("Rhino.Mocks")]
     public class SingleThreadedPipelineExecuterTest
     {
         [Fact]

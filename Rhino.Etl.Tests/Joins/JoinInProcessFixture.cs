@@ -2,7 +2,6 @@ namespace Rhino.Etl.Tests.Joins
 {
     using Xunit;
 
-    
     public class JoinInProcessFixture : BaseJoinFixture
     {
         [Fact]

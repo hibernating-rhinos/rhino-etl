@@ -7,6 +7,7 @@ namespace Rhino.Etl.Tests
     using Aggregation;
     using Xunit;
 
+    [Collection("UserToPeopleTest")]
     public class BaseUserToPeopleTest : BaseDslTest
     {
         public BaseUserToPeopleTest()

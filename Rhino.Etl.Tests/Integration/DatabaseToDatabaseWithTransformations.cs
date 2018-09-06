@@ -1,15 +1,8 @@
-using Rhino.Etl.Core.Infrastructure;
-
 namespace Rhino.Etl.Tests.Integration
 {
-    using System.Collections.Generic;
-    using System.Collections.Specialized;
     using System.Data;
-    using Boo.Lang;
-    using Core;
+    using Rhino.Etl.Core.Infrastructure;
     using Xunit;
-    using Rhino.Etl.Core.Operations;
-
     
     public class DatabaseToDatabaseWithTransformations : BaseUserToPeopleTest
     {

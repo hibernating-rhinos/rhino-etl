@@ -4,6 +4,7 @@ using Rhino.Etl.Core.Infrastructure;
 
 namespace Rhino.Etl.Tests
 {
+    [Collection("FibonacciTest")]
     public class BaseFibonacciTest
     {
         public BaseFibonacciTest()

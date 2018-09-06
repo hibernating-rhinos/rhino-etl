@@ -4,10 +4,11 @@ namespace Rhino.Etl.Tests.Util
     using System.Collections.Generic;
     using Core;
     using Xunit;
-    using Mocks;
+    using Rhino.Mocks;
     using Rhino.Etl.Core.DataReaders;
 
-    
+
+    [Collection("Rhino.Mocks")]
     public class DictionaryEnumeratorDataReaderFixture
     {
         [Fact]

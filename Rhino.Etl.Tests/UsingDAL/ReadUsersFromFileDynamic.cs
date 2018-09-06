@@ -1,14 +1,11 @@
-using System;
-using FileHelpers;
-using FileHelpers.RunTime;
-
 namespace Rhino.Etl.Tests.UsingDAL
 {
+    using System;
     using System.Collections.Generic;
-    using Core;
-    using Rhino.Etl.Core.Files;
+    using FileHelpers;
+    using FileHelpers.Dynamic;
+    using Rhino.Etl.Core;
     using Rhino.Etl.Core.Operations;
-    using System.Linq;
 
     public class ReadUsersFromFileDynamic : AbstractOperation
     {

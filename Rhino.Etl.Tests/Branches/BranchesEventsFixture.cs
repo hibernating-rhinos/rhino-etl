@@ -1,13 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Reflection;
-using Rhino.Etl.Core;
-using Rhino.Etl.Core.Operations;
-using Rhino.Mocks;
-using Xunit;
-
 namespace Rhino.Etl.Tests.Branches
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Reflection;
+    using Rhino.Etl.Core;
+    using Rhino.Etl.Core.Operations;
+    using Rhino.Mocks;
+    using Xunit;
+
+    [Collection("Rhino.Mocks")]
     public class BranchEventsFixture
     {
 
