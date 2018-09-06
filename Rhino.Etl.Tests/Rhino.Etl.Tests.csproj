@@ -1,293 +1,48 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{A1519C4F-3C25-4484-B3D2-2266C133754E}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Rhino.Etl.Tests</RootNamespace>
-    <AssemblyName>Rhino.Etl.Tests</AssemblyName>
-    <StartupObject>
-    </StartupObject>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
-    <PublishUrl>publish\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <NoWarn>1607</NoWarn>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <TargetFrameworks>net452</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Boo.Lang">
-      <HintPath>..\SharedLibs\Boo\Boo.Lang.dll</HintPath>
-      <Private>true</Private>
-    </Reference>
-    <Reference Include="Boo.Lang.Compiler">
-      <HintPath>..\SharedLibs\Boo\Boo.Lang.Compiler.dll</HintPath>
-      <Private>true</Private>
-    </Reference>
-    <Reference Include="Boo.Lang.Parser">
-      <HintPath>..\SharedLibs\Boo\Boo.Lang.Parser.dll</HintPath>
-      <Private>true</Private>
-    </Reference>
-    <Reference Include="Common.Logging, Version=2.0.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\SharedLibs\Common.Logging\Common.Logging.dll</HintPath>
-      <Private>true</Private>
-    </Reference>
-    <Reference Include="Common.Logging.Core">
-      <HintPath>..\SharedLibs\Common.Logging\Common.Logging.Core.dll</HintPath>
-      <Private>true</Private>
-    </Reference>
-    <Reference Include="FileHelpers">
-      <HintPath>..\SharedLibs\FileHelpers\FileHelpers.dll</HintPath>
-      <Private>true</Private>
-    </Reference>
-    <Reference Include="Rhino.DSL">
-      <HintPath>..\SharedLibs\Rhino.Dsl\Rhino.DSL.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\SharedLibs\Rhino.Mocks.dll</HintPath>
-      <Private>true</Private>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.configuration" />
-    <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
-    <Reference Include="xunit, Version=1.1.0.1323, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\SharedLibs\xunit.dll</HintPath>
-      <Private>true</Private>
-    </Reference>
-    <Reference Include="xunit.extensions, Version=1.1.0.1323, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\SharedLibs\xunit.extensions.dll</HintPath>
-      <Private>true</Private>
-    </Reference>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0" />
+    <PackageReference Include="RhinoMocks" Version="3.6.1" />
+    <PackageReference Include="xunit" Version="2.4.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Aggregation\AggregationFixture.cs" />
-    <Compile Include="Aggregation\BaseAggregationFixture.cs" />
-    <Compile Include="Aggregation\BaseDslTest.cs" />
-    <Compile Include="Aggregation\CostPerProductAggregation.cs" />
-    <Compile Include="Aggregation\RowCount.cs" />
-    <Compile Include="Aggregation\SortedCostPerProductAggregation.cs" />
-    <Compile Include="BaseFibonacciTest.cs" />
-    <None Include="Dsl\Aggregate.boo">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <Compile Include="Branches\AbstractFibonacciBranchingProcess.cs" />
-    <Compile Include="Branches\BranchesEventsFixture.cs" />
-    <Compile Include="Branches\MultiThreadedBranchesWithMultiThreadPipeline.cs" />
-    <Compile Include="Branches\MultiThreadedBranchesWithSingleThreadPipeline.cs" />
-    <Compile Include="Branches\MultiThreadedWithMultiThreadPipelineFibonacciBranchingProcess.cs" />
-    <Compile Include="Branches\MultiThreadedWithSingleThreadPipelineFibonacciBranchingProcess.cs" />
-    <Compile Include="Branches\SingleThreadedBranchesFixture.cs" />
-    <Compile Include="Branches\SingleThreadedFibonacciBranchingProcess.cs" />
-    <Compile Include="Branches\BranchingOperationFixture.cs" />
-    <Compile Include="Branches\BranchingOperationProcess.cs" />
-    <Compile Include="Dsl\AggregationFixture.cs" />
-    <Compile Include="Dsl\HashJoinFixture.cs" />
-    <Compile Include="Dsl\DatabaseToDatabaseWithTransformFixture.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Dsl\InputTimeoutFixture.cs" />
-    <Compile Include="Dsl\SqlBulkInsertFixture.cs" />
-    <Compile Include="Dsl\JoinFixture.cs" />
-    <Compile Include="Dsl\ResultsToList.cs" />
-    <Compile Include="Dsl\WireEtlProcessEventsFixture.cs" />
-    <Compile Include="Errors\ErrorsFixture.cs" />
-    <Compile Include="Errors\ErrorsProcess.cs" />
-    <Compile Include="Errors\ThrowingOperation.cs" />
-    <Compile Include="EtlProcessEventsFixture.cs" />
-    <Compile Include="Fibonacci\Batch\BatchFibonacci.cs" />
-    <Compile Include="Fibonacci\Batch\BatchFibonacciToDatabase.cs" />
-    <Compile Include="Fibonacci\Batch\BatchFibonacciToDatabaseFromConnectionStringSettings.cs" />
-    <Compile Include="Fibonacci\Batch\BatchFibonacciToDatabaseBase.cs" />
-    <Compile Include="Fibonacci\Batch\BatchFibonacciFromConnectionStringSettings.cs" />
-    <Compile Include="Fibonacci\Batch\SlowBatchFibonacci.cs" />
-    <Compile Include="Fibonacci\Batch\SlowBatchFibonacciToDatabase.cs" />
-    <Compile Include="Fibonacci\Bulk\BulkInsertFibonacciToDatabaseFromConnectionStringSettings.cs" />
-    <Compile Include="Fibonacci\Bulk\FibonacciBulkInsertBase.cs" />
-    <Compile Include="Fibonacci\Bulk\FibonacciBulkInsertFromConnectionStringSettings.cs" />
-    <Compile Include="Fibonacci\Bulk\FibonacciBulkInsert.cs" />
-    <Compile Include="Fibonacci\InMemoryFibonacci.cs" />
-    <Compile Include="Fibonacci\FibonacciOperation.cs" />
-    <Compile Include="Fibonacci\Bulk\BulkInsertFibonacciToDatabase.cs" />
-    <Compile Include="Fibonacci\Output\OutputFibonacciToDatabaseFromConnectionStringSettings.cs" />
-    <Compile Include="Fibonacci\Output\OutputFibonacciToDatabase.cs" />
-    <Compile Include="Fibonacci\Output\FibonacciOutput.cs" />
-    <Compile Include="BaseUserToPeopleTest.cs" />
-    <Compile Include="Fibonacci\Output\Should.cs" />
-    <Compile Include="InformationFixture.cs" />
-    <Compile Include="Infrastructure\UseFixture.cs" />
-    <Compile Include="Integration\UsersToPeopleFromConnectionStringSettings.cs" />
-    <Compile Include="Integration\DatabaseToDatabaseWithTransformations.cs" />
-    <Compile Include="Integration\ReadUsers.cs" />
-    <Compile Include="Integration\SplitName.cs" />
-    <Compile Include="Integration\UsersToPeople.cs" />
-    <Compile Include="Integration\WritePeople.cs" />
-    <Compile Include="Joins\AddToResults.cs" />
-    <Compile Include="Joins\AllStringsToUpperCase.cs" />
-    <Compile Include="Joins\BaseJoinFixture.cs" />
-    <Compile Include="Joins\BaseJoinUsersToPeople.cs" />
-    <Compile Include="Joins\BaseMergeJoin.cs" />
-    <Compile Include="Joins\ComplexUsersToPeopleJoinProcess.cs" />
-    <Compile Include="Joins\FullJoinUsersToPeopleByEmail.cs" />
-    <Compile Include="Joins\FullMergeJoinUsersToPeopleByEmail.cs" />
-    <Compile Include="Joins\GenericEnumerableOperation.cs" />
-    <Compile Include="Joins\InnerJoinUsersToPeopleByEmail.cs" />
-    <Compile Include="Joins\InnerMergeJoinUsersToPeopleByEmail.cs" />
-    <Compile Include="Joins\JoinFixture.cs" />
-    <Compile Include="Joins\JoinInProcessFixture.cs" />
-    <Compile Include="Joins\JoinWithPipelineFixture.cs" />
-    <Compile Include="Joins\JoinsEventsFixture.cs" />
-    <Compile Include="Joins\LeftJoinUsersToPeopleByEmail.cs" />
-    <Compile Include="Joins\LeftMergeJoinUsersToPeopleByEmail.cs" />
-    <Compile Include="Joins\RightJoinUsersToPeopleByEmail.cs" />
-    <Compile Include="Joins\RightMergeJoinUsersToPeopleByEmail.cs" />
-    <Compile Include="Joins\TrivialUsersToPeopleJoinProcess.cs" />
-    <Compile Include="LoadTest\AccumulateResults.cs" />
-    <Compile Include="LoadTest\BatchUpdateUserNames.cs" />
-    <Compile Include="LoadTest\BulkInsertUsers.cs" />
-    <Compile Include="LoadTest\GenerateRandomIds.cs" />
-    <Compile Include="LoadTest\GenerateUsers.cs" />
-    <Compile Include="LoadTest\JoinUsersAndIds.cs" />
-    <Compile Include="LoadTest\Join_250_000_UsersWithMostlyFallingOut.cs" />
-    <Compile Include="LoadTest\LoadTestFixture.cs" />
-    <Compile Include="LoadTest\LoadTestJoinsFixture.cs" />
-    <Compile Include="LoadTest\PushDataToDatabase.cs" />
-    <Compile Include="LoadTest\ReadUsers.cs" />
-    <Compile Include="LoadTest\UpdateUserNames.cs" />
-    <Compile Include="LoadTest\UpperCaseColumn.cs" />
-    <Compile Include="LoadTest\UpperCaseUserNames.cs" />
-    <Compile Include="OutputCommandFixture.cs" />
-    <Compile Include="Branches\BranchesFixture.cs" />
-    <Compile Include="RowTest.cs" />
-    <Compile Include="SingleThreadedPipelineExecuterTest.cs" />
-    <Compile Include="SqlBatchOperationFixture.cs" />
-    <Compile Include="SqlBulkInsertOperationFixture.cs" />
-    <Compile Include="UsingDAL\ImportUsersFromFileDynamic.cs" />
-    <Compile Include="UsingDAL\ReadUsersFromFileDynamic.cs" />
-    <Compile Include="UsingDAL\ExportUsersToFile.cs" />
-    <Compile Include="UsingDAL\GetAllUsers.cs" />
-    <Compile Include="UsingDAL\ImportUsersFromFile.cs" />
-    <Compile Include="UsingDAL\MySimpleDal.cs" />
-    <Compile Include="UsingDAL\ReadUsersFromFile.cs" />
-    <Compile Include="UsingDAL\SaveToDal.cs" />
-    <Compile Include="UsingDAL\User.cs" />
-    <Compile Include="UsingDAL\UserRecord.cs" />
-    <Compile Include="UsingDAL\UsingDALFixture.cs" />
-    <Compile Include="UsingDAL\WriteUsersToFile.cs" />
-    <Compile Include="Util\DictionaryEnumeratorDataReaderFixture.cs" />
+    <Reference Include="System.Configuration" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Rhino.Etl.Core\Rhino.Etl.Core.csproj">
-      <Project>{DC42946E-5972-411C-A061-F2932E49C31F}</Project>
-      <Name>Rhino.Etl.Core</Name>
-      <Private>True</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Rhino.Etl.Dsl\Rhino.Etl.Dsl.csproj">
-      <Project>{D087E051-C099-468D-A3E7-4567DBBDFE69}</Project>
-      <Name>Rhino.Etl.Dsl</Name>
-      <Private>True</Private>
-    </ProjectReference>
+    <ProjectReference Include="..\Rhino.Etl.Core\Rhino.Etl.Core.csproj" />
+    <ProjectReference Include="..\Rhino.Etl.Dsl\Rhino.Etl.Dsl.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="Dsl\InnerJoin.boo">
+    <None Update="Dsl\Aggregate.boo">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Dsl\UsersToPeopleBulk.boo">
+    <None Update="Dsl\InnerHashJoin.boo">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Dsl\InnerHashJoin.boo">
+    <None Update="Dsl\InnerJoin.boo">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Dsl\UsersToPeople.boo">
+    <None Update="Dsl\InputTimeout.boo">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Dsl\UsersToPeople.boo">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Dsl\UsersToPeopleBulk.boo">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Dsl\WireOnFinishedProcessingEvent.boo">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Dsl\WireRowProcessedEvent.boo">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
-    <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />
-  </ItemGroup>
-  <ItemGroup>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Dsl\InputTimeout.boo">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <Content Include="Dsl\WireOnFinishedProcessingEvent.boo">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Dsl\WireRowProcessedEvent.boo">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>
