@@ -2,10 +2,10 @@ namespace Rhino.Etl.Tests.Util
 {
     using System;
     using System.Collections.Generic;
-    using Core;
-    using Xunit;
-    using Rhino.Mocks;
+    using Rhino.Etl.Core;
     using Rhino.Etl.Core.DataReaders;
+    using Rhino.Mocks;
+    using Xunit;
 
 
     [Collection("Rhino.Mocks")]

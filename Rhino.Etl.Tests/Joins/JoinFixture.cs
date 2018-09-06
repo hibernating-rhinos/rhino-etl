@@ -1,11 +1,10 @@
 namespace Rhino.Etl.Tests.Joins
 {
     using System.Collections.Generic;
-    using Core;
-    using Xunit;
+    using Rhino.Etl.Core;
     using Rhino.Etl.Core.Pipelines;
+    using Xunit;
 
-    
     public class JoinFixture : BaseJoinFixture
     {
       

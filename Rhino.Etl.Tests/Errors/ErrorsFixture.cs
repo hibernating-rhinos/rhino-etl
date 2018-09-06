@@ -2,10 +2,9 @@ namespace Rhino.Etl.Tests.Errors
 {
     using System;
     using System.Collections.Generic;
-    using Core;
-    using Joins;
+    using Rhino.Etl.Core;
+    using Rhino.Etl.Tests.Joins;
     using Xunit;
-
     
     public class ErrorsFixture : BaseFibonacciTest
     {

@@ -1,16 +1,16 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using Xunit;
-using Rhino.Etl.Core;
-using Rhino.Etl.Core.Operations;
-using Rhino.Etl.Core.Pipelines;
-using Rhino.Etl.Tests.Joins;
-using Rhino.Mocks;
-
 namespace Rhino.Etl.Tests
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Rhino.Etl.Core;
+    using Rhino.Etl.Core.Operations;
+    using Rhino.Etl.Core.Pipelines;
+    using Rhino.Etl.Tests.Joins;
+    using Rhino.Mocks;
+    using Xunit;
+
     [Collection("Rhino.Mocks")]
     public class SingleThreadedPipelineExecuterTest
     {

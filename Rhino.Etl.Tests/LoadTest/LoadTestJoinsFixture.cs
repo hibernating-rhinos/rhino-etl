@@ -2,8 +2,7 @@ namespace Rhino.Etl.Tests.LoadTest
 {
     using System.Diagnostics;
     using Xunit;
-
-    
+ 
     public class LoadTestJoinsFixture
     {
         [Fact(Skip = "It depends too much of what the machine is doing and how powerful it is")]

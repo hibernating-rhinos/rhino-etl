@@ -1,8 +1,3 @@
-using System.Configuration;
-using System.Data.SqlClient;
-using Rhino.Etl.Core.Operations;
-using Rhino.Mocks;
-
 namespace Rhino.Etl.Tests
 {
     using System;
@@ -11,7 +6,6 @@ namespace Rhino.Etl.Tests
     using Rhino.Etl.Tests.Fibonacci.Bulk;
     using Rhino.Etl.Tests.Fibonacci.Output;
 
-    
     public class SqlBulkInsertOperationFixture : BaseFibonacciTest
     {
         [Fact]

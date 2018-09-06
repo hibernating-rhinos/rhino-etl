@@ -1,12 +1,10 @@
-using System;
-using Xunit;
-using Rhino.Etl.Core;
-using Xunit.Extensions;
-using System.Linq;
-
 namespace Rhino.Etl.Tests
 {
-    
+    using System;
+    using System.Linq;
+    using Rhino.Etl.Core;
+    using Xunit;
+
     public class RowTest
     {
         [Theory]

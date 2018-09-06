@@ -1,11 +1,8 @@
-using Rhino.Etl.Core.Infrastructure;
-
 namespace Rhino.Etl.Tests.LoadTest
 {
     using System.Data;
-    using Core;
+    using Rhino.Etl.Core.Infrastructure;
     using Xunit;
-    using Rhino.Etl.Core.Operations;
 
     /// <summary>
     /// This fixture is here to verify that we can handle large amount of data
@@ -33,7 +30,7 @@ namespace Rhino.Etl.Tests.LoadTest
         {
             return Use.Transaction<int>("test", delegate(IDbCommand command)
             {
-                command.CommandText = "select count(*) from users where " + where;
+                command.CommandText = "select count(*) from Users where " + where;
                 return (int)command.ExecuteScalar();
             });
         }
