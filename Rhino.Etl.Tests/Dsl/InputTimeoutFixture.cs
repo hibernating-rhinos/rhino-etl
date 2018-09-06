@@ -1,12 +1,12 @@
-﻿using Rhino.Etl.Core.Infrastructure;
-using Xunit;
-
-namespace Rhino.Etl.Tests.Dsl
+﻿namespace Rhino.Etl.Tests.Dsl
 {
     using System.Collections.Generic;
     using System.Data;
-    using Core;
+    using Rhino.Etl.Core;
+    using Rhino.Etl.Core.Infrastructure;
+    using Xunit;
 
+    [Collection("Dsl")]
     public class InputTimeoutFixture : BaseUserToPeopleTest
     {
         [Fact]

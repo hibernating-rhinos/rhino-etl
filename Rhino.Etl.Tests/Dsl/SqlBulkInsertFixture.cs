@@ -1,13 +1,12 @@
-using Rhino.Etl.Core.Infrastructure;
-
 namespace Rhino.Etl.Tests.Dsl
 {
     using System.Collections.Generic;
     using System.Data;
-    using Core;
+    using Rhino.Etl.Core;
+    using Rhino.Etl.Core.Infrastructure;
     using Xunit;
 
-    
+    [Collection("Dsl")]
     public class SqlBulkInsertFixture : BaseUserToPeopleTest
     {
         [Fact]

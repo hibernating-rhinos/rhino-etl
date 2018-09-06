@@ -1,14 +1,12 @@
-using Rhino.Etl.Core.Infrastructure;
-
 namespace Rhino.Etl.Tests.Dsl
 {
     using System.Collections.Generic;
     using System.Data;
-    using Core;
+    using Rhino.Etl.Core;
+    using Rhino.Etl.Core.Infrastructure;
     using Xunit;
-    using Rhino.Etl.Dsl;
 
-    
+    [Collection("Dsl")]
     public class HashJoinFixture : BaseUserToPeopleTest
     {
         [Fact]
@@ -37,9 +35,9 @@ namespace Rhino.Etl.Tests.Dsl
                     roles.Add(reader.GetString(0));
                 }
             });
-            Assert.Equal("ayende rahien is: admin, janitor, employee, customer", roles[0]);
-            Assert.Equal("foo bar is: janitor", roles[1]);
-            Assert.Equal("gold silver is: janitor, employee", roles[2]);
+            Assert.Equal("ayende rahien is: [admin, janitor, employee, customer]", roles[0]);
+            Assert.Equal("foo bar is: [janitor]", roles[1]);
+            Assert.Equal("gold silver is: [janitor, employee]", roles[2]);
         }
     }
 }
