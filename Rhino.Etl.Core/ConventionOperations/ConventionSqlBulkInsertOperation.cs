@@ -1,16 +1,18 @@
-using System;
-using System.Configuration;
-using Rhino.Etl.Core.Operations;
-
 namespace Rhino.Etl.Core.ConventionOperations
 {
+    using System;
+    using System.Configuration;
+    using Rhino.Etl.Core.Infrastructure;
+    using Rhino.Etl.Core.Operations;
+
     /// <summary>Convertion wrapper around the <see cref="SqlBulkInsertOperation"/>.</summary>
     public class ConventionSqlBulkInsertOperation : SqlBulkInsertOperation
     {
         /// <summary>Creates a new <see cref="ConventionSqlBulkInsertOperation"/></summary>
         /// <param name="connectionStringName"></param>
         /// <param name="targetTable"></param>
-        public ConventionSqlBulkInsertOperation(string connectionStringName, string targetTable) : this(ConfigurationManager.ConnectionStrings[connectionStringName], targetTable)
+        public ConventionSqlBulkInsertOperation(string connectionStringName, string targetTable) 
+            : this(Use.ConnectionString(connectionStringName), targetTable)
         {
         }
 

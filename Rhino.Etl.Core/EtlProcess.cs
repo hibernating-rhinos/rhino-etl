@@ -1,13 +1,12 @@
-using System.Configuration;
-using Rhino.Etl.Core.Infrastructure;
-
 namespace Rhino.Etl.Core
 {
     using System;
     using System.Collections.Generic;
+    using System.Configuration;
     using System.Data;
-    using Operations;
-    using Pipelines;
+    using Rhino.Etl.Core.Infrastructure;
+    using Rhino.Etl.Core.Operations;
+    using Rhino.Etl.Core.Pipelines;
 
     /// <summary>
     /// A single etl process
@@ -134,7 +133,7 @@ namespace Rhino.Etl.Core
         /// <returns></returns>
         protected static T ExecuteScalar<T>(string connectionName, string commandText)
         {
-            return ExecuteScalar<T>(ConfigurationManager.ConnectionStrings[connectionName], commandText);
+            return ExecuteScalar<T>(Use.ConnectionString(connectionName), commandText);
         }
 
         /// <summary>

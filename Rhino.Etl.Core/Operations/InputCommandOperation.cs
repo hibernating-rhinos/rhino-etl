@@ -1,10 +1,9 @@
-using System.Configuration;
-using Rhino.Etl.Core.Infrastructure;
-
 namespace Rhino.Etl.Core.Operations
 {
     using System.Collections.Generic;
+    using System.Configuration;
     using System.Data;
+    using Rhino.Etl.Core.Infrastructure;
 
     /// <summary>
     /// Generic input command operation
@@ -16,7 +15,7 @@ namespace Rhino.Etl.Core.Operations
         /// </summary>
         /// <param name="connectionStringName">Name of the connection string.</param>
         public InputCommandOperation(string connectionStringName)
-            : this(ConfigurationManager.ConnectionStrings[connectionStringName])
+            : this(Use.ConnectionString(connectionStringName))
         {
         }
 

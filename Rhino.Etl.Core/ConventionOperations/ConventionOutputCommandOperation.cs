@@ -1,11 +1,9 @@
-using System.Configuration;
-
 namespace Rhino.Etl.Core.ConventionOperations
 {
-    using System;
-    using System.Collections;
+    using System.Configuration;
     using System.Data;
-    using Operations;
+    using Rhino.Etl.Core.Infrastructure;
+    using Rhino.Etl.Core.Operations;
 
     /// <summary>
     /// A convention based version of <see cref="OutputCommandOperation"/>. Will
@@ -21,7 +19,7 @@ namespace Rhino.Etl.Core.ConventionOperations
         /// </summary>
         /// <param name="connectionStringName">Name of the connection string.</param>
         public ConventionOutputCommandOperation(string connectionStringName)
-            : this(ConfigurationManager.ConnectionStrings[connectionStringName])
+            : this(Use.ConnectionString(connectionStringName))
         {
         }
 

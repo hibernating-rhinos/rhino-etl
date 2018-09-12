@@ -1,8 +1,8 @@
-using System.Configuration;
-
 namespace Rhino.Etl.Core.Operations
 {
     using System.Data;
+    using System.Configuration;
+    using Rhino.Etl.Core.Infrastructure;
 
     /// <summary>
     /// Base class for operations that directly manipulate ADO.Net
@@ -16,7 +16,7 @@ namespace Rhino.Etl.Core.Operations
         /// </summary>
         /// <param name="connectionStringName">Name of the connection string.</param>
         protected AbstractCommandOperation(string connectionStringName)
-            : this(ConfigurationManager.ConnectionStrings[connectionStringName])
+            : this(Use.ConnectionString(connectionStringName))
         {
         }
 

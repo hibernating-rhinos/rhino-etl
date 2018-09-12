@@ -1,11 +1,10 @@
-using System.Configuration;
-using Rhino.Etl.Core.Infrastructure;
-
 namespace Rhino.Etl.Core.Operations
 {
     using System;
     using System.Collections.Generic;
+    using System.Configuration;
     using System.Data.SqlClient;
+    using Rhino.Etl.Core.Infrastructure;
 
     /// <summary>
     /// Perform a batch command against SQL server
@@ -39,7 +38,7 @@ namespace Rhino.Etl.Core.Operations
         /// </summary>
         /// <param name="connectionStringName">Name of the connection string.</param>
         protected SqlBatchOperation(string connectionStringName)
-            : this(ConfigurationManager.ConnectionStrings[connectionStringName])
+            : this(Use.ConnectionString(connectionStringName))
         {            
         }
 

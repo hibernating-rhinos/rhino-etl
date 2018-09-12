@@ -1,9 +1,9 @@
-using System.Configuration;
-
 namespace Rhino.Etl.Core.ConventionOperations
 {
+    using System.Configuration;
     using System.Data;
-    using Operations;
+    using Rhino.Etl.Core.Infrastructure;
+    using Rhino.Etl.Core.Operations;
 
     /// <summary>
     /// A convention based version of <see cref="InputCommandOperation"/>. Will
@@ -36,7 +36,8 @@ namespace Rhino.Etl.Core.ConventionOperations
         /// Initializes a new instance of the <see cref="ConventionInputCommandOperation"/> class.
         /// </summary>
         /// <param name="connectionStringName">Name of the connection string.</param>
-        public ConventionInputCommandOperation(string connectionStringName) : this(ConfigurationManager.ConnectionStrings[connectionStringName])
+        public ConventionInputCommandOperation(string connectionStringName) 
+            : this(Use.ConnectionString(connectionStringName))
         {
             Timeout = 30;
         }
