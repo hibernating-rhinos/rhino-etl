@@ -28,13 +28,6 @@ namespace Rhino.Etl.Core.Infrastructure
         #endregion
 
         /// <summary>
-        /// Gets or sets the active connection.
-        /// </summary>
-        /// <value>The active connection.</value>
-        [ThreadStatic]
-        private static IDbConnection ActiveConnection;
-
-        /// <summary>
         /// Gets or sets the active transaction.
         /// </summary>
         /// <value>The active transaction.</value>
@@ -145,9 +138,10 @@ namespace Rhino.Etl.Core.Infrastructure
             StartTransaction(connectionStringSettings, isolationLevel);
             try
             {
-                using (IDbCommand command = ActiveConnection.CreateCommand())
+                var transaction = ActiveTransaction;
+                using (IDbCommand command = transaction.Connection.CreateCommand())
                 {
-                    command.Transaction = ActiveTransaction;
+                    command.Transaction = transaction;
                     actionToExecute(command);
                 }
                 CommitTransaction();
@@ -170,8 +164,13 @@ namespace Rhino.Etl.Core.Infrastructure
         {
             if (TransactionCounter <= 0)
             {
-                ActiveConnection.Dispose();
-                ActiveConnection = null;
+                var transaction = ActiveTransaction;
+                if (transaction != null)
+                {
+                    var connection = transaction.Connection;
+                    transaction.Dispose();
+                    connection.Dispose();
+                }
             }
         }
 
@@ -180,10 +179,23 @@ namespace Rhino.Etl.Core.Infrastructure
         /// </summary>
         private static void RollbackTransaction()
         {
-            ActiveTransaction.Rollback();
-            ActiveTransaction.Dispose();
-            ActiveTransaction = null;
-            TransactionCounter = 0;
+            var transaction = ActiveTransaction;
+            if (transaction != null)
+            {
+                var connection = transaction.Connection;
+                try
+                {
+                    transaction.Rollback();
+                }
+                finally
+                {
+                    ActiveTransaction = null;
+                    TransactionCounter = 0;
+
+                    transaction.Dispose();
+                    connection.Dispose();
+                }
+            }
         }
 
         /// <summary>
@@ -192,11 +204,23 @@ namespace Rhino.Etl.Core.Infrastructure
         private static void CommitTransaction()
         {
             TransactionCounter--;
-            if (TransactionCounter == 0 && ActiveTransaction != null)
+
+            var transaction = ActiveTransaction;
+            if (TransactionCounter <= 0 && transaction != null)
             {
-                ActiveTransaction.Commit();
-                ActiveTransaction.Dispose();
-                ActiveTransaction = null;
+                var connection = transaction.Connection;
+                try
+                {
+                    transaction.Commit();
+                }
+                finally
+                {
+                    ActiveTransaction = null;
+                    TransactionCounter = 0;
+
+                    transaction.Dispose();
+                    connection.Dispose();
+                }
             }
         }
 
@@ -210,8 +234,8 @@ namespace Rhino.Etl.Core.Infrastructure
             if (TransactionCounter <= 0)
             {
                 TransactionCounter = 0;
-                ActiveConnection = Connection(connectionStringSettings);
-                ActiveTransaction = ActiveConnection.BeginTransaction(isolation);
+                var connection = Connection(connectionStringSettings);
+                ActiveTransaction = connection.BeginTransaction(isolation);
             }
             TransactionCounter++;
         }
