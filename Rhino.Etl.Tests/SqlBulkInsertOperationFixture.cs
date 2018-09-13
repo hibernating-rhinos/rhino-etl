@@ -11,28 +11,32 @@ namespace Rhino.Etl.Tests
         [Fact]
         public void CanInsertToDatabaseFromInMemoryCollection()
         {
-            BulkInsertFibonacciToDatabase fibonacci = new BulkInsertFibonacciToDatabase(25, Should.WorkFine);
-            fibonacci.Execute();
-
-            Assert25ThFibonacci();
+            using (var fibonacci = new BulkInsertFibonacciToDatabase(25, Should.WorkFine))
+            {
+                fibonacci.Execute();
+                Assert25ThFibonacci();
+            }
         }
 
         [Fact]
         public void CanInsertToDatabaseFromConnectionStringSettingsAndInMemoryCollection()
         {
-            BulkInsertFibonacciToDatabaseFromConnectionStringSettings fibonacci = new BulkInsertFibonacciToDatabaseFromConnectionStringSettings(25, Should.WorkFine);
-            fibonacci.Execute();
-
-            Assert25ThFibonacci();
+            using (var fibonacci = new BulkInsertFibonacciToDatabaseFromConnectionStringSettings(25, Should.WorkFine))
+            {
+                fibonacci.Execute();
+                Assert25ThFibonacci();
+            }
         }
 
         [Fact]
         public void WhenErrorIsThrownWillRollbackTransaction()
         {
-            BulkInsertFibonacciToDatabase fibonaci = new BulkInsertFibonacciToDatabase(25, Should.Throw);
-            fibonaci.Execute();
-            Assert.Single(new List<Exception>(fibonaci.GetAllErrors()));
-            AssertFibonacciTableEmpty();
+            using (var fibonacci = new BulkInsertFibonacciToDatabase(25, Should.Throw))
+            {
+                fibonacci.Execute();
+                Assert.Single(new List<Exception>(fibonacci.GetAllErrors()));
+                AssertFibonacciTableEmpty();
+            }
         }
     }
 
@@ -41,20 +45,22 @@ namespace Rhino.Etl.Tests
         [Fact]
         public void CheckNotifyBatchSizeTakenFromBatchSize()
         {
-            FibonacciBulkInsert fibonacci = new FibonacciBulkInsert();
-            fibonacci.BatchSize = 50;
-
-            Assert.Equal(fibonacci.BatchSize, fibonacci.NotifyBatchSize);
+            using (var fibonacci = new FibonacciBulkInsert())
+            {
+                fibonacci.BatchSize = 50;
+                Assert.Equal(fibonacci.BatchSize, fibonacci.NotifyBatchSize);
+            }
         }
 
         [Fact]
         public void CheckNotifyBatchSizeNotTakenFromBatchSize()
         {
-            FibonacciBulkInsert fibonacci = new FibonacciBulkInsert();
-            fibonacci.BatchSize = 50;
-            fibonacci.NotifyBatchSize = 25;
-
-            Assert.Equal(25, fibonacci.NotifyBatchSize);
+            using (var fibonacci = new FibonacciBulkInsert())
+            {
+                fibonacci.BatchSize = 50;
+                fibonacci.NotifyBatchSize = 25;
+                Assert.Equal(25, fibonacci.NotifyBatchSize);
+            }
         }
     }
 }
