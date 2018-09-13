@@ -1,3 +1,4 @@
+#if FEATURE_FILEHELPERS_DYNAMIC
 namespace Rhino.Etl.Tests.UsingDAL
 {
     using System;
@@ -33,3 +34,4 @@ namespace Rhino.Etl.Tests.UsingDAL
         }
     }
 }
+#endif

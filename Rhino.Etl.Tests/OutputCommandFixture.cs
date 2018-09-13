@@ -2,9 +2,8 @@ namespace Rhino.Etl.Tests
 {
     using System;
     using System.Collections.Generic;
+    using Rhino.Etl.Tests.Fibonacci.Output;
     using Xunit;
-    using Fibonacci.Output;
-
     
     public class OutputCommandFixture : BaseFibonacciTest
     {
@@ -73,7 +72,7 @@ namespace Rhino.Etl.Tests
         {
             OutputFibonacciToDatabase fibonaci = new OutputFibonacciToDatabase(25, Should.Throw);
             fibonaci.Execute();
-            Assert.Equal(1, new List<Exception>(fibonaci.GetAllErrors()).Count);
+            Assert.Single(new List<Exception>(fibonaci.GetAllErrors()));
             AssertFibonacciTableEmpty();
         }
     }

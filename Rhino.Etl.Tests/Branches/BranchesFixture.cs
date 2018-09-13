@@ -4,10 +4,9 @@ namespace Rhino.Etl.Tests.Branches
     using Rhino.Etl.Core;
     using Rhino.Etl.Core.Infrastructure;
     using Xunit;
-    using Xunit.Sdk;
 
     public abstract class BranchesFixture : BaseFibonacciTest
-    {
+   {
         [Fact]
         public void CanBranchThePipeline()
         {
@@ -38,14 +37,14 @@ namespace Rhino.Etl.Tests.Branches
 
         protected abstract EtlProcess CreateBranchingProcess(int iterations, int childOperations);
 
-        protected static void AssertFibonacci(int iterations, int repetitionsPerIteration)
+        protected void AssertFibonacci(int iterations, int repetitionsPerIteration)
         {
             AssertTotalItems(iterations * repetitionsPerIteration);
 
             AssertRepetitions(repetitionsPerIteration);
         }
 
-        private static void AssertRepetitions(int repetitionsPerIteration)
+        private void AssertRepetitions(int repetitionsPerIteration)
         {
             int wrongRepetitions = Use.Transaction("test", cmd =>
             {
@@ -63,13 +62,13 @@ string.Format(@"    SELECT count(*)
             Assert.Equal(1 /* 1 is repetated twice the others */, wrongRepetitions);
         }
 
-        private static void AssertTotalItems(int expectedCount)
+        private void AssertTotalItems(int expectedCount)
         {
             int totalCount = Use.Transaction("test", cmd =>
-                                                     {
-                                                         cmd.CommandText = "SELECT count(*) FROM Fibonacci";
-                                                         return (int) cmd.ExecuteScalar();
-                                                     });
+                 {
+                     cmd.CommandText = "SELECT count(*) FROM Fibonacci";
+                     return (int) cmd.ExecuteScalar();
+                 });
             
             Assert.Equal(expectedCount, totalCount);
         }

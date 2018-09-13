@@ -1,7 +1,8 @@
+#if FEATURE_SQLCOMMANDSET
 namespace Rhino.Etl.Tests.LoadTest
 {
     using System.Data.SqlClient;
-    using Core;
+    using Rhino.Etl.Core;
     using Rhino.Etl.Core.Operations;
 
     public class BatchUpdateUserNames : SqlBatchOperation
@@ -24,3 +25,4 @@ namespace Rhino.Etl.Tests.LoadTest
         }
     }
 }
+#endif

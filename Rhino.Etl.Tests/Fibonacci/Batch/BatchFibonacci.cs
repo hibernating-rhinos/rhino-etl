@@ -1,12 +1,14 @@
+#if FEATURE_SQLCOMMANDSET
 namespace Rhino.Etl.Tests.Fibonacci.Batch
 {
-    using Core;
-    using Errors;
-    using Output;
+    using Rhino.Etl.Core;
+    using Rhino.Etl.Tests.Errors;
+    using Rhino.Etl.Tests.Fibonacci.Output;
 
     public class BatchFibonacci : EtlProcess
     {
         private readonly int max;
+
         protected int Max
         {
             get
@@ -42,3 +44,4 @@ namespace Rhino.Etl.Tests.Fibonacci.Batch
         }
     }
 }
+#endif

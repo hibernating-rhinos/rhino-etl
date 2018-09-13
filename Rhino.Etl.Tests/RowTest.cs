@@ -123,7 +123,7 @@ namespace Rhino.Etl.Tests
         public void Does_not_generate_column_for_CompilerGeneratedAttribute_tagged_items()
         {
             Row row = Row.FromObject(new DummyRow { Dummy = "Dummy" });
-            Assert.Equal(1, row.Columns.Count());
+            Assert.Single(row.Columns);
         }
         
         private class DummyRow

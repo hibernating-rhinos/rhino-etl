@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net452</TargetFrameworks>
+    <TargetFrameworks>net451;netcoreapp2.0</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0" />
-    <PackageReference Include="RhinoMocks" Version="3.6.1" />
+    <PackageReference Include="NSubstitute" Version="3.1.0" />
     <PackageReference Include="xunit" Version="2.4.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0">
       <PrivateAssets>all</PrivateAssets>
@@ -19,29 +19,11 @@
     <ProjectReference Include="..\Rhino.Etl.Core\Rhino.Etl.Core.csproj" />
     <ProjectReference Include="..\Rhino.Etl.Dsl\Rhino.Etl.Dsl.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <None Update="Dsl\Aggregate.boo">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Dsl\InnerHashJoin.boo">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Dsl\InnerJoin.boo">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Dsl\InputTimeout.boo">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Dsl\UsersToPeople.boo">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Dsl\UsersToPeopleBulk.boo">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Dsl\WireOnFinishedProcessingEvent.boo">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Dsl\WireRowProcessedEvent.boo">
+  <ItemGroup Condition="'$(FeatureDsl)' != 'True'">
+    <Compile Remove="Dsl\*.*" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(FeatureDsl)' == 'True'">
+    <None Update="Dsl\*.boo">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

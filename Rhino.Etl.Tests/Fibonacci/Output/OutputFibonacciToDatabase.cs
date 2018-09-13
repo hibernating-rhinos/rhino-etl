@@ -1,7 +1,7 @@
 namespace Rhino.Etl.Tests.Fibonacci.Output
 {
-    using Core;
-    using Errors;
+    using Rhino.Etl.Core;
+    using Rhino.Etl.Tests.Errors;
 
     public class OutputFibonacciToDatabase : EtlProcess
     {

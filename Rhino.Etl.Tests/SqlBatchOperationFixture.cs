@@ -1,18 +1,18 @@
+#if FEATURE_SQLCOMMANDSET
 namespace Rhino.Etl.Tests
 {
     using System;
     using System.Collections.Generic;
-    using Xunit;
     using Rhino.Etl.Tests.Fibonacci.Batch;
     using Rhino.Etl.Tests.Fibonacci.Output;
+    using Xunit;
 
-    
     public class SqlBatchOperationFixture : BaseFibonacciTest
     {
         [Fact]
         public void CanInsertToDatabaseFromInMemoryCollection()
         {
-            BatchFibonacci fibonaci = new BatchFibonacci(25,Should.WorkFine);
+            BatchFibonacci fibonaci = new BatchFibonacci(25, Should.WorkFine);
             fibonaci.Execute();
 
             Assert25ThFibonacci();
@@ -41,8 +41,9 @@ namespace Rhino.Etl.Tests
         {
             BatchFibonacci fibonaci = new BatchFibonacci(25, Should.Throw);
             fibonaci.Execute();
-            Assert.Equal(1, new List<Exception>(fibonaci.GetAllErrors()).Count);
+            Assert.Single(new List<Exception>(fibonaci.GetAllErrors()));
             AssertFibonacciTableEmpty();
         }
     }
 }
+#endif

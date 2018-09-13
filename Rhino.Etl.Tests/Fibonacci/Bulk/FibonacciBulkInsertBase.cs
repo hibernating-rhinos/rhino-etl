@@ -1,8 +1,8 @@
-using System.Configuration;
-using Rhino.Etl.Core.Operations;
-
 namespace Rhino.Etl.Tests.Fibonacci.Bulk
 {
+    using System.Configuration;
+    using Rhino.Etl.Core.Operations;
+
     public abstract class FibonacciBulkInsertBase : SqlBulkInsertOperation
     {
         protected FibonacciBulkInsertBase(string connectionString)

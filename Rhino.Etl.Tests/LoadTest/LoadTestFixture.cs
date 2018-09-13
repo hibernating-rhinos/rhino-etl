@@ -20,13 +20,13 @@ namespace Rhino.Etl.Tests.LoadTest
                 push.Execute();
         }
 
-        public void AssertUpdatedAllRows()
+        protected void AssertUpdatedAllRows()
         {
             Assert.Equal(expectedCount + currentUserCount, GetUserCount("testMsg is not null"));
 
         }
 
-        private static int GetUserCount(string where)
+        private int GetUserCount(string where)
         {
             return Use.Transaction<int>("test", delegate(IDbCommand command)
             {
@@ -46,6 +46,7 @@ namespace Rhino.Etl.Tests.LoadTest
             AssertUpdatedAllRows();
         }
 
+#if FEATURE_SQLCOMMANDSET
         [Fact]
         public void CanBatchUpdateAllUsersToUpperCase()
         {
@@ -57,6 +58,7 @@ namespace Rhino.Etl.Tests.LoadTest
 
             AssertUpdatedAllRows();
         }
+#endif
 
         [Fact]
         public void BulkInsertUpdatedRows()

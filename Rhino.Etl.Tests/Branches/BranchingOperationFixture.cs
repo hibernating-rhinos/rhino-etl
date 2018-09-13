@@ -1,14 +1,9 @@
-using Rhino.Etl.Core;
-using Rhino.Etl.Core.Operations;
-using Rhino.Mocks;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using Xunit;
-
 namespace Rhino.Etl.Tests.Branches
 {
+    using System.Linq;
+    using Rhino.Etl.Core.Operations;
+    using Xunit;
+
     public class BranchingOperationFixture
     {
         [Fact]

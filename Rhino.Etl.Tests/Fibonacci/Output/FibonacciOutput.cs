@@ -1,9 +1,7 @@
-using System.Configuration;
-
 namespace Rhino.Etl.Tests.Fibonacci.Output
 {
+    using System.Configuration;
     using Rhino.Etl.Core.ConventionOperations;
-    using Rhino.Etl.Core.Operations;
 
     public class FibonacciOutput : ConventionOutputCommandOperation
     {

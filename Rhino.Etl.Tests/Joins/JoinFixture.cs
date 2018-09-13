@@ -19,7 +19,7 @@ namespace Rhino.Etl.Tests.Joins
                 IEnumerable<Row> result = join.Execute(null);
                 List<Row> items = new List<Row>(result);
 
-                Assert.Equal(1, items.Count);
+                Assert.Single(items);
                 Assert.Equal(3, items[0]["person_id"]);
             }
         }
@@ -94,7 +94,7 @@ namespace Rhino.Etl.Tests.Joins
                 IEnumerable<Row> result = join.Execute(null);
                 List<Row> items = new List<Row>(result);
 
-                Assert.Equal(1, items.Count);
+                Assert.Single(items);
                 Assert.Equal(3, items[0]["person_id"]);
             }
         }

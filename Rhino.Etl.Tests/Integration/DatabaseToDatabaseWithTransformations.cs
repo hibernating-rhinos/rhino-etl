@@ -1,5 +1,6 @@
 namespace Rhino.Etl.Tests.Integration
 {
+    using System.Collections.Generic;
     using System.Data;
     using Rhino.Etl.Core.Infrastructure;
     using Xunit;
@@ -12,7 +13,7 @@ namespace Rhino.Etl.Tests.Integration
             using(UsersToPeople process = new UsersToPeople())
                 process.Execute();
             
-            System.Collections.Generic.List<string[]> names = Use.Transaction<System.Collections.Generic.List<string[]>>("test", delegate(IDbCommand cmd)
+            System.Collections.Generic.List<string[]> names = Use.Transaction<List<string[]>>("test", delegate(IDbCommand cmd)
             {
                 System.Collections.Generic.List<string[]> tuples = new System.Collections.Generic.List<string[]>();
                 cmd.CommandText = "SELECT firstname, lastname from people order by userid";
@@ -34,7 +35,7 @@ namespace Rhino.Etl.Tests.Integration
             using (UsersToPeopleFromConnectionStringSettings process = new UsersToPeopleFromConnectionStringSettings())
                 process.Execute();
 
-            System.Collections.Generic.List<string[]> names = Use.Transaction<System.Collections.Generic.List<string[]>>("test", delegate(IDbCommand cmd)
+            System.Collections.Generic.List<string[]> names = Use.Transaction<List<string[]>>("test", delegate(IDbCommand cmd)
             {
                 System.Collections.Generic.List<string[]> tuples = new System.Collections.Generic.List<string[]>();
                 cmd.CommandText = "SELECT firstname, lastname from people order by userid";

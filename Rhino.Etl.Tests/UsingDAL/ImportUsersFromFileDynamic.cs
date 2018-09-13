@@ -1,6 +1,7 @@
+#if FEATURE_FILEHELPERS_DYNAMIC
 namespace Rhino.Etl.Tests.UsingDAL
 {
-    using Core;
+    using Rhino.Etl.Core;
 
     public class ImportUsersFromFileDynamic : EtlProcess
     {
@@ -11,3 +12,4 @@ namespace Rhino.Etl.Tests.UsingDAL
         }
     }
 }
+#endif

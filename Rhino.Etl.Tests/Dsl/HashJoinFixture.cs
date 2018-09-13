@@ -6,8 +6,7 @@ namespace Rhino.Etl.Tests.Dsl
     using Rhino.Etl.Core.Infrastructure;
     using Xunit;
 
-    [Collection("Dsl")]
-    public class HashJoinFixture : BaseUserToPeopleTest
+    public class HashJoinFixture : BaseUserToPeopleDslTest
     {
         [Fact]
         public void CanCompile()

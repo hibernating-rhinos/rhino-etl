@@ -2,7 +2,6 @@ namespace Rhino.Etl.Tests.Joins
 {
     using System.Collections.Generic;
     using Core;
-    using Xunit;
 
     public class BaseJoinFixture
     {

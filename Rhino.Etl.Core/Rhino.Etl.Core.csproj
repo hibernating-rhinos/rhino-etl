@@ -1,14 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net451</TargetFrameworks>
+    <TargetFrameworks>net451;netstandard2.0</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Boo" Version="0.9.4" />
     <PackageReference Include="Common.Logging" Version="3.4.1" />
     <PackageReference Include="FileHelpers" Version="3.3.0" />
+    <PackageReference Include="Boo" Version="0.9.4" Condition="'$(FeatureDsl)' == 'True'"/>
+    <PackageReference Include="Westwind.Utilities" Version="3.0.20.1" Condition="'$(FeatureWestwind)' == 'True'"/>
   </ItemGroup>
-  <ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.5.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.5.1" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net451'">
     <Reference Include="System.Configuration" />
   </ItemGroup>
 </Project>

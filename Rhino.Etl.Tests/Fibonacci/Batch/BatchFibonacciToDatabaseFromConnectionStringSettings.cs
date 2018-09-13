@@ -1,16 +1,14 @@
-using System.Configuration;
-
+#if FEATURE_SQLCOMMANDSET
 namespace Rhino.Etl.Tests.Fibonacci.Batch
 {
-    using System.Data.SqlClient;
-    using Core;
-    using Rhino.Etl.Core.Operations;
+    using Rhino.Etl.Core.Infrastructure;
 
     public class BatchFibonacciToDatabaseFromConnectionStringSettings : BatchFibonacciToDatabaseBase
     {
         public BatchFibonacciToDatabaseFromConnectionStringSettings()
-            : base(ConfigurationManager.ConnectionStrings["test"])
+            : base(Use.ConnectionString("test"))
         {
         }
     }
 }
+#endif

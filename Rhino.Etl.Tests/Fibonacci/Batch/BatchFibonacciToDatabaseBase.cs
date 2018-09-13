@@ -1,9 +1,9 @@
-using System.Configuration;
-
+#if FEATURE_SQLCOMMANDSET
 namespace Rhino.Etl.Tests.Fibonacci.Batch
 {
+    using System.Configuration;
     using System.Data.SqlClient;
-    using Core;
+    using Rhino.Etl.Core;
     using Rhino.Etl.Core.Operations;
 
     public abstract class BatchFibonacciToDatabaseBase : SqlBatchOperation
@@ -30,3 +30,4 @@ namespace Rhino.Etl.Tests.Fibonacci.Batch
         }
     }
 }
+#endif

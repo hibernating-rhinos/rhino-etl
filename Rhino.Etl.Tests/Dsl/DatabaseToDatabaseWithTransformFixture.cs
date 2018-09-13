@@ -6,8 +6,7 @@ namespace Rhino.Etl.Tests.Dsl
     using Rhino.Etl.Core.Infrastructure;
     using Xunit;
 
-    [Collection("Dsl")]
-    public class DatabaseToDatabaseWithTransformFixture : BaseUserToPeopleTest
+    public class DatabaseToDatabaseWithTransformFixture : BaseUserToPeopleDslTest
     {
         [Fact]
         public void CanCompile()

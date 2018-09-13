@@ -1,13 +1,20 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rhino.Etl.Core", "Rhino.Etl.Core\Rhino.Etl.Core.csproj", "{DC42946E-5972-411C-A061-F2932E49C31F}"
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2003
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rhino.Etl.Core", "Rhino.Etl.Core\Rhino.Etl.Core.csproj", "{DC42946E-5972-411C-A061-F2932E49C31F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rhino.Etl.Tests", "Rhino.Etl.Tests\Rhino.Etl.Tests.csproj", "{A1519C4F-3C25-4484-B3D2-2266C133754E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rhino.Etl.Tests", "Rhino.Etl.Tests\Rhino.Etl.Tests.csproj", "{A1519C4F-3C25-4484-B3D2-2266C133754E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rhino.Etl.Dsl", "Rhino.Etl.Dsl\Rhino.Etl.Dsl.csproj", "{D087E051-C099-468D-A3E7-4567DBBDFE69}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rhino.Etl.Dsl", "Rhino.Etl.Dsl\Rhino.Etl.Dsl.csproj", "{D087E051-C099-468D-A3E7-4567DBBDFE69}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rhino.Etl.Cmd", "Rhino.Etl.Cmd\Rhino.Etl.Cmd.csproj", "{AAD5286D-943E-472A-A861-8C6F155C8712}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rhino.Etl.Cmd", "Rhino.Etl.Cmd\Rhino.Etl.Cmd.csproj", "{AAD5286D-943E-472A-A861-8C6F155C8712}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{AA7F142C-530C-4AEF-AD11-A9DD89957ADB}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.Props = Directory.Build.Props
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,5 +41,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {95335EA7-C238-4C73-B764-A9F5EA3864DD}
 	EndGlobalSection
 EndGlobal

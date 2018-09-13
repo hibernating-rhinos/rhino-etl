@@ -1,7 +1,7 @@
 namespace Rhino.Etl.Tests.Dsl
 {
     using System.Collections.Generic;
-    using Core;
+    using Rhino.Etl.Core;
     using Rhino.Etl.Core.Operations;
 
     public class ResultsToList : AbstractOperation

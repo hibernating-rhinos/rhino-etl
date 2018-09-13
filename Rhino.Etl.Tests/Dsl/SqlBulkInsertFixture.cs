@@ -6,8 +6,7 @@ namespace Rhino.Etl.Tests.Dsl
     using Rhino.Etl.Core.Infrastructure;
     using Xunit;
 
-    [Collection("Dsl")]
-    public class SqlBulkInsertFixture : BaseUserToPeopleTest
+    public class SqlBulkInsertFixture : BaseUserToPeopleDslTest
     {
         [Fact]
         public void CanCompile()

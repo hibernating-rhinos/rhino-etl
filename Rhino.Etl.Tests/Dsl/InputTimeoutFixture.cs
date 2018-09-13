@@ -6,8 +6,7 @@
     using Rhino.Etl.Core.Infrastructure;
     using Xunit;
 
-    [Collection("Dsl")]
-    public class InputTimeoutFixture : BaseUserToPeopleTest
+    public class InputTimeoutFixture : BaseUserToPeopleDslTest
     {
         [Fact]
         public void CanCompile()

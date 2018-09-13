@@ -1,8 +1,8 @@
 namespace Rhino.Etl.Tests.Fibonacci.Bulk
 {
-    using Core;
-    using Errors;
-    using Output;
+    using Rhino.Etl.Core;
+    using Rhino.Etl.Tests.Errors;
+    using Rhino.Etl.Tests.Fibonacci.Output;
 
     public class BulkInsertFibonacciToDatabaseFromConnectionStringSettings : EtlProcess
     {

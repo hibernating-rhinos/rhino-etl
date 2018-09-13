@@ -1,12 +1,19 @@
-using System.Data;
-using Xunit;
-using Rhino.Etl.Core.Infrastructure;
-
 namespace Rhino.Etl.Tests
 {
-    [Collection("FibonacciTest")]
+    using System.Data;
+    using Rhino.Etl.Core.Infrastructure;
+    using Xunit;
+
+    [CollectionDefinition(Name, DisableParallelization = true)]
+    public class FibonacciTestCollection : ICollectionFixture<TestDatabaseFixture>
+    {
+        public const string Name = "FibonacciTest";
+    }
+
+    [Collection(FibonacciTestCollection.Name)]
     public class BaseFibonacciTest
     {
+
         public BaseFibonacciTest()
         {
             Use.Transaction("test", delegate(IDbCommand cmd)
@@ -21,7 +28,7 @@ create table Fibonacci ( id int );
             });
         }
 
-        protected static void Assert25ThFibonacci()
+        protected void Assert25ThFibonacci()
         {
             int max = Use.Transaction("test", delegate(IDbCommand cmd)
             {
@@ -31,7 +38,7 @@ create table Fibonacci ( id int );
             Assert.Equal(75025, max);
         }
 
-        protected static void AssertFibonacciTableEmpty()
+        protected void AssertFibonacciTableEmpty()
         {
             int count = Use.Transaction("test", delegate(IDbCommand cmd)
             {

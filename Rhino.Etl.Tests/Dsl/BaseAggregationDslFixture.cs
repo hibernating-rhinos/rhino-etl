@@ -1,13 +1,13 @@
-namespace Rhino.Etl.Tests.Aggregation
+namespace Rhino.Etl.Tests.Dsl
 {
     using System.Collections.Generic;
-    using Core;
+    using Rhino.Etl.Core;
 
-    public class BaseAggregationFixture : BaseDslTest
+    public class BaseAggregationDslFixture : BaseDslTest
     {
         protected List<Row> rows;
 
-        public BaseAggregationFixture()
+        public BaseAggregationDslFixture()
         {
             rows = new List<Row>();
             AddRow("milk", 15);
