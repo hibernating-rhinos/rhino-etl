@@ -57,7 +57,7 @@ namespace Rhino.Etl.Core.Infrastructure
             {
                 // ADO.NET compatible usage of provider name.
 #if FEATURE_WESTWIND
-                connection = Westwind.Utilities.DataUtils.GetDbProviderFactory(connectionString.ProviderName).CreateConnection();
+                connection = Westwind.Utilities.DataUtils.GetDbProviderFactory(connectionString.ProviderName.ToLowerInvariant()).CreateConnection();
 #else
                 connection = DbProviderFactories.GetFactory(connectionString.ProviderName).CreateConnection();
 #endif
