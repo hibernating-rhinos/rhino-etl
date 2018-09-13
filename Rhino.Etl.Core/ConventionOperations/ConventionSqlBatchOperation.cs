@@ -1,3 +1,4 @@
+#if FEATURE_SQLCOMMANDSET
 namespace Rhino.Etl.Core.ConventionOperations
 {
     using System.Data.SqlClient;
@@ -40,3 +41,4 @@ namespace Rhino.Etl.Core.ConventionOperations
         }
     }
 }
+#endif
