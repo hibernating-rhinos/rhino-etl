@@ -8,6 +8,10 @@ namespace Rhino.Etl.Tests.Errors
     
     public class ErrorsFixture : BaseFibonacciTest
     {
+        public ErrorsFixture(TestDatabaseFixture testDatabase) 
+            : base(testDatabase)
+        { }
+
         [Fact]
         public void WillReportErrorsWhenThrown()
         {

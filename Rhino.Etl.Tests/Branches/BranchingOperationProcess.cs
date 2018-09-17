@@ -1,12 +1,10 @@
-﻿using Rhino.Etl.Core;
-using Rhino.Etl.Core.Operations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Rhino.Etl.Tests.Branches
+﻿namespace Rhino.Etl.Tests.Branches
 {
+    using System;
+    using System.Collections.Generic;
+    using Rhino.Etl.Core;
+    using Rhino.Etl.Core.Operations;
+
     internal class BranchingOperationProcess<T> : EtlProcess where T : AbstractBranchingOperation, new()
     {
         protected override void Initialize()
@@ -41,8 +39,7 @@ namespace Rhino.Etl.Tests.Branches
     {
         public Subtract(bool withErrors)
             : base(withErrors)
-        {
-        }
+        { }
 
         public override IEnumerable<Row> Execute(IEnumerable<Row> rows)
         {
@@ -72,8 +69,7 @@ namespace Rhino.Etl.Tests.Branches
     {
         public Add(bool withErrors)
             : base(withErrors)
-        {
-        }
+        { }
 
         public override IEnumerable<Row> Execute(IEnumerable<Row> rows)
         {

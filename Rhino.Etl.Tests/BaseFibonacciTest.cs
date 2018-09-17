@@ -1,6 +1,5 @@
 namespace Rhino.Etl.Tests
 {
-    using System.Data;
     using Rhino.Etl.Core.Infrastructure;
     using Xunit;
 
@@ -13,10 +12,13 @@ namespace Rhino.Etl.Tests
     [Collection(FibonacciTestCollection.Name)]
     public class BaseFibonacciTest
     {
+        public TestDatabaseFixture TestDatabase { get; }
 
-        public BaseFibonacciTest()
+        public BaseFibonacciTest(TestDatabaseFixture testDatabase)
         {
-            Use.Transaction("test", delegate(IDbCommand cmd)
+            this.TestDatabase = testDatabase;
+
+            Use.Transaction(TestDatabase.ConnectionStringName, cmd =>
             {
                 cmd.CommandText =
                     @"
@@ -30,7 +32,7 @@ create table Fibonacci ( id int );
 
         protected void Assert25ThFibonacci()
         {
-            int max = Use.Transaction("test", delegate(IDbCommand cmd)
+            int max = Use.Transaction(TestDatabase.ConnectionStringName, cmd =>
             {
                 cmd.CommandText = "SELECT MAX(id) FROM Fibonacci";
                 return (int) cmd.ExecuteScalar();
@@ -40,7 +42,7 @@ create table Fibonacci ( id int );
 
         protected void AssertFibonacciTableEmpty()
         {
-            int count = Use.Transaction("test", delegate(IDbCommand cmd)
+            int count = Use.Transaction(TestDatabase.ConnectionStringName, cmd =>
             {
                 cmd.CommandText = "SELECT count(id) FROM Fibonacci";
                 return (int) cmd.ExecuteScalar();

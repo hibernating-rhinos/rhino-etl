@@ -6,9 +6,9 @@ operation split_name_bulk:
         yield row
     
 process UsersToPeopleBulk:
-    input "test", Command = "SELECT id, name, email  FROM Users"
+    input "etltest_dsl", Command = "SELECT id, name, email  FROM Users"
     split_name_bulk()
-    sqlBulkInsert "test", "People", TableLock = true :
+    sqlBulkInsert "etltest_dsl", "People", TableLock = true :
         map "id", int
         map "firstname"
         map "lastname"

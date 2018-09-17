@@ -7,15 +7,21 @@ namespace Rhino.Etl.Tests.Integration
     
     public class DatabaseToDatabaseWithTransformations : BaseUserToPeopleTest
     {
+        public DatabaseToDatabaseWithTransformations(TestDatabaseFixture testDatabase)
+            : base(testDatabase)
+        { }
+
         [Fact]
         public void CanCopyTableWithTransform()
         {
-            using(UsersToPeople process = new UsersToPeople())
-                process.Execute();
-            
-            System.Collections.Generic.List<string[]> names = Use.Transaction<List<string[]>>("test", delegate(IDbCommand cmd)
+            using (UsersToPeople process = new UsersToPeople(TestDatabase.ConnectionStringName))
             {
-                System.Collections.Generic.List<string[]> tuples = new System.Collections.Generic.List<string[]>();
+                process.Execute();
+            }
+
+            List<string[]> names = Use.Transaction(TestDatabase.ConnectionStringName, cmd =>
+            {
+                List<string[]> tuples = new List<string[]>();
                 cmd.CommandText = "SELECT firstname, lastname from people order by userid";
                 using (IDataReader reader = cmd.ExecuteReader())
                 {
@@ -32,12 +38,14 @@ namespace Rhino.Etl.Tests.Integration
         [Fact]
         public void CanCopyTableWithTransformFromConnectionStringSettings()
         {
-            using (UsersToPeopleFromConnectionStringSettings process = new UsersToPeopleFromConnectionStringSettings())
-                process.Execute();
-
-            System.Collections.Generic.List<string[]> names = Use.Transaction<List<string[]>>("test", delegate(IDbCommand cmd)
+            using (var process = new UsersToPeople(TestDatabase.ConnectionString))
             {
-                System.Collections.Generic.List<string[]> tuples = new System.Collections.Generic.List<string[]>();
+                process.Execute();
+            }
+
+            List<string[]> names = Use.Transaction(TestDatabase.ConnectionStringName, cmd =>
+            {
+                List<string[]> tuples = new List<string[]>();
                 cmd.CommandText = "SELECT firstname, lastname from people order by userid";
                 using (IDataReader reader = cmd.ExecuteReader())
                 {

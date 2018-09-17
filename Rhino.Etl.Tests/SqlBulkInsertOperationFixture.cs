@@ -8,44 +8,55 @@ namespace Rhino.Etl.Tests
 
     public class SqlBulkInsertOperationFixture : BaseFibonacciTest
     {
+        public SqlBulkInsertOperationFixture(TestDatabaseFixture testDatabase) 
+            : base(testDatabase)
+        { }
+
         [Fact]
         public void CanInsertToDatabaseFromInMemoryCollection()
         {
-            using (var fibonacci = new BulkInsertFibonacciToDatabase(25, Should.WorkFine))
+            using (var fibonacci = new BulkInsertFibonacciToDatabase(TestDatabase.ConnectionStringName, 25, Should.WorkFine))
             {
                 fibonacci.Execute();
-                Assert25ThFibonacci();
             }
+
+            Assert25ThFibonacci();
         }
 
         [Fact]
         public void CanInsertToDatabaseFromConnectionStringSettingsAndInMemoryCollection()
         {
-            using (var fibonacci = new BulkInsertFibonacciToDatabaseFromConnectionStringSettings(25, Should.WorkFine))
+            using (var fibonacci = new BulkInsertFibonacciToDatabase(TestDatabase.ConnectionString, 25, Should.WorkFine))
             {
                 fibonacci.Execute();
-                Assert25ThFibonacci();
             }
+
+            Assert25ThFibonacci();
         }
 
         [Fact]
         public void WhenErrorIsThrownWillRollbackTransaction()
         {
-            using (var fibonacci = new BulkInsertFibonacciToDatabase(25, Should.Throw))
+            using (var fibonacci = new BulkInsertFibonacciToDatabase(TestDatabase.ConnectionString, 25, Should.Throw))
             {
                 fibonacci.Execute();
                 Assert.Single(new List<Exception>(fibonacci.GetAllErrors()));
-                AssertFibonacciTableEmpty();
             }
+
+            AssertFibonacciTableEmpty();
         }
     }
 
     public class BulkInsertNotificationTests : BaseFibonacciTest
     {
+        public BulkInsertNotificationTests(TestDatabaseFixture testDatabase) 
+            : base(testDatabase)
+        { }
+
         [Fact]
         public void CheckNotifyBatchSizeTakenFromBatchSize()
         {
-            using (var fibonacci = new FibonacciBulkInsert())
+            using (var fibonacci = new FibonacciBulkInsert(TestDatabase.ConnectionStringName))
             {
                 fibonacci.BatchSize = 50;
                 Assert.Equal(fibonacci.BatchSize, fibonacci.NotifyBatchSize);
@@ -55,7 +66,7 @@ namespace Rhino.Etl.Tests
         [Fact]
         public void CheckNotifyBatchSizeNotTakenFromBatchSize()
         {
-            using (var fibonacci = new FibonacciBulkInsert())
+            using (var fibonacci = new FibonacciBulkInsert(TestDatabase.ConnectionStringName))
             {
                 fibonacci.BatchSize = 50;
                 fibonacci.NotifyBatchSize = 25;

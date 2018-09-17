@@ -1,23 +1,25 @@
 namespace Rhino.Etl.Tests.LoadTest
 {
-    using Core;
+    using Rhino.Etl.Core;
 
     public class PushDataToDatabase : EtlProcess
     {
-        public PushDataToDatabase(int expectedCount)
-        {
-            this.expectedCount = expectedCount;
-        }
+        private readonly string _connectionStringName;
+        private readonly int _expectedCount;
 
-        private int expectedCount;
+        public PushDataToDatabase(string connectionStringName, int expectedCount)
+        {
+            _connectionStringName = connectionStringName;
+            _expectedCount = expectedCount;
+        }
 
         /// <summary>
         /// Initializes this instance.
         /// </summary>
         protected override void Initialize()
         {
-            Register(new GenerateUsers(expectedCount));
-            Register(new BulkInsertUsers());
+            Register(new GenerateUsers(_expectedCount));
+            Register(new BulkInsertUsers(_connectionStringName));
         }
     }
 }

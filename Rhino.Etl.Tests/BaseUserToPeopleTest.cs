@@ -1,7 +1,6 @@
 namespace Rhino.Etl.Tests
 {
     using System.Collections.Generic;
-    using System.Data;
     using Rhino.Etl.Core.Infrastructure;
     using Xunit;
 
@@ -14,9 +13,13 @@ namespace Rhino.Etl.Tests
     [Collection(UserToPeopleTestCollection.Name)]
     public class BaseUserToPeopleTest
     {
-        public BaseUserToPeopleTest()
+        public TestDatabaseFixture TestDatabase { get; }
+
+        public BaseUserToPeopleTest(TestDatabaseFixture testDatabase)
         {
-            Use.Transaction("test", delegate(IDbCommand cmd)
+            this.TestDatabase = testDatabase;
+
+            Use.Transaction(TestDatabase.ConnectionStringName, cmd =>
             {
                 cmd.CommandText =
                     @"

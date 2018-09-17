@@ -5,7 +5,8 @@ namespace Rhino.Etl.Tests.Fibonacci.Output
 
     public class FibonacciOutput : ConventionOutputCommandOperation
     {
-        public FibonacciOutput() : base("test")
+        public FibonacciOutput(string connectionStringName) 
+            : base(connectionStringName)
         {
             Command = "INSERT INTO Fibonacci (Id) VALUES(@Id)";
         }

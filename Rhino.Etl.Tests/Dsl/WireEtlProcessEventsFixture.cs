@@ -5,9 +5,12 @@ namespace Rhino.Etl.Tests.Dsl
     using Rhino.Etl.Tests.Joins;
     using Xunit;
 
-    [Collection("Dsl")]
     public class WireEtlProcessEventsFixture : BaseAggregationDslFixture
     {
+        public WireEtlProcessEventsFixture(DslTestDatabaseFixture testDatabase) 
+            : base(testDatabase)
+        { }
+
         [Fact]
         public void CanCompileWithRowProcessedEvent()
         {
@@ -33,7 +36,9 @@ namespace Rhino.Etl.Tests.Dsl
         public void CanCompileWithFinishedProcessingEvent()
         {
             using (var process = CreateDslInstance("Dsl/WireOnFinishedProcessingEvent.boo"))
+            {
                 Assert.NotNull(process);
+            }
         }
 
         [Fact]

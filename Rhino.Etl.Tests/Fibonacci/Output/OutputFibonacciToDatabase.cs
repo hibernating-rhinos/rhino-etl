@@ -1,5 +1,6 @@
 namespace Rhino.Etl.Tests.Fibonacci.Output
 {
+    using System.Configuration;
     using Rhino.Etl.Core;
     using Rhino.Etl.Tests.Errors;
 
@@ -7,13 +8,21 @@ namespace Rhino.Etl.Tests.Fibonacci.Output
     {
         private readonly int max;
         private readonly Should should;
-        public readonly ThrowingOperation ThrowingOperation = new ThrowingOperation();
-        public readonly FibonacciOutput OutputOperation = new FibonacciOutput();
+        public ThrowingOperation ThrowingOperation { get; } = new ThrowingOperation();
+        public FibonacciOutput OutputOperation { get; }
 
-        public OutputFibonacciToDatabase(int max, Should should)
+        public OutputFibonacciToDatabase(string connectionStringName, int max, Should should)
         {
             this.max = max;
             this.should = should;
+            this.OutputOperation = new FibonacciOutput(connectionStringName);
+        }
+
+        public OutputFibonacciToDatabase(ConnectionStringSettings connectionString, int max, Should should)
+        {
+            this.max = max;
+            this.should = should;
+            this.OutputOperation = new FibonacciOutput(connectionString);
         }
 
         /// <summary>

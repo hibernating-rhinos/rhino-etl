@@ -7,7 +7,8 @@ namespace Rhino.Etl.Tests.Dsl
     {
         protected List<Row> rows;
 
-        public BaseAggregationDslFixture()
+        public BaseAggregationDslFixture(DslTestDatabaseFixture testDatabase) 
+            : base(testDatabase)
         {
             rows = new List<Row>();
             AddRow("milk", 15);

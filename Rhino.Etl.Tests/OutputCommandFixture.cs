@@ -7,11 +7,18 @@ namespace Rhino.Etl.Tests
     
     public class OutputCommandFixture : BaseFibonacciTest
     {
+        /// <inheritdoc />
+        public OutputCommandFixture(TestDatabaseFixture testDatabase) 
+            : base(testDatabase)
+        { }
+
         [Fact]
         public void CanInsertToDatabaseFromInMemoryCollection()
         {
-            OutputFibonacciToDatabase fibonaci = new OutputFibonacciToDatabase(25, Should.WorkFine);
-            fibonaci.Execute();
+            using (var fibonacci = new OutputFibonacciToDatabase(TestDatabase.ConnectionStringName, 25, Should.WorkFine))
+            {
+                fibonacci.Execute();
+            }
 
             Assert25ThFibonacci();
         }
@@ -19,8 +26,10 @@ namespace Rhino.Etl.Tests
         [Fact]
         public void CanInsertToDatabaseFromConnectionStringSettingsAndInMemoryCollection()
         {
-            OutputFibonacciToDatabaseFromConnectionStringSettings fibonaci = new OutputFibonacciToDatabaseFromConnectionStringSettings(25, Should.WorkFine);
-            fibonaci.Execute();
+            using (var fibonacci = new OutputFibonacciToDatabase(TestDatabase.ConnectionString, 25, Should.WorkFine))
+            {
+                fibonacci.Execute();
+            }
 
             Assert25ThFibonacci();
         }
@@ -30,10 +39,10 @@ namespace Rhino.Etl.Tests
         {
             int rowsProcessed = 0;
 
-            using (OutputFibonacciToDatabase fibonaci = new OutputFibonacciToDatabase(1, Should.WorkFine))
+            using (OutputFibonacciToDatabase fibonacci = new OutputFibonacciToDatabase(TestDatabase.ConnectionStringName, 1, Should.WorkFine))
             {
-                fibonaci.OutputOperation.OnRowProcessed += delegate { rowsProcessed++; };
-                fibonaci.Execute();
+                fibonacci.OutputOperation.OnRowProcessed += delegate { rowsProcessed++; };
+                fibonacci.Execute();
             }
 
             Assert.Equal(1, rowsProcessed);
@@ -44,12 +53,12 @@ namespace Rhino.Etl.Tests
         {
             int rowsProcessed = 0;
 
-            using (OutputFibonacciToDatabase fibonaci = new OutputFibonacciToDatabase(25, Should.Throw))
+            using (OutputFibonacciToDatabase fibonacci = new OutputFibonacciToDatabase(TestDatabase.ConnectionStringName, 25, Should.Throw))
             {
-                fibonaci.OutputOperation.OnRowProcessed += delegate { rowsProcessed++; };
-                fibonaci.Execute();
+                fibonacci.OutputOperation.OnRowProcessed += delegate { rowsProcessed++; };
+                fibonacci.Execute();
 
-                Assert.Equal(fibonaci.ThrowingOperation.RowsAfterWhichToThrow, rowsProcessed);
+                Assert.Equal(fibonacci.ThrowingOperation.RowsAfterWhichToThrow, rowsProcessed);
             }
         }
 
@@ -58,10 +67,10 @@ namespace Rhino.Etl.Tests
         {
             int finished = 0;
 
-            using (OutputFibonacciToDatabase fibonaci = new OutputFibonacciToDatabase(1, Should.WorkFine))
+            using (OutputFibonacciToDatabase fibonacci = new OutputFibonacciToDatabase(TestDatabase.ConnectionStringName, 1, Should.WorkFine))
             {
-                fibonaci.OutputOperation.OnFinishedProcessing += delegate { finished++; };
-                fibonaci.Execute();
+                fibonacci.OutputOperation.OnFinishedProcessing += delegate { finished++; };
+                fibonacci.Execute();
             }
 
             Assert.Equal(1, finished);
@@ -70,9 +79,12 @@ namespace Rhino.Etl.Tests
         [Fact]
         public void WhenErrorIsThrownWillRollbackTransaction()
         {
-            OutputFibonacciToDatabase fibonaci = new OutputFibonacciToDatabase(25, Should.Throw);
-            fibonaci.Execute();
-            Assert.Single(new List<Exception>(fibonaci.GetAllErrors()));
+            using (var fibonacci = new OutputFibonacciToDatabase(TestDatabase.ConnectionStringName, 25, Should.Throw))
+            {
+                fibonacci.Execute();
+                Assert.Single(new List<Exception>(fibonacci.GetAllErrors()));
+            }
+
             AssertFibonacciTableEmpty();
         }
     }

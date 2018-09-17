@@ -7,8 +7,8 @@ namespace Rhino.Etl.Tests.LoadTest
 
     public class BatchUpdateUserNames : SqlBatchOperation
     {
-        public BatchUpdateUserNames()
-            : base("test")
+        public BatchUpdateUserNames(string connectionStringName)
+            : base(connectionStringName)
         {
         }
 

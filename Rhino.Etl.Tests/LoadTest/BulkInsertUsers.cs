@@ -4,8 +4,8 @@ namespace Rhino.Etl.Tests.LoadTest
 
     public class BulkInsertUsers : SqlBulkInsertOperation
     {
-        public BulkInsertUsers()
-            : base("test", "Users")
+        public BulkInsertUsers(string connectionStringName)
+            : base(connectionStringName, "Users")
         {
         }
 

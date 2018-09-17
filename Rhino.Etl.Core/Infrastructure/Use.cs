@@ -151,27 +151,6 @@ namespace Rhino.Etl.Core.Infrastructure
                 RollbackTransaction();
                 throw;
             }
-            finally
-            {
-                DisposeTransaction();
-            }
-        }
-
-        /// <summary>
-        /// Disposes the transaction.
-        /// </summary>
-        private static void DisposeTransaction()
-        {
-            if (TransactionCounter <= 0)
-            {
-                var transaction = ActiveTransaction;
-                if (transaction != null)
-                {
-                    var connection = transaction.Connection;
-                    transaction.Dispose();
-                    connection.Dispose();
-                }
-            }
         }
 
         /// <summary>
@@ -204,10 +183,13 @@ namespace Rhino.Etl.Core.Infrastructure
         private static void CommitTransaction()
         {
             TransactionCounter--;
+            if (TransactionCounter != 0) return;
 
             var transaction = ActiveTransaction;
-            if (TransactionCounter <= 0 && transaction != null)
+            if (transaction != null)
             {
+                ActiveTransaction = null;
+
                 var connection = transaction.Connection;
                 try
                 {
@@ -215,9 +197,6 @@ namespace Rhino.Etl.Core.Infrastructure
                 }
                 finally
                 {
-                    ActiveTransaction = null;
-                    TransactionCounter = 0;
-
                     transaction.Dispose();
                     connection.Dispose();
                 }

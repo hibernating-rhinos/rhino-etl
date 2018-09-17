@@ -7,15 +7,16 @@ namespace Rhino.Etl.Tests.Dsl
     using Rhino.Etl.Dsl;
     using Xunit;
 
-    [CollectionDefinition(Name, DisableParallelization = true)]
-    public class DslTestCollection : ICollectionFixture<TestDatabaseFixture>
-    {
-        public const string Name = "DslTest";
-    }
-
     [Collection(DslTestCollection.Name)]
     public class BaseDslTest
     {
+        public BaseDslTest(DslTestDatabaseFixture testDatabase)
+        {
+            this.TestDatabase = testDatabase;
+        }
+
+        public TestDatabaseFixture TestDatabase { get; }
+
         protected static EtlProcess CreateDslInstance(string url)
         {
             var baseDir = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);

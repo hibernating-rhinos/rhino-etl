@@ -1,15 +1,15 @@
 namespace Rhino.Etl.Tests.Dsl
 {
     using System.Collections.Generic;
-    using System.Data;
     using Rhino.Etl.Core.Infrastructure;
     using Xunit;
 
     public class BaseUserToPeopleDslTest : BaseDslTest
     {
-        public BaseUserToPeopleDslTest()
+        public BaseUserToPeopleDslTest(DslTestDatabaseFixture testDatabase)
+            : base(testDatabase)
         {
-            Use.Transaction("test", delegate(IDbCommand cmd)
+            Use.Transaction(TestDatabase.ConnectionString, cmd =>
             {
                 cmd.CommandText =
                     @"

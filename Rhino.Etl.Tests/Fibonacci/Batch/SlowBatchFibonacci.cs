@@ -7,28 +7,15 @@ namespace Rhino.Etl.Tests.Fibonacci.Batch
 
     public class SlowBatchFibonacci : EtlProcess
     {
-        private readonly int max;
-        protected int Max
-        {
-            get
-            {
-                return max;
-            }
-        }
+        private readonly string _connectionStringName;
+        private readonly int _max;
+        private readonly Should _should;
 
-        private readonly Should should;
-        protected Should Should
+        public SlowBatchFibonacci(string connectionStringName, int max, Should should)
         {
-            get
-            {
-                return should;
-            }
-        }
-
-        public SlowBatchFibonacci(int max, Should should)
-        {
-            this.max = max;
-            this.should = should;
+            _connectionStringName = connectionStringName;
+            _max = max;
+            _should = should;
         }
 
         /// <summary>
@@ -36,10 +23,10 @@ namespace Rhino.Etl.Tests.Fibonacci.Batch
         /// </summary>
         protected override void Initialize()
         {
-            Register(new FibonacciOperation(max));
-            if (should == Should.Throw)
+            Register(new FibonacciOperation(_max));
+            if (_should == Should.Throw)
                 Register(new ThrowingOperation());
-            Register(new SlowBatchFibonacciToDatabase());
+            Register(new SlowBatchFibonacciToDatabase(_connectionStringName));
         }
     }
 }

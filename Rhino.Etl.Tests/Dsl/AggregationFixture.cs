@@ -6,6 +6,10 @@ namespace Rhino.Etl.Tests.Dsl
 
     public class AggregationFixture : BaseAggregationDslFixture
     {
+        public AggregationFixture(DslTestDatabaseFixture testDatabase) 
+            : base(testDatabase)
+        { }
+
         [Fact]
         public void CanCompile()
         {

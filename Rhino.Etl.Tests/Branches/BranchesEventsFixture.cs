@@ -10,8 +10,8 @@ namespace Rhino.Etl.Tests.Branches
 
     public class BranchEventsFixture
     {
-        public Action<IOperation, Row> processAction = delegate { };
-        public Action<IOperation> finishedAction = delegate { };
+        private readonly Action<IOperation, Row> _processAction = delegate { };
+        private readonly Action<IOperation> _finishedAction = delegate { };
 
         [Fact]
         public void CanPassOnAddedProcessedEvents()
@@ -27,12 +27,12 @@ namespace Rhino.Etl.Tests.Branches
             }
 
             //Act
-            branching.OnRowProcessed += processAction;
+            branching.OnRowProcessed += _processAction;
 
             //Assert
             foreach (var op in ops)
             {
-                op.Received(1).OnRowProcessed += processAction;
+                op.Received(1).OnRowProcessed += _processAction;
             }
 
             Assert.Equal(2, GetEventHandlers(branching, nameof(branching.OnRowProcessed)).Length);
@@ -50,11 +50,11 @@ namespace Rhino.Etl.Tests.Branches
                 branching.Add(ops[i]);
             }
 
-            branching.OnFinishedProcessing += finishedAction;
+            branching.OnFinishedProcessing += _finishedAction;
 
             foreach (var op in ops)
             {
-                op.Received(1).OnFinishedProcessing += finishedAction;
+                op.Received(1).OnFinishedProcessing += _finishedAction;
             }
 
             Assert.Equal(2, GetEventHandlers(branching, nameof(branching.OnFinishedProcessing)).Length);
@@ -74,14 +74,14 @@ namespace Rhino.Etl.Tests.Branches
             }
 
             //Act
-            branching.OnRowProcessed += processAction;
-            branching.OnRowProcessed -= processAction;
+            branching.OnRowProcessed += _processAction;
+            branching.OnRowProcessed -= _processAction;
 
             //Assert
             foreach (var op in ops)
             {
-                op.Received(1).OnRowProcessed += processAction;
-                op.Received(1).OnRowProcessed -= processAction;
+                op.Received(1).OnRowProcessed += _processAction;
+                op.Received(1).OnRowProcessed -= _processAction;
             }
 
             Assert.Single(GetEventHandlers(branching, nameof(branching.OnRowProcessed)));
@@ -99,13 +99,13 @@ namespace Rhino.Etl.Tests.Branches
                 branching.Add(ops[i]);
             }
 
-            branching.OnFinishedProcessing += finishedAction;
-            branching.OnFinishedProcessing -= finishedAction;
+            branching.OnFinishedProcessing += _finishedAction;
+            branching.OnFinishedProcessing -= _finishedAction;
 
             foreach (var op in ops)
             {
-                op.Received(1).OnFinishedProcessing += finishedAction;
-                op.Received(1).OnFinishedProcessing -= finishedAction;
+                op.Received(1).OnFinishedProcessing += _finishedAction;
+                op.Received(1).OnFinishedProcessing -= _finishedAction;
             }
 
             Assert.Single(GetEventHandlers(branching, nameof(branching.OnFinishedProcessing)));

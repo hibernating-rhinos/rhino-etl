@@ -1,35 +1,29 @@
 #if FEATURE_SQLCOMMANDSET
 namespace Rhino.Etl.Tests.Fibonacci.Batch
 {
+    using System.Configuration;
     using Rhino.Etl.Core;
     using Rhino.Etl.Tests.Errors;
     using Rhino.Etl.Tests.Fibonacci.Output;
 
     public class BatchFibonacci : EtlProcess
     {
-        private readonly int max;
+        private readonly BatchFibonacciToDatabase _batchFibonacciToDatabase;
+        private readonly int _max;
+        private readonly Should _should;
 
-        protected int Max
+        public BatchFibonacci(string connectionStringName, int max, Should should)
         {
-            get
-            {
-                return max;
-            }
+            _max = max;
+            _should = should;
+            _batchFibonacciToDatabase = new BatchFibonacciToDatabase(connectionStringName);
         }
 
-        private readonly Should should;
-        protected Should Should
+        public BatchFibonacci(ConnectionStringSettings connectionString, int max, Should should)
         {
-            get
-            {
-                return should;
-            }
-        }
-
-        public BatchFibonacci(int max, Should should)
-        {
-            this.max = max;
-            this.should = should;
+            _max = max;
+            _should = should;
+            _batchFibonacciToDatabase = new BatchFibonacciToDatabase(connectionString);
         }
 
         /// <summary>
@@ -37,10 +31,10 @@ namespace Rhino.Etl.Tests.Fibonacci.Batch
         /// </summary>
         protected override void Initialize()
         {
-            Register(new FibonacciOperation(max));
-            if (should == Should.Throw)
+            Register(new FibonacciOperation(_max));
+            if (_should == Should.Throw)
                 Register(new ThrowingOperation());
-            Register(new BatchFibonacciToDatabase());
+            Register(_batchFibonacciToDatabase);
         }
     }
 }
