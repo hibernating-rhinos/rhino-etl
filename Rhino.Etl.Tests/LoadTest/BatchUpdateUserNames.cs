@@ -1,4 +1,3 @@
-#if FEATURE_SQLCOMMANDSET
 namespace Rhino.Etl.Tests.LoadTest
 {
     using System.Data.SqlClient;
@@ -25,4 +24,3 @@ namespace Rhino.Etl.Tests.LoadTest
         }
     }
 }
-#endif

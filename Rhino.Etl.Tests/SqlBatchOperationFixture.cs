@@ -1,4 +1,3 @@
-#if FEATURE_SQLCOMMANDSET
 namespace Rhino.Etl.Tests
 {
     using System;
@@ -59,4 +58,3 @@ namespace Rhino.Etl.Tests
         }
     }
 }
-#endif

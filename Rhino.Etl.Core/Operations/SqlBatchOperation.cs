@@ -1,4 +1,3 @@
-#if FEATURE_SQLCOMMANDSET
 namespace Rhino.Etl.Core.Operations
 {
     using System;
@@ -124,4 +123,3 @@ namespace Rhino.Etl.Core.Operations
         }
     }
 }
-#endif

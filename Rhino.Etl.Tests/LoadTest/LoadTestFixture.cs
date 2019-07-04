@@ -48,7 +48,6 @@ namespace Rhino.Etl.Tests.LoadTest
             AssertUpdatedAllRows();
         }
 
-#if FEATURE_SQLCOMMANDSET
         [Fact]
         public void CanBatchUpdateAllUsersToUpperCase()
         {
@@ -60,7 +59,6 @@ namespace Rhino.Etl.Tests.LoadTest
 
             AssertUpdatedAllRows();
         }
-#endif
 
         [Fact]
         public void BulkInsertUpdatedRows()

@@ -1,4 +1,3 @@
-#if FEATURE_SQLCOMMANDSET
 namespace Rhino.Etl.Tests.Fibonacci.Batch
 {
     using System.Data.SqlClient;
@@ -19,4 +18,3 @@ namespace Rhino.Etl.Tests.Fibonacci.Batch
         }
     }
 }
-#endif
