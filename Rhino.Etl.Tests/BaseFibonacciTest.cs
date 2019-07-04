@@ -1,6 +1,7 @@
 namespace Rhino.Etl.Tests
 {
-    using Rhino.Etl.Core.Infrastructure;
+	using System;
+	using Rhino.Etl.Core.Infrastructure;
     using Xunit;
 
     [CollectionDefinition(Name, DisableParallelization = true)]
@@ -32,20 +33,22 @@ create table Fibonacci ( id int );
 
         protected void Assert25ThFibonacci()
         {
-            int max = Use.Transaction(TestDatabase.ConnectionStringName, cmd =>
+            int? max = Use.Transaction(TestDatabase.ConnectionStringName, cmd =>
             {
                 cmd.CommandText = "SELECT MAX(id) FROM Fibonacci";
-                return (int) cmd.ExecuteScalar();
+                var result = cmd.ExecuteScalar();
+                return result is DBNull ? default(int?) : (int)result;
             });
             Assert.Equal(75025, max);
         }
 
         protected void AssertFibonacciTableEmpty()
         {
-            int count = Use.Transaction(TestDatabase.ConnectionStringName, cmd =>
+            var count = Use.Transaction(TestDatabase.ConnectionStringName, cmd =>
             {
                 cmd.CommandText = "SELECT count(id) FROM Fibonacci";
-                return (int) cmd.ExecuteScalar();
+                var result = cmd.ExecuteScalar();
+                return result is DBNull ? default(int?) : (int)result;
             });
             Assert.Equal(0, count);
         }

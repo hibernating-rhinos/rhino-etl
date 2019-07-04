@@ -77,14 +77,14 @@ namespace Rhino.Etl.Core.Operations
                         command.Parameters.AddWithValue(guid.ToString(), guid);
                     }
                     commandSet.Append(command);
-                    if (commandSet.CountOfCommands >= batchSize)
+                    if (commandSet.CommandCount >= batchSize)
                     {
-                        Debug("Executing batch of {0} commands", commandSet.CountOfCommands);
+                        Debug("Executing batch of {0} commands", commandSet.CommandCount);
                         commandSet.ExecuteNonQuery();
                         CreateCommandSet(connection, transaction, ref commandSet, timeout);
                     }
                 }
-                Debug("Executing final batch of {0} commands", commandSet.CountOfCommands);
+                Debug("Executing final batch of {0} commands", commandSet.CommandCount);
                 commandSet.ExecuteNonQuery();
 
                 if (PipelineExecuter.HasErrors)
