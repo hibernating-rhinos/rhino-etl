@@ -1,14 +1,14 @@
 
 join get_user_roles:
     left:
-        input "test", Command = "SELECT id, name, email  FROM Users"
+        input "etltest_dsl", Command = "SELECT id, name, email  FROM Users"
         
     right:
         join:
             left:
-                input "test", Command = "SELECT id, name FROM Roles"
+                input "etltest_dsl", Command = "SELECT id, name FROM Roles"
             right:
-                input "test", Command = "SELECT userid, roleid FROM User2Role"
+                input "etltest_dsl", Command = "SELECT userid, roleid FROM User2Role"
             
             on Equals(left.id, right.roleid):
                 row.Name = left.Name
@@ -32,10 +32,10 @@ process merge_user_roles:
             aggregate.rolesList.Add(row.role)
         
         terminate:
-            aggregate.roles = aggregate.name + " is: " +string.Join(", ", aggregate.rolesList.ToArray(string))
+            aggregate.roles = aggregate.name + " is: " + string.Join(", ", aggregate.rolesList)
         
             
-    output "test", Command = """
+    output "etltest_dsl", Command = """
         UPDATE Users
         SET roles = @roles
         WHERE Id = @userid

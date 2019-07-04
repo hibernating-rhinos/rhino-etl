@@ -1,120 +1,127 @@
-using System;
-using System.Collections.Generic;
-using System.Reflection;
-using Rhino.Etl.Core;
-using Rhino.Etl.Core.Operations;
-using Rhino.Mocks;
-using Xunit;
-
 namespace Rhino.Etl.Tests.Branches
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Reflection;
+    using NSubstitute;
+    using Rhino.Etl.Core;
+    using Rhino.Etl.Core.Operations;
+    using Xunit;
+
     public class BranchEventsFixture
     {
-
-        public Action<IOperation, Row> processAction = delegate    { };
-        public Action<IOperation> finishedAction = delegate    { };
+        private readonly Action<IOperation, Row> _processAction = delegate { };
+        private readonly Action<IOperation> _finishedAction = delegate { };
 
         [Fact]
-        public void    CanPassOnAddedProcessedEvents()
+        public void CanPassOnAddedProcessedEvents()
         {
             //Arrange
-            var    branching =    new    TestAbstractBranchingOperation();
+            var branching = new TestAbstractBranchingOperation();
             const int nOps = 5;
-            var    ops    = new IOperation[nOps];
-            for    (var i = 0;    i <    nOps; i++)
+            var ops = new IOperation[nOps];
+            for (var i = 0; i < nOps; i++)
             {
-                ops[i] = MockRepository.GenerateMock<IOperation>();
-                ops[i].Expect(x    => x.OnRowProcessed    += processAction);
+                ops[i] = Substitute.For<IOperation>();
                 branching.Add(ops[i]);
             }
 
             //Act
-            branching.OnRowProcessed +=    processAction;
+            branching.OnRowProcessed += _processAction;
 
             //Assert
-            foreach(var    op in ops)
-                op.VerifyAllExpectations();
-            var    handlerInfos = typeof(AbstractOperation).GetField("OnRowProcessed",    BindingFlags.Static    | BindingFlags.Instance    | BindingFlags.NonPublic);
-            Assert.Equal(2,    ((Delegate)(handlerInfos.GetValue(branching))).GetInvocationList().Length);
+            foreach (var op in ops)
+            {
+                op.Received(1).OnRowProcessed += _processAction;
+            }
+
+            Assert.Equal(2, GetEventHandlers(branching, nameof(branching.OnRowProcessed)).Length);
         }
 
         [Fact]
-        public void    CanPassOnAddedFinishedEvents()
+        public void CanPassOnAddedFinishedEvents()
         {
-            var    branching =    new    TestAbstractBranchingOperation();
+            var branching = new TestAbstractBranchingOperation();
             const int nOps = 5;
-            var    ops    = new IOperation[nOps];
-            for    (var i = 0;    i <    nOps; i++)
+            var ops = new IOperation[nOps];
+            for (var i = 0; i < nOps; i++)
             {
-                ops[i] = MockRepository.GenerateMock<IOperation>();
-                ops[i].Expect(x    => x.OnFinishedProcessing += finishedAction);
+                ops[i] = Substitute.For<IOperation>();
                 branching.Add(ops[i]);
             }
 
-            branching.OnFinishedProcessing += finishedAction;
+            branching.OnFinishedProcessing += _finishedAction;
 
-            foreach    (var op    in ops)
-                op.VerifyAllExpectations();
+            foreach (var op in ops)
+            {
+                op.Received(1).OnFinishedProcessing += _finishedAction;
+            }
 
-            var    handlerInfos = typeof(AbstractOperation).GetField("OnFinishedProcessing", BindingFlags.Static |    BindingFlags.Instance |    BindingFlags.NonPublic);
-            Assert.Equal(2,    ((Delegate)(handlerInfos.GetValue(branching))).GetInvocationList().Length);
+            Assert.Equal(2, GetEventHandlers(branching, nameof(branching.OnFinishedProcessing)).Length);
         }
 
         [Fact]
-        public void    CanPassOnRemovedProcessedEvents()
+        public void CanPassOnRemovedProcessedEvents()
         {
             //Arrange
-            var    branching =    new    TestAbstractBranchingOperation();
+            var branching = new TestAbstractBranchingOperation();
             const int nOps = 5;
-            var    ops    = new IOperation[nOps];
-            for    (var i = 0;    i <    nOps; i++)
+            var ops = new IOperation[nOps];
+            for (var i = 0; i < nOps; i++)
             {
-                ops[i] = MockRepository.GenerateMock<IOperation>();
-                ops[i].Expect(x    => x.OnRowProcessed    += processAction);
-                ops[i].Expect(x    => x.OnRowProcessed    -= processAction);
+                ops[i] = Substitute.For<IOperation>();
                 branching.Add(ops[i]);
             }
 
             //Act
-            branching.OnRowProcessed +=    processAction;
-            branching.OnRowProcessed -=    processAction;
+            branching.OnRowProcessed += _processAction;
+            branching.OnRowProcessed -= _processAction;
 
             //Assert
-            foreach    (var op    in ops)
-                op.VerifyAllExpectations();
+            foreach (var op in ops)
+            {
+                op.Received(1).OnRowProcessed += _processAction;
+                op.Received(1).OnRowProcessed -= _processAction;
+            }
 
-            var    handlerInfos = typeof(AbstractOperation).GetField("OnRowProcessed",    BindingFlags.Static    | BindingFlags.Instance    | BindingFlags.NonPublic);
-            Assert.Equal(1,    ((Delegate)(handlerInfos.GetValue(branching))).GetInvocationList().Length);
+            Assert.Single(GetEventHandlers(branching, nameof(branching.OnRowProcessed)));
         }
 
         [Fact]
-        public void    CanPassOnRemovedFinishedEvents()
+        public void CanPassOnRemovedFinishedEvents()
         {
-            var    branching =    new    TestAbstractBranchingOperation();
+            var branching = new TestAbstractBranchingOperation();
             const int nOps = 5;
-            var    ops    = new IOperation[nOps];
-            for    (var i = 0;    i <    nOps; i++)
+            var ops = new IOperation[nOps];
+            for (var i = 0; i < nOps; i++)
             {
-                ops[i] = MockRepository.GenerateMock<IOperation>();
-                ops[i].Expect(x    => x.OnFinishedProcessing += finishedAction);
-                ops[i].Expect(x    => x.OnFinishedProcessing -= finishedAction);
+                ops[i] = Substitute.For<IOperation>();
                 branching.Add(ops[i]);
             }
 
-            branching.OnFinishedProcessing += finishedAction;
-            branching.OnFinishedProcessing -= finishedAction;
+            branching.OnFinishedProcessing += _finishedAction;
+            branching.OnFinishedProcessing -= _finishedAction;
 
-            foreach    (var op    in ops)
-                op.VerifyAllExpectations();
+            foreach (var op in ops)
+            {
+                op.Received(1).OnFinishedProcessing += _finishedAction;
+                op.Received(1).OnFinishedProcessing -= _finishedAction;
+            }
 
-            var    handlerInfos = typeof(AbstractOperation).GetField("OnFinishedProcessing", BindingFlags.Static |    BindingFlags.Instance |    BindingFlags.NonPublic);
-            Assert.Equal(1,    ((Delegate)(handlerInfos.GetValue(branching))).GetInvocationList().Length);
+            Assert.Single(GetEventHandlers(branching, nameof(branching.OnFinishedProcessing)));
+        }
+
+        private static Delegate[] GetEventHandlers(object instance, string eventName)
+        {
+            var field = typeof(AbstractOperation).GetField(eventName, BindingFlags.Static | BindingFlags.Instance | BindingFlags.NonPublic);
+            var eventHandler = (Delegate)field.GetValue(instance);
+            return eventHandler.GetInvocationList();
         }
     }
 
-    public class TestAbstractBranchingOperation    : AbstractBranchingOperation
+    public class TestAbstractBranchingOperation : AbstractBranchingOperation
     {
-        public override    IEnumerable<Row> Execute(IEnumerable<Row> rows)
+        public override IEnumerable<Row> Execute(IEnumerable<Row> rows)
         {
             throw new NotImplementedException();
         }

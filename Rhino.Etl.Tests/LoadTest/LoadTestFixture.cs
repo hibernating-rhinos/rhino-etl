@@ -1,11 +1,7 @@
-using Rhino.Etl.Core.Infrastructure;
-
 namespace Rhino.Etl.Tests.LoadTest
 {
-    using System.Data;
-    using Core;
+    using Rhino.Etl.Core.Infrastructure;
     using Xunit;
-    using Rhino.Etl.Core.Operations;
 
     /// <summary>
     /// This fixture is here to verify that we can handle large amount of data
@@ -14,36 +10,39 @@ namespace Rhino.Etl.Tests.LoadTest
     public class LoadTestFixture : BaseUserToPeopleTest
     {
         private const int expectedCount = 5000;
-        private int currentUserCount;
+        private readonly int _currentUserCount;
 
-        public LoadTestFixture()
+        public LoadTestFixture(TestDatabaseFixture testDatabase)
+            : base(testDatabase)
         {
-            currentUserCount = GetUserCount("1 = 1");
-            using (PushDataToDatabase push = new PushDataToDatabase(expectedCount))
-                push.Execute();
-        }
-
-        public void AssertUpdatedAllRows()
-        {
-            Assert.Equal(expectedCount + currentUserCount, GetUserCount("testMsg is not null"));
-
-        }
-
-        private static int GetUserCount(string where)
-        {
-            return Use.Transaction<int>("test", delegate(IDbCommand command)
+            _currentUserCount = GetUserCount("1 = 1");
+            using (PushDataToDatabase push = new PushDataToDatabase(testDatabase.ConnectionStringName, expectedCount))
             {
-                command.CommandText = "select count(*) from users where " + where;
-                return (int)command.ExecuteScalar();
+                push.Execute();
+            }
+        }
+
+        protected void AssertUpdatedAllRows()
+        {
+            Assert.Equal(expectedCount + _currentUserCount, GetUserCount("testMsg is not null"));
+
+        }
+
+        private int GetUserCount(string where)
+        {
+            return Use.Transaction<int>(TestDatabase.ConnectionStringName, cmd =>
+            {
+                cmd.CommandText = "select count(*) from Users where " + where;
+                return (int)cmd.ExecuteScalar();
             });
         }
 
         [Fact]
         public void CanUpdateAllUsersToUpperCase()
         {
-            using (UpperCaseUserNames update = new UpperCaseUserNames())
+            using (UpperCaseUserNames update = new UpperCaseUserNames(TestDatabase.ConnectionStringName))
             {
-                update.RegisterLast(new UpdateUserNames());
+                update.RegisterLast(new UpdateUserNames(TestDatabase.ConnectionStringName));
                 update.Execute();
             }
             AssertUpdatedAllRows();
@@ -52,9 +51,9 @@ namespace Rhino.Etl.Tests.LoadTest
         [Fact]
         public void CanBatchUpdateAllUsersToUpperCase()
         {
-            using (UpperCaseUserNames update = new UpperCaseUserNames())
+            using (UpperCaseUserNames update = new UpperCaseUserNames(TestDatabase.ConnectionStringName))
             {
-                update.RegisterLast(new BatchUpdateUserNames());
+                update.RegisterLast(new BatchUpdateUserNames(TestDatabase.ConnectionStringName));
                 update.Execute();
             }
 
@@ -67,9 +66,9 @@ namespace Rhino.Etl.Tests.LoadTest
             if(expectedCount != GetUserCount("1 = 1"))
                 return;//ignoring test
 
-            using (UpperCaseUserNames update = new UpperCaseUserNames())
+            using (UpperCaseUserNames update = new UpperCaseUserNames(TestDatabase.ConnectionStringName))
             {
-                update.RegisterLast(new BulkInsertUsers());
+                update.RegisterLast(new BulkInsertUsers(TestDatabase.ConnectionStringName));
                 update.Execute();
             }
 

@@ -1,17 +1,14 @@
-namespace Rhino.Etl.Tests.Aggregation
+namespace Rhino.Etl.Tests.Dsl
 {
-    using System;
     using System.Collections.Generic;
-    using System.IO;
-    using Core;
-    using Xunit;
-    using Rhino.Etl.Dsl;
+    using Rhino.Etl.Core;
 
-    public class BaseAggregationFixture : BaseDslTest
+    public class BaseAggregationDslFixture : BaseDslTest
     {
         protected List<Row> rows;
 
-        public BaseAggregationFixture()
+        public BaseAggregationDslFixture(DslTestDatabaseFixture testDatabase) 
+            : base(testDatabase)
         {
             rows = new List<Row>();
             AddRow("milk", 15);

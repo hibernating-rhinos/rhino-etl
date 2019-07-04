@@ -1,29 +1,34 @@
-using Rhino.Etl.Core.Infrastructure;
-
 namespace Rhino.Etl.Tests.Dsl
 {
     using System.Collections.Generic;
     using System.Data;
-    using Core;
+    using Rhino.Etl.Core.Infrastructure;
     using Xunit;
 
-    
-    public class SqlBulkInsertFixture : BaseUserToPeopleTest
+    public class SqlBulkInsertFixture : BaseUserToPeopleDslTest
     {
+        public SqlBulkInsertFixture(DslTestDatabaseFixture testDatabase) 
+            : base(testDatabase)
+        { }
+
         [Fact]
         public void CanCompile()
         {
-            using (EtlProcess process = CreateDslInstance("Dsl/UsersToPeopleBulk.boo"))
+            using (var process = CreateDslInstance("Dsl/UsersToPeopleBulk.boo"))
+            {
                 Assert.NotNull(process);
+            }
         }
 
         [Fact]
         public void CanCopyTableWithTransform()
         {
-            using (EtlProcess process = CreateDslInstance("Dsl/UsersToPeopleBulk.boo"))
+            using (var process = CreateDslInstance("Dsl/UsersToPeopleBulk.boo"))
+            {
                 process.Execute();
+            }
 
-            List<string[]> names = Use.Transaction<List<string[]>>("test", delegate(IDbCommand cmd)
+            List<string[]> names = Use.Transaction(TestDatabase.ConnectionString, cmd =>
             {
                 List<string[]> tuples = new List<string[]>();
                 cmd.CommandText = "SELECT firstname, lastname from people order by userid";

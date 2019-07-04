@@ -3,12 +3,13 @@ using System.Configuration;
 namespace Rhino.Etl.Tests.Integration
 {
     using System.Data;
-    using Core;
+    using Rhino.Etl.Core;
     using Rhino.Etl.Core.Operations;
 
     public class WritePeople : OutputCommandOperation
     {
-        public WritePeople() : base("test")
+        public WritePeople(string connectionStringName) 
+            : base(connectionStringName)
         {
         }
 

@@ -1,24 +1,24 @@
-using System.Configuration;
-using System.Data.SqlClient;
-using Rhino.Etl.Core.Operations;
-using Rhino.Mocks;
-
 namespace Rhino.Etl.Tests
 {
     using System;
     using System.Collections.Generic;
-    using Xunit;
     using Rhino.Etl.Tests.Fibonacci.Bulk;
     using Rhino.Etl.Tests.Fibonacci.Output;
+    using Xunit;
 
-    
     public class SqlBulkInsertOperationFixture : BaseFibonacciTest
     {
+        public SqlBulkInsertOperationFixture(TestDatabaseFixture testDatabase) 
+            : base(testDatabase)
+        { }
+
         [Fact]
         public void CanInsertToDatabaseFromInMemoryCollection()
         {
-            BulkInsertFibonacciToDatabase fibonacci = new BulkInsertFibonacciToDatabase(25,Should.WorkFine);
-            fibonacci.Execute();
+            using (var fibonacci = new BulkInsertFibonacciToDatabase(TestDatabase.ConnectionStringName, 25, Should.WorkFine))
+            {
+                fibonacci.Execute();
+            }
 
             Assert25ThFibonacci();
         }
@@ -26,8 +26,10 @@ namespace Rhino.Etl.Tests
         [Fact]
         public void CanInsertToDatabaseFromConnectionStringSettingsAndInMemoryCollection()
         {
-            BulkInsertFibonacciToDatabaseFromConnectionStringSettings fibonacci = new BulkInsertFibonacciToDatabaseFromConnectionStringSettings(25, Should.WorkFine);
-            fibonacci.Execute();
+            using (var fibonacci = new BulkInsertFibonacciToDatabase(TestDatabase.ConnectionString, 25, Should.WorkFine))
+            {
+                fibonacci.Execute();
+            }
 
             Assert25ThFibonacci();
         }
@@ -35,32 +37,41 @@ namespace Rhino.Etl.Tests
         [Fact]
         public void WhenErrorIsThrownWillRollbackTransaction()
         {
-            BulkInsertFibonacciToDatabase fibonaci = new BulkInsertFibonacciToDatabase(25, Should.Throw);
-            fibonaci.Execute();
-            Assert.Equal(1, new List<Exception>(fibonaci.GetAllErrors()).Count);
+            using (var fibonacci = new BulkInsertFibonacciToDatabase(TestDatabase.ConnectionString, 25, Should.Throw))
+            {
+                fibonacci.Execute();
+                Assert.Single(new List<Exception>(fibonacci.GetAllErrors()));
+            }
+
             AssertFibonacciTableEmpty();
         }
     }
 
-    public class BulkInsertNotificationTests
+    public class BulkInsertNotificationTests : BaseFibonacciTest
     {
-        [Fact]
-        public void    CheckNotifyBatchSizeTakenFromBatchSize()
-        {
-            FibonacciBulkInsert    fibonacci =    new    FibonacciBulkInsert();
-            fibonacci.BatchSize    = 50;
+        public BulkInsertNotificationTests(TestDatabaseFixture testDatabase) 
+            : base(testDatabase)
+        { }
 
-            Assert.Equal(fibonacci.BatchSize, fibonacci.NotifyBatchSize);
+        [Fact]
+        public void CheckNotifyBatchSizeTakenFromBatchSize()
+        {
+            using (var fibonacci = new FibonacciBulkInsert(TestDatabase.ConnectionStringName))
+            {
+                fibonacci.BatchSize = 50;
+                Assert.Equal(fibonacci.BatchSize, fibonacci.NotifyBatchSize);
+            }
         }
 
         [Fact]
-        public void    CheckNotifyBatchSizeNotTakenFromBatchSize()
+        public void CheckNotifyBatchSizeNotTakenFromBatchSize()
         {
-            FibonacciBulkInsert    fibonacci =    new    FibonacciBulkInsert();
-            fibonacci.BatchSize    = 50;
-            fibonacci.NotifyBatchSize =    25;
-
-            Assert.Equal(25, fibonacci.NotifyBatchSize);
+            using (var fibonacci = new FibonacciBulkInsert(TestDatabase.ConnectionStringName))
+            {
+                fibonacci.BatchSize = 50;
+                fibonacci.NotifyBatchSize = 25;
+                Assert.Equal(25, fibonacci.NotifyBatchSize);
+            }
         }
     }
 }

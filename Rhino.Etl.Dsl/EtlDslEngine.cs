@@ -55,13 +55,32 @@ namespace Rhino.Etl.Dsl
         /// <returns></returns>
         private static string GetFileName(IEnumerable<string> urls)
         {
-            string file = Path.GetTempFileName();
-            foreach (string url in urls)
+            using (var urlEnum = urls.GetEnumerator())
             {
-                file = url;
-                break;
+                if (urlEnum.MoveNext())
+                {
+                    var file = Path.GetFileNameWithoutExtension(urlEnum.Current) + ".dll";
+                    if (TryDeleteFile(file)) return file;
+                }
             }
-            return Path.GetFileNameWithoutExtension(file) + ".dll";
+
+            var tempFile = Path.GetTempFileName();
+            TryDeleteFile(tempFile);
+            return Path.GetFileNameWithoutExtension(tempFile) + ".dll";
+        }
+
+        private static bool TryDeleteFile(string file)
+        {
+            if (!File.Exists(file)) return true;
+            try
+            {
+                File.Delete(file);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         /// <summary>

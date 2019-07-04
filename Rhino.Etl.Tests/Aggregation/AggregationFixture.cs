@@ -1,20 +1,40 @@
 namespace Rhino.Etl.Tests.Aggregation
 {
     using System.Collections.Generic;
-    using Core;
+    using Rhino.Etl.Core;
     using Xunit;
-
     
-    public class AggregationFixture : BaseAggregationFixture
+    public class AggregationFixture
     {
+        private readonly List<Row> _rows;
+
+        public AggregationFixture()
+        {
+            _rows = new List<Row>();
+            AddRow("milk", 15);
+            AddRow("milk", 15);
+            AddRow("sugar", 10);
+            AddRow("sugar", 15);
+            AddRow("coffee", 6);
+            AddRow("sugar", 3);
+        }
+
+        private void AddRow(string name, int price)
+        {
+            Row row = new Row();
+            row["name"] = name;
+            row["price"] = price;
+            _rows.Add(row);
+        }
+
         [Fact]
         public void AggregateRowCount()
         {
             using (RowCount rowCount = new RowCount())
             {
-                IEnumerable<Row> result = rowCount.Execute(rows);
+                IEnumerable<Row> result = rowCount.Execute(_rows);
                 List<Row> items = new List<Row>(result);
-                Assert.Equal(1, items.Count);
+                Assert.Single(items);
                 Assert.Equal(6, items[0]["count"]);
             }
         }
@@ -24,7 +44,7 @@ namespace Rhino.Etl.Tests.Aggregation
         {
             using (CostPerProductAggregation aggregation = new CostPerProductAggregation())
             {
-                IEnumerable<Row> result = aggregation.Execute(rows);
+                IEnumerable<Row> result = aggregation.Execute(_rows);
                 List<Row> items = new List<Row>(result);
                 Assert.Equal(3, items.Count);
                 Assert.Equal("milk", items[0]["name"]);
@@ -42,7 +62,7 @@ namespace Rhino.Etl.Tests.Aggregation
         {
             using (SortedCostPerProductAggregation aggregation = new SortedCostPerProductAggregation())
             {
-                IEnumerable<Row> result = aggregation.Execute(rows);
+                IEnumerable<Row> result = aggregation.Execute(_rows);
                 List<Row> items = new List<Row>(result);
                 Assert.Equal(4, items.Count);
                 Assert.Equal("milk", items[0]["name"]);

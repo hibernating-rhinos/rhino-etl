@@ -2,18 +2,23 @@ namespace Rhino.Etl.Tests
 {
     using System;
     using System.Collections.Generic;
-    using Xunit;
     using Rhino.Etl.Tests.Fibonacci.Batch;
     using Rhino.Etl.Tests.Fibonacci.Output;
+    using Xunit;
 
-    
     public class SqlBatchOperationFixture : BaseFibonacciTest
     {
+        public SqlBatchOperationFixture(TestDatabaseFixture testDatabase) 
+            : base(testDatabase)
+        { }
+
         [Fact]
         public void CanInsertToDatabaseFromInMemoryCollection()
         {
-            BatchFibonacci fibonaci = new BatchFibonacci(25,Should.WorkFine);
-            fibonaci.Execute();
+            using (var fibonacci = new BatchFibonacci(TestDatabase.ConnectionStringName, 25, Should.WorkFine))
+            {
+                fibonacci.Execute();
+            }
 
             Assert25ThFibonacci();
         }
@@ -21,8 +26,10 @@ namespace Rhino.Etl.Tests
         [Fact]
         public void CanInsertToDatabaseFromInMemoryCollectionWithSlowOperation()
         {
-            var fibonaci = new SlowBatchFibonacci(25, Should.WorkFine);
-            fibonaci.Execute();
+            using (var fibonacci = new SlowBatchFibonacci(TestDatabase.ConnectionStringName, 25, Should.WorkFine))
+            {
+                fibonacci.Execute();
+            }
 
             Assert25ThFibonacci();
         }
@@ -30,8 +37,10 @@ namespace Rhino.Etl.Tests
         [Fact]
         public void CanInsertToDatabaseFromConnectionStringSettingsAndInMemoryCollection()
         {
-            BatchFibonacciFromConnectionStringSettings fibonaci = new BatchFibonacciFromConnectionStringSettings(25, Should.WorkFine);
-            fibonaci.Execute();
+            using (var fibonacci = new BatchFibonacci(TestDatabase.ConnectionString, 25, Should.WorkFine))
+            {
+                fibonacci.Execute();
+            }
 
             Assert25ThFibonacci();
         }
@@ -39,9 +48,12 @@ namespace Rhino.Etl.Tests
         [Fact]
         public void WhenErrorIsThrownWillRollbackTransaction()
         {
-            BatchFibonacci fibonaci = new BatchFibonacci(25, Should.Throw);
-            fibonaci.Execute();
-            Assert.Equal(1, new List<Exception>(fibonaci.GetAllErrors()).Count);
+            using (var fibonacci = new BatchFibonacci(TestDatabase.ConnectionStringName,  25, Should.Throw))
+            {
+                fibonacci.Execute();
+                Assert.Single(new List<Exception>(fibonacci.GetAllErrors()));
+            }
+
             AssertFibonacciTableEmpty();
         }
     }

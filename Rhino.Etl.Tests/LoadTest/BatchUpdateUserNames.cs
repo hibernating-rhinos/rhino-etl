@@ -1,13 +1,13 @@
 namespace Rhino.Etl.Tests.LoadTest
 {
     using System.Data.SqlClient;
-    using Core;
+    using Rhino.Etl.Core;
     using Rhino.Etl.Core.Operations;
 
     public class BatchUpdateUserNames : SqlBatchOperation
     {
-        public BatchUpdateUserNames()
-            : base("test")
+        public BatchUpdateUserNames(string connectionStringName)
+            : base(connectionStringName)
         {
         }
 

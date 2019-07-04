@@ -1,11 +1,10 @@
-using System.Configuration;
-using Rhino.Etl.Core.Infrastructure;
-
 namespace Rhino.Etl.Core.Operations
 {
     using System;
     using System.Collections.Generic;
+    using System.Configuration;
     using System.Data.SqlClient;
+    using Rhino.Etl.Core.Infrastructure;
 
     /// <summary>
     /// Perform a batch command against SQL server
@@ -39,7 +38,7 @@ namespace Rhino.Etl.Core.Operations
         /// </summary>
         /// <param name="connectionStringName">Name of the connection string.</param>
         protected SqlBatchOperation(string connectionStringName)
-            : this(ConfigurationManager.ConnectionStrings[connectionStringName])
+            : this(Use.ConnectionString(connectionStringName))
         {            
         }
 
@@ -77,14 +76,14 @@ namespace Rhino.Etl.Core.Operations
                         command.Parameters.AddWithValue(guid.ToString(), guid);
                     }
                     commandSet.Append(command);
-                    if (commandSet.CountOfCommands >= batchSize)
+                    if (commandSet.CommandCount >= batchSize)
                     {
-                        Debug("Executing batch of {0} commands", commandSet.CountOfCommands);
+                        Debug("Executing batch of {0} commands", commandSet.CommandCount);
                         commandSet.ExecuteNonQuery();
                         CreateCommandSet(connection, transaction, ref commandSet, timeout);
                     }
                 }
-                Debug("Executing final batch of {0} commands", commandSet.CountOfCommands);
+                Debug("Executing final batch of {0} commands", commandSet.CommandCount);
                 commandSet.ExecuteNonQuery();
 
                 if (PipelineExecuter.HasErrors)

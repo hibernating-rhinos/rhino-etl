@@ -1,50 +1,55 @@
-﻿#region license
-// Copyright (c) 2005 - 2007 Ayende Rahien (ayende@ayende.com)
-// All rights reserved.
-// 
-// Redistribution and use in source and binary forms, with or without modification,
-// are permitted provided that the following conditions are met:
-// 
-//     * Redistributions of source code must retain the above copyright notice,
-//     this list of conditions and the following disclaimer.
-//     * Redistributions in binary form must reproduce the above copyright notice,
-//     this list of conditions and the following disclaimer in the documentation
-//     and/or other materials provided with the distribution.
-//     * Neither the name of Ayende Rahien nor the names of its
-//     contributors may be used to endorse or promote products derived from this
-//     software without specific prior written permission.
-// 
-// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-// ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-// WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-// DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
-// FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-// DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-// SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-// CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-// OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
-// THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-#endregion
-
-
-using System;
-using System.Data.SqlClient;
-using System.Diagnostics;
-using System.Reflection;
-
-namespace Rhino.Etl.Core.Infrastructure
+﻿namespace Rhino.Etl.Core.Infrastructure
 {
-    /// <summary>
-    /// Expose the batch functionality in ADO.Net 2.0
-    /// Microsoft in its wisdom decided to make my life hard and mark it internal.
-    /// Through the use of Reflection and some delegates magic, I opened up the functionality.
-    /// 
-    /// There is NO documentation for this, and likely zero support.
-    /// Use at your own risk, etc...
-    /// 
-    /// Observable performance benefits are 50%+ when used, so it is really worth it.
-    /// </summary>
-    public class SqlCommandSet : IDisposable
+	#region license
+	// Copyright (c) 2005 - 2007 Ayende Rahien (ayende@ayende.com)
+	// All rights reserved.
+	// 
+	// Redistribution and use in source and binary forms, with or without modification,
+	// are permitted provided that the following conditions are met:
+	// 
+	//     * Redistributions of source code must retain the above copyright notice,
+	//     this list of conditions and the following disclaimer.
+	//     * Redistributions in binary form must reproduce the above copyright notice,
+	//     this list of conditions and the following disclaimer in the documentation
+	//     and/or other materials provided with the distribution.
+	//     * Neither the name of Ayende Rahien nor the names of its
+	//     contributors may be used to endorse or promote products derived from this
+	//     software without specific prior written permission.
+	// 
+	// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+	// ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+	// WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+	// DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+	// FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+	// DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+	// SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+	// CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+	// OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+	// THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+	#endregion
+
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Data;
+    using System.Data.Common;
+    using System.Data.SqlClient;
+    using System.Diagnostics;
+    using System.Reflection;
+    using System.Text;
+    using System.Text.RegularExpressions;
+
+	/// <summary>
+	/// Expose the batch functionality in ADO.Net 2.0
+	/// Microsoft in its wisdom decided to make my life hard and mark it internal.
+	/// Through the use of Reflection and some delegates magic, I opened up the functionality.
+	/// 
+	/// There is NO documentation for this, and likely zero support.
+	/// Use at your own risk, etc...
+	/// 
+	/// Observable performance benefits are 50%+ when used, so it is really worth it.
+	/// </summary>
+	public class SqlCommandSet : IDisposable
     {
         private static readonly Type sqlCmdSetType;
         private readonly object instance;
@@ -60,8 +65,8 @@ namespace Rhino.Etl.Core.Infrastructure
 
         static SqlCommandSet()
         {
-            Assembly sysData = Assembly.Load("System.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089");
-            sqlCmdSetType = sysData.GetType("System.Data.SqlClient.SqlCommandSet");
+            Assembly assembly = typeof(SqlConnection).Assembly;
+            sqlCmdSetType = assembly.GetType("System.Data.SqlClient.SqlCommandSet");
             Guard.Against(sqlCmdSetType == null, "Could not find SqlCommandSet!");
         }
 
@@ -120,7 +125,7 @@ namespace Rhino.Etl.Core.Infrastructure
                     "A command in SqlCommandSet must have parameters. You can't pass hardcoded sql strings.");
             }
         }
-        
+
         /// <summary>
         /// Return the batch command to be executed
         /// </summary>
@@ -131,11 +136,11 @@ namespace Rhino.Etl.Core.Infrastructure
                 return commandGetter();
             }
         }
-        
+
         /// <summary>
         /// The number of commands batched in this instance
         /// </summary>
-        public int CountOfCommands
+        public int CommandCount
         {
             get { return countOfCommands; }
         }
@@ -150,7 +155,7 @@ namespace Rhino.Etl.Core.Infrastructure
         {
             Guard.Against<ArgumentException>(Connection == null,
                                              "Connection was not set! You must set the connection property before calling ExecuteNonQuery()");
-            if(CountOfCommands==0)
+            if(CommandCount == 0)
                 return 0;
             return doExecuteNonQuery();
         }
@@ -189,12 +194,12 @@ namespace Rhino.Etl.Core.Infrastructure
             doDispose();
         }
 
-        #region Delegate Definations
+	#region Delegate Definations
         private delegate void PropSetter<T>(T item);
         private delegate T PropGetter<T>();
         private delegate void AppendCommand(SqlCommand command);
         private delegate int ExecuteNonQueryCommand();
         private delegate void DisposeCommand();
-        #endregion
+	#endregion
     }
 }

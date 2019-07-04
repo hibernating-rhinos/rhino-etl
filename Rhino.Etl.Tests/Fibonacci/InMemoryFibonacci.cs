@@ -1,6 +1,6 @@
 namespace Rhino.Etl.Tests.Fibonacci
 {
-    using Core;
+    using Rhino.Etl.Core;
 
     public class InMemoryFibonacci : EtlProcess
     {

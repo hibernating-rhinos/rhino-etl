@@ -1,15 +1,14 @@
-﻿using Rhino.Etl.Core;
-using Rhino.Etl.Core.Operations;
-using Rhino.Etl.Core.Pipelines;
-
-namespace Rhino.Etl.Tests.Branches
+﻿namespace Rhino.Etl.Tests.Branches
 {
+    using Rhino.Etl.Core;
+    using Rhino.Etl.Core.Operations;
+    using Rhino.Etl.Core.Pipelines;
+
     public class MultiThreadedWithSingleThreadPipelineFibonacciBranchingProcess : AbstractFibonacciBranchingProcess
     {
-        public MultiThreadedWithSingleThreadPipelineFibonacciBranchingProcess(int numberOfFibonacciIterations, int numberOfChildOperations)
-            : base(numberOfFibonacciIterations, numberOfChildOperations)
-        {
-        }
+        public MultiThreadedWithSingleThreadPipelineFibonacciBranchingProcess(string connectionStringName, int numberOfFibonacciIterations, int numberOfChildOperations)
+            : base(connectionStringName, numberOfFibonacciIterations, numberOfChildOperations)
+        { }
 
         protected override AbstractBranchingOperation CreateBranchingOperation()
         {

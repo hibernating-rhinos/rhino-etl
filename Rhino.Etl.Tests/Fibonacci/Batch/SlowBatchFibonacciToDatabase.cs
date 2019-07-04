@@ -1,12 +1,12 @@
-using System.Data.SqlClient;
-using Rhino.Etl.Core;
-
 namespace Rhino.Etl.Tests.Fibonacci.Batch
 {
-    public class SlowBatchFibonacciToDatabase : BatchFibonacciToDatabaseBase
+    using System.Data.SqlClient;
+    using Rhino.Etl.Core;
+
+    public class SlowBatchFibonacciToDatabase : BatchFibonacciToDatabase
     {
-        public SlowBatchFibonacciToDatabase()
-            : base("test")
+        public SlowBatchFibonacciToDatabase(string connectionStringName)
+            : base(connectionStringName)
         {
             Timeout = 60;
         }
@@ -16,6 +16,5 @@ namespace Rhino.Etl.Tests.Fibonacci.Batch
             command.CommandText = "WAITFOR DELAY '00:00:02'; INSERT INTO Fibonacci (id) VALUES(@id)";
             command.Parameters.AddWithValue("@id", row["id"]);
         }
-
     }
 }

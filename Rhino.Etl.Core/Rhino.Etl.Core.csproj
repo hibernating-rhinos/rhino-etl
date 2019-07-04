@@ -1,168 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{DC42946E-5972-411C-A061-F2932E49C31F}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Rhino.Etl.Core</RootNamespace>
-    <AssemblyName>Rhino.Etl.Core</AssemblyName>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
-    <PublishUrl>publish\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <DocumentationFile>Rhino.Etl.Core.XML</DocumentationFile>
-    <NoWarn>1607</NoWarn>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>Rhino.Etl.Core.XML</DocumentationFile>
-    <Prefer32Bit>false</Prefer32Bit>
+    <TargetFrameworks>net451;netstandard2.0</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Boo.Lang">
-      <HintPath>..\SharedLibs\Boo\Boo.Lang.dll</HintPath>
-    </Reference>
-    <Reference Include="Common.Logging">
-      <HintPath>..\SharedLibs\Common.Logging\Common.Logging.dll</HintPath>
-    </Reference>
-    <Reference Include="Common.Logging.Core">
-      <HintPath>..\SharedLibs\Common.Logging\Common.Logging.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="FileHelpers">
-      <HintPath>..\SharedLibs\FileHelpers\FileHelpers.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.configuration" />
-    <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
+    <PackageReference Include="Common.Logging" Version="3.4.1" />
+    <PackageReference Include="FileHelpers" Version="3.4.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.7.0-preview6.19303.8" />
+    <PackageReference Include="Boo" Version="0.9.4" Condition="'$(FeatureDsl)' == 'True'" />
+    <PackageReference Include="Westwind.Utilities" Version="3.0.29" Condition="'$(FeatureWestwind)' == 'True'" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="ConventionOperations\ConventionSqlBatchOperation.cs" />
-    <Compile Include="ConventionOperations\ConventionSqlBulkInsertOperation.cs" />
-    <Compile Include="Enumerables\GatedThreadSafeEnumerator.cs" />
-    <Compile Include="Enumerables\SingleRowEventRaisingEnumerator.cs" />
-    <Compile Include="Enumerables\ThreadSafeEnumerator.cs" />
-    <Compile Include="Guard.cs" />
-    <Compile Include="Infrastructure\SqlCommandSet.cs" />
-    <Compile Include="Infrastructure\Use.cs" />
-    <Compile Include="Operations\AbstractBranchingOperation.cs" />
-    <Compile Include="Operations\AbstractJoinOperation.cs" />
-    <Compile Include="Operations\AbstractSortedAggregationOperation.cs" />
-    <Compile Include="Operations\BranchingOperation.cs" />
-    <Compile Include="Operations\BranchingOperationWithBug.cs" />
-    <Compile Include="Operations\JoinType.cs" />
-    <Compile Include="Operations\MultiThreadedBranchingOperation.cs" />
-    <Compile Include="Operations\NestedLoopsJoinOperation.cs" />
-    <Compile Include="Operations\SortMergeJoinOperation.cs" />
-    <Compile Include="Pipelines\AbstractPipelineExecuter.cs" />
-    <Compile Include="ConventionOperations\ConventionInputCommandOperation.cs" />
-    <Compile Include="ConventionOperations\ConventionOutputCommandOperation.cs" />
-    <Compile Include="Operations\OperationStatistics.cs" />
-    <Compile Include="EtlProcessBase.cs" />
-    <Compile Include="Files\FluentFile.cs" />
-    <Compile Include="Files\FileEngine.cs" />
-    <Compile Include="IPipelineExecuter.cs" />
-    <Compile Include="Operations\AbstractAggregationOperation.cs" />
-    <Compile Include="Operations\AbstractCommandOperation.cs" />
-    <Compile Include="Operations\AbstractDatabaseOperation.cs" />
-    <Compile Include="DataReaders\Descriptor.cs" />
-    <Compile Include="DataReaders\DictionaryDescriptorAdapter.cs" />
-    <Compile Include="DataReaders\DictionaryEnumeratorDataReader.cs" />
-    <Compile Include="DataReaders\EnumerableDataReader.cs" />
-    <Compile Include="EtlProcess.cs" />
-    <Compile Include="Exceptions\MissingKeyException.cs" />
-    <Compile Include="Exceptions\ParameterCountException.cs" />
-    <Compile Include="ObjectArrayKeys.cs" />
-    <Compile Include="Operations\AbstractOperation.cs" />
-    <Compile Include="Enumerables\CachingEnumerable.cs" />
-    <Compile Include="Enumerables\EventRaisingEnumerator.cs" />
-    <Compile Include="Operations\InputCommandOperation.cs" />
-    <Compile Include="Operations\JoinOperation.cs" />
-    <Compile Include="Operations\OutputCommandOperation.cs" />
-    <Compile Include="Operations\IOperation.cs" />
-    <Compile Include="Operations\PartialProcessOperation.cs" />
-    <Compile Include="Operations\SqlBatchOperation.cs" />
-    <Compile Include="Pipelines\PipelineExecutionException.cs" />
-    <Compile Include="Pipelines\SingleThreadedNonCachedPipelineExecuter.cs" />
-    <Compile Include="Pipelines\ThreadPoolPipelineExecuter.cs" />
-    <Compile Include="Operations\SqlBulkInsertOperation.cs" />
-    <Compile Include="Pipelines\SingleThreadedPipelineExecuter.cs" />
-    <Compile Include="Exceptions\RhinoEtlException.cs" />
-    <Compile Include="QuackingDictionary.cs" />
-    <Compile Include="Row.cs" />
-    <Compile Include="RuntimeInfo.cs" />
-    <Compile Include="WithLoggingMixin.cs" />
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.5.0" />
   </ItemGroup>
-  <ItemGroup>
-    <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />
+  <ItemGroup Condition="'$(TargetFramework)' == 'net451'">
+    <Reference Include="System.Configuration" />
   </ItemGroup>
-  <ItemGroup>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\" />
-  </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

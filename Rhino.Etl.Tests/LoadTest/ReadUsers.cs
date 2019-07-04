@@ -4,7 +4,8 @@ namespace Rhino.Etl.Tests.LoadTest
 
     public class ReadUsers : ConventionInputCommandOperation
     {
-        public ReadUsers() : base("test")
+        public ReadUsers(string connectionStringName) 
+            : base(connectionStringName)
         {
             Command = "SELECT Id, Name,Email FROM Users";
         }

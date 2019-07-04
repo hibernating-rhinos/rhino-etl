@@ -1,16 +1,22 @@
 namespace Rhino.Etl.Tests.LoadTest
 {
     using Core;
-    using Rhino.Etl.Core.Operations;
 
     public class UpperCaseUserNames : EtlProcess
     {
+        private readonly string _connectionStringName;
+
+        public UpperCaseUserNames(string connectionStringName)
+        {
+            _connectionStringName = connectionStringName;
+        }
+
         /// <summary>
         /// Initializes this instance.
         /// </summary>
         protected override void Initialize()
         {
-            Register(new ReadUsers());
+            Register(new ReadUsers(_connectionStringName));
             Register(new UpperCaseColumn("Name"));
         }
     }

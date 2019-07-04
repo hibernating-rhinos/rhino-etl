@@ -1,9 +1,9 @@
-using System.Collections.Generic;
-using Rhino.Etl.Core;
-using Rhino.Etl.Core.Operations;
-
 namespace Rhino.Etl.Tests.Fibonacci
 {
+    using System.Collections.Generic;
+    using Rhino.Etl.Core;
+    using Rhino.Etl.Core.Operations;
+
     public class FibonacciOperation : AbstractOperation
     {
         private readonly int max;

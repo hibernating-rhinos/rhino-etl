@@ -1,14 +1,14 @@
-using System.Configuration;
-using Rhino.Etl.Core.Infrastructure;
-
 namespace Rhino.Etl.Core.Operations
 {
     using System;
+    using System.Configuration;
     using System.Linq;
     using System.Collections.Generic;
     using System.Data;
     using System.Data.SqlClient;
-    using DataReaders;
+    using Rhino.Etl.Core.Infrastructure;
+    using Rhino.Etl.Core.DataReaders;
+
 
     /// <summary>
     /// Allows to execute an operation that perform a bulk insert into a sql server database
@@ -31,9 +31,9 @@ namespace Rhino.Etl.Core.Operations
         private string targetTable;
         private int timeout;
         private int batchSize;
-        private    int    notifyBatchSize;
+        private int notifyBatchSize;
         private SqlBulkCopyOptions bulkCopyOptions = SqlBulkCopyOptions.Default;
-        
+
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SqlBulkInsertOperation"/> class.
@@ -41,9 +41,8 @@ namespace Rhino.Etl.Core.Operations
         /// <param name="connectionStringName">Name of the connection string.</param>
         /// <param name="targetTable">The target table.</param>
         protected SqlBulkInsertOperation(string connectionStringName, string targetTable)
-            : this(ConfigurationManager.ConnectionStrings[connectionStringName], targetTable)
+            : this(Use.ConnectionString(connectionStringName), targetTable)
         {
-
         }
 
         /// <summary>
@@ -54,7 +53,6 @@ namespace Rhino.Etl.Core.Operations
         protected SqlBulkInsertOperation(ConnectionStringSettings connectionStringSettings, string targetTable)
             : this(connectionStringSettings, targetTable, 600)
         {
-
         }
 
         /// <summary>
@@ -64,7 +62,7 @@ namespace Rhino.Etl.Core.Operations
         /// <param name="targetTable">The target table.</param>
         /// <param name="timeout">The timeout.</param>
         protected SqlBulkInsertOperation(string connectionStringName, string targetTable, int timeout)
-            : this(ConfigurationManager.ConnectionStrings[connectionStringName], targetTable, timeout)
+            : this(Use.ConnectionString(connectionStringName), targetTable, timeout)
         {
             Guard.Against(string.IsNullOrEmpty(targetTable), "TargetTable was not set, but it is mandatory");
             this.targetTable = targetTable;
@@ -102,8 +100,8 @@ namespace Rhino.Etl.Core.Operations
         ///    <summary>The batch size    value of the bulk insert operation</summary>
         public virtual int NotifyBatchSize
         {
-            get    { return notifyBatchSize>0 ? notifyBatchSize : batchSize; }
-            set    { notifyBatchSize =    value; }
+            get { return notifyBatchSize > 0 ? notifyBatchSize : batchSize; }
+            set { notifyBatchSize = value; }
         }
 
         /// <summary>The table or view to bulk load the data into.</summary>
@@ -210,7 +208,7 @@ namespace Rhino.Etl.Core.Operations
         /// to the WriteToServer method.</summary>
         public virtual void CreateInputSchema()
         {
-            foreach(KeyValuePair<string, string> pair in Mappings)
+            foreach (KeyValuePair<string, string> pair in Mappings)
             {
                 _inputSchema.Add(pair.Key, _schema[pair.Value]);
             }
@@ -226,7 +224,7 @@ namespace Rhino.Etl.Core.Operations
             PrepareMapping();
             CreateInputSchema();
             using (SqlConnection connection = (SqlConnection)Use.Connection(ConnectionStringSettings))
-            using (SqlTransaction transaction = (SqlTransaction) BeginTransaction(connection))
+            using (SqlTransaction transaction = (SqlTransaction)BeginTransaction(connection))
             {
                 sqlBulkCopy = CreateSqlBulkCopy(connection, transaction);
                 DictionaryEnumeratorDataReader adapter = new DictionaryEnumeratorDataReader(_inputSchema, rows);

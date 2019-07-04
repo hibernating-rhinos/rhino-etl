@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Project>
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net451'">
+    <FeatureDsl>True</FeatureDsl>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net471'">
+    <FeatureDsl>True</FeatureDsl>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard2.0' OR '$(TargetFramework)' == 'netcoreapp2.0'">
+    <FeatureWestwind>True</FeatureWestwind>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)' == 'netcoreapp2.1'">
+    <FeatureWestwind>True</FeatureWestwind>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DefineConstants Condition="'$(FeatureDsl)' == 'True'">FEATURE_DSL;$(DefineConstants)</DefineConstants>
+    <DefineConstants Condition="'$(FeatureWestwind)' == 'True'">FEATURE_WESTWIND;$(DefineConstants)</DefineConstants>
+  </PropertyGroup>
+</Project>

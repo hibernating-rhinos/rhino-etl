@@ -1,10 +1,11 @@
-using System.Configuration;
 
 namespace Rhino.Etl.Core.Operations
 {
     using System;
     using System.Collections;
+    using System.Configuration;
     using System.Data;
+    using Rhino.Etl.Core.Infrastructure;
 
     /// <summary>
     /// Represent an operation that uses the database can occure during the ETL process
@@ -41,14 +42,8 @@ namespace Rhino.Etl.Core.Operations
         /// </summary>
         /// <param name="connectionStringName">Name of the connection string.</param>
         protected AbstractDatabaseOperation(string connectionStringName)
+            : this(Use.ConnectionString(connectionStringName))
         {
-            Guard.Against<ArgumentException>(string.IsNullOrEmpty(connectionStringName),
-                                             "Connection string name must have a value");            
-
-            Guard.Against<ArgumentException>(ConfigurationManager.ConnectionStrings[connectionStringName] == null,
-                                             "Cannot resolve connection strings with name: " + connectionStringName);
-
-            connectionStringSettings = ConfigurationManager.ConnectionStrings[connectionStringName];
         }
 
         /// <summary>
@@ -59,7 +54,6 @@ namespace Rhino.Etl.Core.Operations
         {
             Guard.Against<ArgumentException>(connectionStringSettings == null,
                                              "connectionStringSettings must resolve to a value");
-                        
             this.connectionStringSettings = connectionStringSettings;
         }
 

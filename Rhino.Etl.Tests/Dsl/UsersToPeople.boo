@@ -6,9 +6,9 @@ operation split_name:
         yield row
     
 process UsersToPeople:
-    input "test", Command = "SELECT id, name, email  FROM Users"
+    input "etltest_dsl", Command = "SELECT id, name, email  FROM Users"
     split_name()
-    output "test", Command = """
+    output "etltest_dsl", Command = """
         INSERT INTO People (UserId, FirstName, LastName, Email) 
         VALUES (@UserId, @FirstName, @LastName, @Email)
         """:

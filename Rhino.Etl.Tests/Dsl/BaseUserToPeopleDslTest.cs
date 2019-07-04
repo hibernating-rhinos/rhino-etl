@@ -1,25 +1,15 @@
-namespace Rhino.Etl.Tests
+namespace Rhino.Etl.Tests.Dsl
 {
     using System.Collections.Generic;
     using Rhino.Etl.Core.Infrastructure;
     using Xunit;
 
-    [CollectionDefinition(Name, DisableParallelization = true)]
-    public class UserToPeopleTestCollection : ICollectionFixture<TestDatabaseFixture>
+    public class BaseUserToPeopleDslTest : BaseDslTest
     {
-        public const string Name = "UserToPeopleTest";
-    }
-
-    [Collection(UserToPeopleTestCollection.Name)]
-    public class BaseUserToPeopleTest
-    {
-        public TestDatabaseFixture TestDatabase { get; }
-
-        public BaseUserToPeopleTest(TestDatabaseFixture testDatabase)
+        public BaseUserToPeopleDslTest(DslTestDatabaseFixture testDatabase)
+            : base(testDatabase)
         {
-            this.TestDatabase = testDatabase;
-
-            Use.Transaction(TestDatabase.ConnectionStringName, cmd =>
+            Use.Transaction(TestDatabase.ConnectionString, cmd =>
             {
                 cmd.CommandText =
                     @"

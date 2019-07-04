@@ -1,14 +1,25 @@
-using System.Data;
-using Xunit;
-using Rhino.Etl.Core.Infrastructure;
-
 namespace Rhino.Etl.Tests
 {
+	using System;
+	using Rhino.Etl.Core.Infrastructure;
+    using Xunit;
+
+    [CollectionDefinition(Name, DisableParallelization = true)]
+    public class FibonacciTestCollection : ICollectionFixture<TestDatabaseFixture>
+    {
+        public const string Name = "FibonacciTest";
+    }
+
+    [Collection(FibonacciTestCollection.Name)]
     public class BaseFibonacciTest
     {
-        public BaseFibonacciTest()
+        public TestDatabaseFixture TestDatabase { get; }
+
+        public BaseFibonacciTest(TestDatabaseFixture testDatabase)
         {
-            Use.Transaction("test", delegate(IDbCommand cmd)
+            this.TestDatabase = testDatabase;
+
+            Use.Transaction(TestDatabase.ConnectionStringName, cmd =>
             {
                 cmd.CommandText =
                     @"
@@ -20,22 +31,24 @@ create table Fibonacci ( id int );
             });
         }
 
-        protected static void Assert25ThFibonacci()
+        protected void Assert25ThFibonacci()
         {
-            int max = Use.Transaction("test", delegate(IDbCommand cmd)
+            int? max = Use.Transaction(TestDatabase.ConnectionStringName, cmd =>
             {
                 cmd.CommandText = "SELECT MAX(id) FROM Fibonacci";
-                return (int) cmd.ExecuteScalar();
+                var result = cmd.ExecuteScalar();
+                return result is DBNull ? default(int?) : (int)result;
             });
             Assert.Equal(75025, max);
         }
 
-        protected static void AssertFibonacciTableEmpty()
+        protected void AssertFibonacciTableEmpty()
         {
-            int count = Use.Transaction("test", delegate(IDbCommand cmd)
+            var count = Use.Transaction(TestDatabase.ConnectionStringName, cmd =>
             {
                 cmd.CommandText = "SELECT count(id) FROM Fibonacci";
-                return (int) cmd.ExecuteScalar();
+                var result = cmd.ExecuteScalar();
+                return result is DBNull ? default(int?) : (int)result;
             });
             Assert.Equal(0, count);
         }

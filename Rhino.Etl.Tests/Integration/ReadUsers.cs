@@ -1,14 +1,14 @@
-using System.Configuration;
-
 namespace Rhino.Etl.Tests.Integration
 {
+    using System.Configuration;
     using System.Data;
-    using Core;
+    using Rhino.Etl.Core;
     using Rhino.Etl.Core.Operations;
 
     public class ReadUsers : InputCommandOperation
     {
-        public ReadUsers() : base("test")
+        public ReadUsers(string connectionStringName)
+            : base(connectionStringName)
         {
         }
 

@@ -1,12 +1,10 @@
-using System;
-using Xunit;
-using Rhino.Etl.Core;
-using Xunit.Extensions;
-using System.Linq;
-
 namespace Rhino.Etl.Tests
 {
-    
+    using System;
+    using System.Linq;
+    using Rhino.Etl.Core;
+    using Xunit;
+
     public class RowTest
     {
         [Theory]
@@ -118,15 +116,14 @@ namespace Rhino.Etl.Tests
             Row row = new Row();
 
             row["a"] = 1;
-            
-            Assert.DoesNotThrow(() => row.CreateKey());
+            row.CreateKey();
         }
 
         [Fact]
         public void Does_not_generate_column_for_CompilerGeneratedAttribute_tagged_items()
         {
             Row row = Row.FromObject(new DummyRow { Dummy = "Dummy" });
-            Assert.Equal(1, row.Columns.Count());
+            Assert.Single(row.Columns);
         }
         
         private class DummyRow

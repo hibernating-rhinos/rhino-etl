@@ -1,17 +1,16 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using Xunit;
-using Rhino.Etl.Core;
-using Rhino.Etl.Core.Operations;
-using Rhino.Etl.Core.Pipelines;
-using Rhino.Etl.Tests.Joins;
-using Rhino.Mocks;
-
 namespace Rhino.Etl.Tests
 {
-    
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Linq;
+    using NSubstitute;
+    using Rhino.Etl.Core;
+    using Rhino.Etl.Core.Operations;
+    using Rhino.Etl.Core.Pipelines;
+    using Rhino.Etl.Tests.Joins;
+    using Xunit;
+
     public class SingleThreadedPipelineExecuterTest
     {
         [Fact]
@@ -19,10 +18,10 @@ namespace Rhino.Etl.Tests
         {
             var iterations = 0;
             
-            using (var stubProcess = MockRepository.GenerateStub<EtlProcess>())
+            using (var stubProcess = Substitute.For<EtlProcess>())
             {
-                stubProcess.Stub(x => x.TranslateRows(null)).IgnoreArguments()
-                    .WhenCalled(x => x.ReturnValue = x.Arguments[0]);
+                stubProcess.TranslateRows(Arg.Any<IEnumerable<Row>>())
+                    .ReturnsForAnyArgs(call => call.Arg<IEnumerable<Row>>());
 
                 stubProcess.PipelineExecuter = new SingleThreadedPipelineExecuter();
 
@@ -40,10 +39,10 @@ namespace Rhino.Etl.Tests
         {
             var accumulator = new ArrayList();
 
-            using (var process = MockRepository.GenerateStub<EtlProcess>())
+            using (var process = Substitute.For<EtlProcess>())
             {
-                process.Stub(x => x.TranslateRows(null)).IgnoreArguments()
-                    .WhenCalled(x => x.ReturnValue = x.Arguments[0]);
+                process.TranslateRows(Arg.Any<IEnumerable<Row>>())
+                    .ReturnsForAnyArgs(call => call.Arg<IEnumerable<Row>>());
 
                 process.PipelineExecuter = new SingleThreadedPipelineExecuter();
 

@@ -1,18 +1,16 @@
 namespace Rhino.Etl.Tests.Dsl
 {
-    using System;
-    using System.Collections.Generic;
     using System.IO;
-    using Aggregation;
-    using Core;
-    using Joins;
+    using Rhino.Etl.Core;
+    using Rhino.Etl.Tests.Joins;
     using Xunit;
-    using Rhino.Etl.Core.Operations;
-    using Rhino.Etl.Dsl;
 
-    
-    public class WireEtlProcessEventsFixture : BaseAggregationFixture
+    public class WireEtlProcessEventsFixture : BaseAggregationDslFixture
     {
+        public WireEtlProcessEventsFixture(DslTestDatabaseFixture testDatabase) 
+            : base(testDatabase)
+        { }
+
         [Fact]
         public void CanCompileWithRowProcessedEvent()
         {
@@ -29,8 +27,8 @@ namespace Rhino.Etl.Tests.Dsl
                 ResultsToList operation = new ResultsToList();
                 process.RegisterLast(operation);
                 process.Execute();
-                Assert.Equal(1, operation.Results.Count);
-                Assert.Equal("chocolate, sugar, coffee", operation.Results[0]["result"]);
+                Assert.Single(operation.Results);
+                Assert.Equal("[chocolate, sugar, coffee]", operation.Results[0]["result"]);
             }
         }
 
@@ -38,7 +36,9 @@ namespace Rhino.Etl.Tests.Dsl
         public void CanCompileWithFinishedProcessingEvent()
         {
             using (var process = CreateDslInstance("Dsl/WireOnFinishedProcessingEvent.boo"))
+            {
                 Assert.NotNull(process);
+            }
         }
 
         [Fact]
@@ -50,7 +50,7 @@ namespace Rhino.Etl.Tests.Dsl
                 ResultsToList operation = new ResultsToList();
                 process.RegisterLast(operation);
                 process.Execute();
-                Assert.Equal(1, operation.Results.Count);
+                Assert.Single(operation.Results);
                 Assert.True(File.Exists(@"OnFinishedProcessing.wired"));
 
                 File.Delete(@"OnFinishedProcessing.wired");
